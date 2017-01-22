@@ -124,7 +124,8 @@ Lava level
 
 
 #### Concept Levels:
-Desert Map
+![Desert Map](/assets/desert.png)
+
 
 
 Underground Map
