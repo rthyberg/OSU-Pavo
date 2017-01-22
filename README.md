@@ -124,13 +124,16 @@ Lava level
 
 
 #### Concept Levels:
-![Desert Map](/assets/desert.png)
+Desert Map
+![desert](https://github.com/rthyberg/OSU-Pavo/blob/master/assets/concept/desert.png)
 
 
 
 Underground Map
+![underground](https://github.com/rthyberg/OSU-Pavo/blob/master/assets/concept/underground.png)
 
 Lava Level
+![lava](https://github.com/rthyberg/OSU-Pavo/blob/master/assets/concept/lava.png)
 
 
 During waves, the player can control repair drones (upgradable) during waves to up the HP of one tower. Beyond the home base, everything in the game has HP bars, and can take several hits each before going down.
