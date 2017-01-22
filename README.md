@@ -124,15 +124,18 @@ Lava level
 
 
 #### Concept Levels:
-Desert Map
+##### Desert Map
+
 ![desert](https://github.com/rthyberg/OSU-Pavo/blob/master/assets/concept/desert.png)
 
 
 
-Underground Map
+##### Underground Map
+
 ![underground](https://github.com/rthyberg/OSU-Pavo/blob/master/assets/concept/underground.png)
 
-Lava Level
+##### Lava Level
+
 ![lava](https://github.com/rthyberg/OSU-Pavo/blob/master/assets/concept/lava.png)
 
 
