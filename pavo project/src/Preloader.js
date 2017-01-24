@@ -8,13 +8,14 @@ TowerDefense.Preloader = function(game) {
 TowerDefense.Preloader.prototype = {
 	
 	preload: function () {
-		this.preloadBar = this.add.sprite(this.world.centerX, this.world.centerY, 'preloaderBar');
+		//this.preloadBar = this.add.sprite(this.world.centerX, this.world.centerY, 'preloaderBar');
 		//this.preloadBar.anchor.setTo(0.5, 0.5);
 		//this.load.setPreloadSprite(this.preloadBar);
        
-         this.load.spritesheet('mummy', 'images/placeholder-enemy.png', 64, 64, 180);
+        //frame size 64x64, 13x21 frames
+        this.load.spritesheet('mummy', 'images/placeholder-enemy.png', 64, 64, 180);
         
-        this.stage.backgroundColor = "#444";
+        this.stage.backgroundColor = "#ee1111";
         
 		//this.titleText = this.add.image(this.world.centerX, this.world.centerY-220, 'titleimage');
 		//this.titleText.anchor.setTo(0.5, 0.5);
@@ -33,7 +34,7 @@ TowerDefense.Preloader.prototype = {
 	},
 
 	create: function () {
-		this.preloadBar.cropEnabled = false;
+		//this.preloadBar.cropEnabled = false;
         
         var mum = this.add.sprite(300, 200, 'mummy');
         mum.animations.add('walk');
