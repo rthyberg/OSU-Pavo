@@ -15,8 +15,30 @@ TowerDefense.Preloader.prototype = {
         //frame size 64x64, 13x21 frames
         this.load.spritesheet('mummy', 'images/placeholder-enemy.png', 64, 64, 180);
         
-        this.stage.backgroundColor = "#ee1111";
+        //this.stage.backgroundColor = "#ee1111";
         
+        var data = '';
+        for (var y = 0; y < 200; y++)
+        {
+            for (var x = 0; x < 200; x++)
+            {
+                data += game.rnd.between(0, 20).toString();
+                if (x < 199)
+                {
+                    data += ',';
+                }
+            }
+
+            if (y < 199)
+            {
+                data += "\n";
+            }
+        }
+
+        console.log(data);
+
+        //  Add data to the cache
+        this.cache.addTilemap('dynamicMap', null, data, Phaser.Tilemap.CSV);
 		//this.titleText = this.add.image(this.world.centerX, this.world.centerY-220, 'titleimage');
 		//this.titleText.anchor.setTo(0.5, 0.5);
 //        this.load.image('titlescreen', 'images/TitleBG.png');
@@ -39,6 +61,15 @@ TowerDefense.Preloader.prototype = {
         var mum = this.add.sprite(300, 200, 'mummy');
         mum.animations.add('walk');
         mum.animations.play('walk', 10, true);
+        
+        
+
+        //  Create our map (the 16x16 is the tile size)
+        var map = this.add.tilemap('dynamicMap', 20, 20);
+
+        //  'tiles' = cache image key, 16x16 = tile size
+        map.addTilesetImage('tiles', 'tiles', 20, 20);
+        
 	},
 
 	update: function () {

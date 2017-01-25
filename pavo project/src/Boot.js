@@ -22,9 +22,8 @@ TowerDefense.Boot.prototype = {
 		//this.scale.setScreenSize(true);
 
 		this.input.addPointer();
-		//this.stage.backgroundColor = '#171642';
-        
-        this.stage.backgroundColor = "#4488AA";
+		
+        //this.stage.backgroundColor = "#4488AA";
         
         this.state.start('Preloader');
         
