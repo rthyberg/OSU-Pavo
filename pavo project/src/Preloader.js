@@ -8,27 +8,9 @@ TowerDefense.Preloader = function(game) {
 TowerDefense.Preloader.prototype = {
 
 	preload: function () {
-<<<<<<< HEAD
-<<<<<<< HEAD
-  this.game.load.tilemap('cave', 'img/tiles/cave/cave_base_map.json', null, Phaser.Tilemap.TILED_JSON);
-	this.game.load.image('tiles', 'img/tiles/cave/Cave.png');
-	},
-
-	create: function () {
-    var map = this.game.add.tilemap('cave');
-    map.addTilesetImage('cave', 'tiles');
-    var layer = map.createLayer('world1');
-    layer.resizeWorld();
-    layer.wrap = true;
-    //var layer = map.createLayer('World');
-    //layer.resizeWorld();
-  },
-
-	update: function () {
-
-=======
-=======
->>>>>>> master
+      this.game.load.tilemap('cave', 'img/tiles/cave/cave_base_map.json', null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.image('tiles', 'img/tiles/cave/Cave.png');
+        
 		//this.preloadBar = this.add.sprite(this.world.centerX, this.world.centerY, 'preloaderBar');
 		//this.preloadBar.anchor.setTo(0.5, 0.5);
 		//this.load.setPreloadSprite(this.preloadBar);
@@ -37,29 +19,9 @@ TowerDefense.Preloader.prototype = {
         this.load.spritesheet('mummy', 'images/placeholder-enemy.png', 64, 64, 180);
         
         //this.stage.backgroundColor = "#ee1111";
-        
-        var data = '';
-        for (var y = 0; y < 200; y++)
-        {
-            for (var x = 0; x < 200; x++)
-            {
-                data += game.rnd.between(0, 20).toString();
-                if (x < 199)
-                {
-                    data += ',';
-                }
-            }
-
-            if (y < 199)
-            {
-                data += "\n";
-            }
-        }
-
-        console.log(data);
 
         //  Add data to the cache
-        this.cache.addTilemap('dynamicMap', null, data, Phaser.Tilemap.CSV);
+        //this.cache.addTilemap('dynamicMap', null, data, Phaser.Tilemap.CSV);
 		//this.titleText = this.add.image(this.world.centerX, this.world.centerY-220, 'titleimage');
 		//this.titleText.anchor.setTo(0.5, 0.5);
 //        this.load.image('titlescreen', 'images/TitleBG.png');
@@ -78,18 +40,15 @@ TowerDefense.Preloader.prototype = {
 
 	create: function () {
 		//this.preloadBar.cropEnabled = false;
+        var map = this.game.add.tilemap('cave');
+        map.addTilesetImage('cave', 'tiles');
+        var layer = map.createLayer('world1');
+        layer.resizeWorld();
+        layer.wrap = true;
         
         var mum = this.add.sprite(300, 200, 'mummy');
         mum.animations.add('walk');
         mum.animations.play('walk', 10, true);
-        
-        
-
-        //  Create our map (the 16x16 is the tile size)
-        var map = this.add.tilemap('dynamicMap', 20, 20);
-
-        //  'tiles' = cache image key, 16x16 = tile size
-        map.addTilesetImage('tiles', 'tiles', 20, 20);
         
 	},
 
@@ -98,9 +57,5 @@ TowerDefense.Preloader.prototype = {
 //            this.ready = true;
 //            //this.state.start('StartMenu');
 //        }
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> master
 	}
 };

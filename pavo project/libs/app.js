@@ -11,7 +11,7 @@ function preload() {
     game.state.add('Preloader', TowerDefense.Preloader);
    // game.state.add('StartMenu', TowerDefense.StartMenu);
     game.state.add('Game', TowerDefense.Game);
-    //game.state.start('Boot');
+    game.state.start('Boot');
     
     game.load.image('tiles', 'img/ground.png');
 
