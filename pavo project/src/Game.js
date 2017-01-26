@@ -3,22 +3,23 @@ TowerDefense.Game = function(game) {
 };
 
 TowerDefense.Game.prototype = {
-    
-    create: function() {
-        this.gameover = false;
-        this.secondsElapsed = 0;
-       // this.timer = this.time.create(false);
-        //this.timer.loop(1000, this.updateSeconds, this);
-        
-        this.buildWorld();
-    },
-    
+  create: function () {
+    //this.preloadBar.cropEnabled = false;
+        var map = this.game.add.tilemap('cave');
+        map.addTilesetImage('cave', 'tiles');
+        var layer = map.createLayer('world1');
+        layer.resizeWorld();
+        layer.wrap = true;
+
+        var mum = this.add.sprite(300, 200, 'mummy');
+        mum.animations.add('walk');
+        mum.animations.play('walk', 10, true);
+
+  },
 
     update: function() {
-        //this.physics.arcade.overlap(this.spacerockgroup, this.burst, this.burstCollision, null, this);
-        //this.physics.arcade.overlap(this.spacerockgroup, this.bunnygroup, this.bunnyCollision, null, this);
-        //this.physics.arcade.overlap(this.bunnygroup, this.burst, this.friendlyFire, null, this);
+
     }
-    
-    
+
+
 };
