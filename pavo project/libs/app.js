@@ -10,19 +10,19 @@ function create() {
     //create a random background map
     var data = '';
 
-    for (var y = 0; y < 200; y++)
+    for (var y = 0; y < 128; y++)
     {
-        for (var x = 0; x < 200; x++)
+        for (var x = 0; x < 128; x++)
         {
             data += game.rnd.between(0, 20).toString();
 
-            if (x < 199)
+            if (x < 127)
             {
                 data += ',';
             }
         }
 
-        if (y < 199)
+        if (y < 127)
         {
             data += "\n";
         }
@@ -34,10 +34,10 @@ function create() {
     game.cache.addTilemap('dynamicMap', null, data, Phaser.Tilemap.CSV);
 
     //  Create our map (the 16x16 is the tile size)
-    map = game.add.tilemap('dynamicMap', 20, 20);
+    map = game.add.tilemap('dynamicMap', 16, 16);
 
     //  'tiles' = cache image key, 16x16 = tile size
-    map.addTilesetImage('tiles', 'tiles', 20, 20);
+    map.addTilesetImage('tiles', 'tiles', 16, 16);
 
 
 }
