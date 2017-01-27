@@ -9,7 +9,11 @@ TowerDefense.Preloader.prototype = {
 
 	preload: function () {
       this.game.load.tilemap('cave', 'img/tiles/cave/cave_base_map.json', null, Phaser.Tilemap.TILED_JSON);
+<<<<<<< HEAD
       this.game.load.image('tiles', 'img/ground.png');
+=======
+        this.game.load.image('tiles', 'img/tiles/cave/Cave.png');
+>>>>>>> 32db2c715155b01ae29c999722f6e5ecfc9cd8e5
         
 		//this.preloadBar = this.add.sprite(this.world.centerX, this.world.centerY, 'preloaderBar');
 		//this.preloadBar.anchor.setTo(0.5, 0.5);
@@ -39,6 +43,7 @@ TowerDefense.Preloader.prototype = {
 	},
 
 	create: function () {
+<<<<<<< HEAD
             //this.preloadBar.cropEnabled = false;
            
         var mum = this.add.sprite(300, 200, 'mummy');
@@ -46,6 +51,20 @@ TowerDefense.Preloader.prototype = {
         mum.animations.play('walk', 10, true);
             
     },
+=======
+		//this.preloadBar.cropEnabled = false;
+        var map = this.game.add.tilemap('cave');
+        map.addTilesetImage('cave', 'tiles');
+        var layer = map.createLayer('world1');
+        layer.resizeWorld();
+        layer.wrap = true;
+        
+        var mum = this.add.sprite(300, 200, 'mummy');
+        mum.animations.add('walk');
+        mum.animations.play('walk', 10, true);
+        
+	},
+>>>>>>> 32db2c715155b01ae29c999722f6e5ecfc9cd8e5
 
 	update: function () {
 //        if(this.cache.isSoundDecoded('game_audio') && this.ready == false) {

@@ -29,4 +29,8 @@ TowerDefense.Boot.prototype = {
         this.state.start('Preloader');
         
     }
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 32db2c715155b01ae29c999722f6e5ecfc9cd8e5
