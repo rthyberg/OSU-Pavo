@@ -1,18 +1,20 @@
 var TowerDefense = {};
 
-
 TowerDefense.Boot = function(game) {};
 
 TowerDefense.Boot.prototype = {
+    
+    init: function(){
+        this.input.maxPointers = 1;
+		this.stage.disableVisibilityChange = false;  
+    },
+    
     preload: function() {
         this.load.image('cat', 'img/loading/eve.jpg');
-        //this.load.image('preloaderBar', 'images/loader_bar.png');
-        //this.load.image('titleimage', 'images/TitleImage.png');
     },
 
     create: function() {
-        this.input.maxPointers = 1;
-		this.stage.disableVisibilityChange = false;
+
         
 		this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 		this.scale.minWidth = 800;
@@ -29,8 +31,6 @@ TowerDefense.Boot.prototype = {
         this.state.start('Preloader');
         
     }
-<<<<<<< HEAD
+
 };
-=======
-};
->>>>>>> 32db2c715155b01ae29c999722f6e5ecfc9cd8e5
+
