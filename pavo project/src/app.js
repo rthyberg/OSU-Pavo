@@ -1,54 +1,13 @@
-var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create});
-
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'TowerDef', { preload: preload });
 
 function preload() {
+    game.state.add('Boot', TowerDefense.Boot); // sets phaser settings
+    game.state.add('Preloader', TowerDefense.Preloader); // preloads all our assets
+    //TODO - add a start menu state
+    //game.state.add('StartMenu', TowerDefense.StartMenu);
 
-    //  tiles are 16x16 each
+    //TODO Should be modularized later into 3 differnt levels
+    game.state.add('Game', TowerDefense.Game); // Currently adds our test level.
 
-
-    //game.state.backgroundColor = "#FFFFFF";
-    game.state.add('Boot', TowerDefense.Boot);
-    game.state.add('Preloader', TowerDefense.Preloader);
-   // game.state.add('StartMenu', TowerDefense.StartMenu);
-    game.state.add('Game', TowerDefense.Game);
-    game.state.start('Boot');
-
-    //game.load.image('tiles', 'img/ground.png');
-
-}
-
-function create() {
-    //create a random background map
-    var data = '';
-
-    for (var y = 0; y < 200; y++)
-    {
-        for (var x = 0; x < 200; x++)
-        {
-            data += game.rnd.between(0, 20).toString();
-
-            if (x < 199)
-            {
-                data += ',';
-            }
-        }
-
-        if (y < 199)
-        {
-            data += "\n";
-        }
-    }
-
-    //console.log(data);
-
-    //  Add data to the cache
-    game.cache.addTilemap('dynamicMap', null, data, Phaser.Tilemap.CSV);
-
-    //  Create our map (the 16x16 is the tile size)
-    map = game.add.tilemap('dynamicMap', 20, 20);
-
-    //  'tiles' = cache image key, 16x16 = tile size
-    map.addTilesetImage('tiles', 'tiles', 20, 20);
-
-
+    game.state.start('Boot'); // pushes app into boot state
 }
