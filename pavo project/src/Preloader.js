@@ -15,27 +15,17 @@ TowerDefense.Preloader.prototype = {
 		//this.preloadBar.anchor.setTo(0.5, 0.5);
 		//this.load.setPreloadSprite(this.preloadBar);
        
-        //frame size 64x64, 13x21 frames
-        this.load.spritesheet('mummy', 'images/placeholder-enemy.png', 64, 64, 180);
-        
-        //this.stage.backgroundColor = "#ee1111";
+         /*********MENU******************/
+        /**********MAP*******************/
+        this.game.load.image('tiles', 'img/ground.png');
+        /**********SPRITES*******************/
+        this.game.load.spritesheet('mummy', 'img/placeholder-enemy.png', 64, 64, 180);
+        this.game.load.spritesheet('base', 'img/base.png', 64, 64, 180);
+        /**********IMAGES*******************/
+        this.game.load.image('heartFull', 'img/heartFull.png');
+        /**********AUDIO*******************/
 
-        //  Add data to the cache
-        //this.cache.addTilemap('dynamicMap', null, data, Phaser.Tilemap.CSV);
-		//this.titleText = this.add.image(this.world.centerX, this.world.centerY-220, 'titleimage');
-		//this.titleText.anchor.setTo(0.5, 0.5);
-//        this.load.image('titlescreen', 'images/TitleBG.png');
-//        this.load.bitmapFont('eightbitwonder', 'fonts/eightbitwonder.png', 'fonts/eightbitwonder.fnt');
-//        this.load.image('hill', 'images/hill.png');
-//        this.load.image('sky', 'images/sky.png');
-//        this.load.atlasXML('bunny', 'images/spritesheets/bunny.png', 'images/spritesheets/bunny.xml');
-//        this.load.atlasXML('spacerock', 'images/spritesheets/SpaceRock.png', 'images/spritesheets/SpaceRock.xml');
-//        this.load.image('explosion', 'images/explosion.png');
-//        this.load.image('ghost', 'images/ghost.png');
-//        this.load.audio('explosion_audio', 'audio/explosion.mp3');
-//        this.load.audio('hurt_audio', 'audio/hurt.mp3');
-//        this.load.audio('select_audio', 'audio/select.mp3');
-//        this.load.audio('game_audio', 'audio/bgm.mp3');
+        this.state.start('Game'); // changes state to Game.js
 	},
 
 	create: function () {
@@ -58,6 +48,6 @@ TowerDefense.Preloader.prototype = {
 //            //this.state.start('StartMenu');
 //        }
         
-        this.state.start('LevelOne');
+        //this.state.start('LevelOne');
 	}
 };
