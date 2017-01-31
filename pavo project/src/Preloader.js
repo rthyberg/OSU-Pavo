@@ -8,7 +8,7 @@ TowerDefense.Preloader = function(game) {
 TowerDefense.Preloader.prototype = {
 
 	preload: function () {
-      this.game.load.tilemap('cave', 'img/tiles/cave/cave_base_map.json', null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.tilemap('cave', 'img/tiles/cave/cave_base_map.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'img/tiles/cave/Cave.png');
         
 		//this.preloadBar = this.add.sprite(this.world.centerX, this.world.centerY, 'preloaderBar');
@@ -57,5 +57,7 @@ TowerDefense.Preloader.prototype = {
 //            this.ready = true;
 //            //this.state.start('StartMenu');
 //        }
+        
+        this.state.start('LevelOne');
 	}
 };

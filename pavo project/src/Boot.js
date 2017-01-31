@@ -6,6 +6,7 @@ TowerDefense.Boot = function(game) {};
 TowerDefense.Boot.prototype = {
     preload: function() {
         this.load.image('cat', 'img/loading/eve.jpg');
+        
         //this.load.image('preloaderBar', 'images/loader_bar.png');
         //this.load.image('titleimage', 'images/TitleImage.png');
     },
