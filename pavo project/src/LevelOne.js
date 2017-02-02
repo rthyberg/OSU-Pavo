@@ -14,8 +14,8 @@ TowerDefense.LevelOne.prototype = {
 
 	preload: function () {
         console.log("levelone");
-        this.game.load.tilemap('levelone', 'img/tiles/cave/level_one.json', null, Phaser.Tilemap.TILED_JSON);
-        this.game.load.image('cavemap', 'img/tiles/cave/Cave.png');
+        this.game.load.tilemap('cave', 'img/tiles/cave/cave_base_map.json', null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.image('tiles', 'img/tiles/cave/Cave.png');
         this.load.image('explosion', 'img/explosion.png');
         this.load.spritesheet('zombie', 'img/enemies/zombie64x64.png', 64, 64, 8);
 	},
