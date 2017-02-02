@@ -4,9 +4,9 @@ TowerDefense.Boot = function(game) {};
 
 TowerDefense.Boot.prototype = {
     preload: function() {
-        this.load.image('cat', 'img/loading/eve.jpg');
+
     },
-    
+
     init: function(){
         this.input.maxPointers = 1;
         this.stage.disableVisibilityChange = false;
