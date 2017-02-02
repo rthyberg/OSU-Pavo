@@ -27,7 +27,8 @@ TowerDefense.Preloader.prototype = {
         this.game.load.image('heartFull', 'img/heartFull.png');
         /**********AUDIO*******************/
 
-        this.state.start('Game'); // changes state to Game.js
+        //this.state.start('Game'); // changes state to Game.js
+        this.state.start('StartMenu');
 	},
 
 	create: function () {
@@ -45,6 +46,7 @@ TowerDefense.Preloader.prototype = {
 	},
 
 	update: function () {
+        this.state.start('StartMenu');
 //        if(this.cache.isSoundDecoded('game_audio') && this.ready == false) {
 //            this.ready = true;
 //            //this.state.start('StartMenu');
