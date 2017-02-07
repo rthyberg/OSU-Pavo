@@ -17,18 +17,24 @@ TowerDefense.Preloader.prototype = {
          /*********MENU******************/
         /**********MAP*******************/
         this.game.load.image('tiles', 'img/ground.png');
-        /**********SPRITES*******************/
-        this.game.load.spritesheet('mummy', 'img/placeholder-enemy.png', 64, 64, 180);
-        this.game.load.spritesheet('base', 'img/base.png', 64, 64, 180);
         /*************TOWER****************/
         game.load.image('tower', 'img/tower.png');
         game.load.image('bullet', 'img/explosion.png');
         /**********IMAGES*******************/
         this.game.load.image('heartFull', 'img/heartFull.png');
+        
+        /**********SPRITES*******************/
+        this.game.load.spritesheet('mummy', 'img/placeholder-enemy.png', 64, 64, 180);
+        this.game.load.spritesheet('base', 'img/base.png', 64, 64, 180);
+        
         /**********AUDIO*******************/
 
         //this.state.start('Game'); // changes state to Game.js
+<<<<<<< HEAD
         this.state.start('StartMenu');
+=======
+        
+>>>>>>> master
 	},
 
 	create: function () {
@@ -42,16 +48,23 @@ TowerDefense.Preloader.prototype = {
         var mum = this.add.sprite(300, 200, 'mummy');
         mum.animations.add('walk');
         mum.animations.play('walk', 10, true);
+        this.state.start('StartMenu');
 */
+        this.state.start('StartMenu');
 	},
 
 	update: function () {
+<<<<<<< HEAD
         this.state.start('StartMenu');
+=======
+        
+>>>>>>> master
 //        if(this.cache.isSoundDecoded('game_audio') && this.ready == false) {
 //            this.ready = true;
 //            //this.state.start('StartMenu');
 //        }
 
         //this.state.start('LevelOne');
+        
 	}
 };
