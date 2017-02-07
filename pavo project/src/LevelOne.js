@@ -8,6 +8,16 @@ TowerDefense.LevelOne = function(game) {
     this.spawn1total = 25;
     this.totalspawn = 0;
     this.loop = null;
+    
+    this.bmd = null;
+
+    this.points = {
+        'x': [ 32, 128, 256, 384, 512, 608 ],
+        'y': [ 240, 240, 240, 240, 240, 240 ]
+    };
+    
+    this.path = [];
+    this.pi = 0;
 };
 
 TowerDefense.LevelOne.prototype = {
@@ -34,9 +44,53 @@ TowerDefense.LevelOne.prototype = {
         this.buildEmitter();
         this.loop = game.time.events.loop(500, this.loadEnemies, this);
 //        
-	},
 
-	
+        this.stage.backgroundColor = '#204090';
+
+        this.bmd = this.add.bitmapData(this.game.width, this.game.height);
+        this.bmd.addToWorld();
+
+        var py = this.points.y;
+
+        for (var i = 0; i < py.length; i++)
+        {
+            py[i] = this.rnd.between(32, 432);
+        }
+
+        this.plot();
+
+    },
+
+    plot: function () {
+
+        this.bmd.clear();
+
+        var x = 1 / game.width;
+        
+        this.path = [];
+        
+        for (var i = 0; i <= 1; i += x)
+        {
+            var px = this.math.linearInterpolation(this.points.x, i);
+            var py = this.math.linearInterpolation(this.points.y, i);
+
+            // var px = this.math.bezierInterpolation(this.points.x, i);
+            // var py = this.math.bezierInterpolation(this.points.y, i);
+
+            // var px = this.math.catmullRomInterpolation(this.points.x, i);
+            // var py = this.math.catmullRomInterpolation(this.points.y, i);
+
+            this.bmd.rect(px, py, 1, 1, 'rgba(255, 255, 255, 1)');
+            
+            this.path.push( { x: px, y: py });
+        }
+
+        for (var p = 0; p < this.points.x.length; p++)
+        {
+            this.bmd.rect(this.points.x[p]-3, this.points.y[p]-3, 6, 6, 'rgba(255, 0, 0, 1)');
+        }
+
+    },
     
     render: function(){
         game.debug.text("Group size: " + this.enemies.total, 32, 32);
@@ -45,12 +99,8 @@ TowerDefense.LevelOne.prototype = {
     
     loadEnemies: function(){
         var randomY = game.rnd.integerInRange(200, 400);     
-        var zombie = this.enemies.create(0, randomY, 'zombie'); 
-        zombie.life = 10;
-        zombie.animations.add('walk');
-        zombie.play('walk', 10, true);
+        zombie = this.enemies.add(new Zombie(game, 0, randomY ));
         this.physics.enable(zombie, Phaser.Physics.ARCADE);
-        zombie.enableBody = true;
         this.totalspawn++;
     },
     
@@ -63,12 +113,21 @@ TowerDefense.LevelOne.prototype = {
             
             if (enemy.x > game.width)
             {
-                //rip++;
-                console.log(enemy.life);
-                console.log(enemy);
-                console.log(enemy.x);
+//                console.log(enemy.life);
+//                console.log(enemy);
+//                console.log(enemy.x);
                 this.enemies.remove(enemy, true);
             }
+            
+            enemy.x = this.path[enemy.pi].x;
+            enemy.y = this.path[enemy.pi].y;
+            enemy.pi++;
+            if (enemy.pi >= this.path.length)
+            {
+                this.enemies.remove(enemy, true);
+                enemy.pi = 0;
+            }
+            
         }
         catch (e)
         {
@@ -77,6 +136,7 @@ TowerDefense.LevelOne.prototype = {
 
     },
     
+    // -- On Click Fireburst Logic
     buildEmitter:function() {
         this.fire = this.add.group();
         this.input.onDown.add(this.fireBurst, this);
@@ -90,7 +150,6 @@ TowerDefense.LevelOne.prototype = {
     },
     
     checkFire: function(f){
-        console.log(f.time);
         try {
             if (f.time < 0)
             {
@@ -105,12 +164,12 @@ TowerDefense.LevelOne.prototype = {
     },
     
     fireCollision: function(enemy, fire){
-        console.log(enemy);
-        console.log(fire);
+        
         if(enemy.exists){
             enemy.kill();
         }
     },
+    // --- End OnClick FireBurst Logic
     
     update: function () {
         // -- 
