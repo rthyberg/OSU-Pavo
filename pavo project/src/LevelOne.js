@@ -27,25 +27,33 @@ TowerDefense.LevelOne.prototype = {
         var layer = map.createLayer('world1');
         layer.resizeWorld();
         layer.wrap = true;
-        
+
+        // Towers
+        this.towerList = Tower.createGroup(this);
+
+        this.uibutton = new createTowerButton(this, 300, 500, 'tower', 'tower', this.towerList);
+        this.uibutton.create();
+
+
+
         //this.fire = this.add.group();
         this.enemies = this.add.group();
-        
+
         this.buildEmitter();
         this.loop = game.time.events.loop(500, this.loadEnemies, this);
-//        
+//
 	},
 
-	
-    
+
+
     render: function(){
         game.debug.text("Group size: " + this.enemies.total, 32, 32);
         //game.debug.text("Destroyed: " + rip, 32, 64);
     },
-    
+
     loadEnemies: function(){
-        var randomY = game.rnd.integerInRange(200, 400);     
-        var zombie = this.enemies.create(0, randomY, 'zombie'); 
+        var randomY = game.rnd.integerInRange(200, 400);
+        var zombie = this.enemies.create(0, randomY, 'zombie');
         zombie.life = 10;
         zombie.animations.add('walk');
         zombie.play('walk', 10, true);
@@ -53,14 +61,14 @@ TowerDefense.LevelOne.prototype = {
         zombie.enableBody = true;
         this.totalspawn++;
     },
-    
+
     checkEnemy: function(enemy){
         if(this.totalspawn > 25){
             game.time.events.remove(this.loop);
         }
         try {
             //console.log(game.width);
-            
+
             if (enemy.x > game.width)
             {
                 //rip++;
@@ -76,19 +84,19 @@ TowerDefense.LevelOne.prototype = {
         }
 
     },
-    
+
     buildEmitter:function() {
         this.fire = this.add.group();
         this.input.onDown.add(this.fireBurst, this);
     },
-    
+
     fireBurst: function(pointer) {
         var f = this.fire.create(pointer.x, pointer.y, 'explosion');
         f.time = 2;
         f.animations.add('burst');
         this.physics.enable(f, Phaser.Physics.ARCADE);
     },
-    
+
     checkFire: function(f){
         console.log(f.time);
         try {
@@ -103,7 +111,7 @@ TowerDefense.LevelOne.prototype = {
             console.log(f);
         }
     },
-    
+
     fireCollision: function(enemy, fire){
         console.log(enemy);
         console.log(fire);
@@ -111,9 +119,10 @@ TowerDefense.LevelOne.prototype = {
             enemy.kill();
         }
     },
-    
+
     update: function () {
-        // -- 
+        // --
+        this.uibutton.update()
         this.enemies.setAll('x', 1, true, true, 1);
         this.enemies.forEach(this.checkEnemy, this, true);
         this.fire.forEach(this.checkFire, this, true);
