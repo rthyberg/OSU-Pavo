@@ -7,6 +7,7 @@ Tower = function (game, x, y, targets) {
   // kills bullet if left world
   this.weapon.bulletKillDistance = 200;
   this.weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
+
   this.weapon.bulletSpeed = 600;
   this.weapon.fireRate = 700;
   // tracks the pos of the tower

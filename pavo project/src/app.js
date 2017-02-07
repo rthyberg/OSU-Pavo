@@ -5,6 +5,7 @@ function preload() {
     game.state.add('Boot', TowerDefense.Boot); // sets phaser settings
     game.state.add('Preloader', TowerDefense.Preloader); // preloads all our assets
     game.state.add('LevelOne', TowerDefense.LevelOne);
+    game.state.add('LevelAlpha', TowerDefense.LevelAlpha);
     //TODO - add a start menu state
     game.state.add('StartMenu', TowerDefense.StartMenu);
 

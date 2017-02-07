@@ -32,7 +32,7 @@ TowerDefense.StartMenu.prototype = {
         text3.anchor.set(0.5);
         text3.inputEnabled = true;
         text3.events.onInputDown.add(function(){
-            game.state.start("LevelOne");
+            game.state.start("LevelAlpha");
         }, this);
         //this.addMenuOption('Start', function () {
 //      game.state.start("Game");
