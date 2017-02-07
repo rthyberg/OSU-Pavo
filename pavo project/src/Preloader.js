@@ -30,11 +30,7 @@ TowerDefense.Preloader.prototype = {
         /**********AUDIO*******************/
 
         //this.state.start('Game'); // changes state to Game.js
-<<<<<<< HEAD
-        this.state.start('StartMenu');
-=======
         
->>>>>>> master
 	},
 
 	create: function () {
@@ -54,11 +50,7 @@ TowerDefense.Preloader.prototype = {
 	},
 
 	update: function () {
-<<<<<<< HEAD
-        this.state.start('StartMenu');
-=======
         
->>>>>>> master
 //        if(this.cache.isSoundDecoded('game_audio') && this.ready == false) {
 //            this.ready = true;
 //            //this.state.start('StartMenu');
