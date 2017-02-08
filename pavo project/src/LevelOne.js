@@ -51,7 +51,7 @@ TowerDefense.LevelOne.prototype = {
 
         this.buildEmitter();
         this.loop = game.time.events.loop(500, this.loadEnemies, this);
-//        
+//
 
         this.stage.backgroundColor = '#204090';
 
@@ -182,6 +182,7 @@ TowerDefense.LevelOne.prototype = {
     update: function () {
         // --
         this.uibutton.update()
+        this.towerList.callAll('selectTarget', null, this.enemies);
         this.enemies.setAll('x', 1, true, true, 1);
         this.enemies.forEach(this.checkEnemy, this, true);
         this.fire.forEach(this.checkFire, this, true);
