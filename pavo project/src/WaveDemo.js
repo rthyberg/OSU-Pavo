@@ -1,4 +1,4 @@
-TowerDefense.LevelOne = function(game) {
+TowerDefense.WaveDemo = function(game) {
     this.preloadBar = null;
     this.titleText = null;
     this.map = null;
@@ -8,22 +8,29 @@ TowerDefense.LevelOne = function(game) {
     this.spawn1total = 25;
     this.totalspawn = 0;
     this.loop = null;
-    
     this.bmd = null;
+    
+    this.spawnstart = true;
+    this.wave1spawn = 0;
+    this.wave1max = 25;
+    this.wave2spawn = 0;
+    this.wave2max = 25;
+    this.wave3spawn = 0;
+    this.wave3max = 30;
+    
 
     this.points = {
-        'x': [ 32, 128, 256, 384, 512, 608 ],
-        'y': [ 240, 240, 240, 240, 240, 240 ]
+        'x': [ 0, 300, 600, 800],
+        'y': [ 250, 250, 400,  400 ]
     };
     
     this.path = [];
-    this.pi = 0;
 };
 
-TowerDefense.LevelOne.prototype = {
+TowerDefense.WaveDemo.prototype = {
 
 	preload: function () {
-        console.log("levelone");
+        console.log("wavedemo");
         this.game.load.tilemap('cave', 'img/tiles/cave/cave_base_map.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'img/tiles/cave/Cave.png');
 	},
@@ -41,18 +48,17 @@ TowerDefense.LevelOne.prototype = {
         
         // Build User Weapon
         this.buildEmitter();
-        this.loop = game.time.events.loop(500, this.loadEnemies, this);
         
         // GET map data to generate path
         this.bmd = this.add.bitmapData(this.game.width, this.game.height);
         this.bmd.addToWorld();
 
-        var py = this.points.y;
-
-        for (var i = 0; i < py.length; i++)
-        {
-            py[i] = this.rnd.between(200, 400);
-        }
+//        var py = this.points.y;
+//
+//        for (var i = 0; i < py.length; i++)
+//        {
+//            py[i] = this.rnd.between(200, 400);
+//        }
 
         this.plot();
 
@@ -70,7 +76,7 @@ TowerDefense.LevelOne.prototype = {
         {
             var px = this.math.linearInterpolation(this.points.x, i);
             var py = this.math.linearInterpolation(this.points.y, i);
-            
+
             this.bmd.rect(px, py, 1, 1, 'rgba(255, 255, 255, 1)');
             
             this.path.push( { x: px, y: py });
@@ -88,30 +94,19 @@ TowerDefense.LevelOne.prototype = {
         //game.debug.text("Destroyed: " + rip, 32, 64);
     },
     
-    loadEnemies: function(){
-        var randomY = game.rnd.integerInRange(200, 400);     
-        zombie = this.enemies.add(new Zombie(game, 0, randomY ));
-        this.physics.enable(zombie, Phaser.Physics.ARCADE);
-        this.totalspawn++;
-    },
-    
     checkEnemy: function(enemy){
-        if(this.totalspawn > 25){
-            game.time.events.remove(this.loop);
-        }
         try {
             if (enemy.x > game.width)
             {
                 this.enemies.remove(enemy, true);
             }
-            
-            enemy.x = this.path[enemy.pi].x;
-            enemy.y = this.path[enemy.pi].y;
-            enemy.pi++;
+            enemy.move(this.path);
+//            enemy.x = this.path[enemy.pi].x;
+//            enemy.y = this.path[enemy.pi].y;
+//            enemy.pi++;
             if (enemy.pi >= this.path.length)
             {
                 this.enemies.remove(enemy, true);
-                enemy.pi = 0;
             }
             
         }
@@ -159,8 +154,65 @@ TowerDefense.LevelOne.prototype = {
     
     update: function () {
         // -- 
+        this.checkwave();
         this.enemies.forEach(this.checkEnemy, this, true);
         this.fire.forEach(this.checkFire, this, true);
         this.physics.arcade.overlap(this.enemies, this.fire, this.fireCollision, null, this);
 	},
+    
+    
+    // MANAGE waves
+    checkwave: function(){
+        if(this.spawnstart && this.enemies.total < 1){
+            this.spawnstart = false;
+            if(this.wave1spawn < this.wave1max){
+                this.loop = game.time.events.loop(500, this.loadwave1, this);
+            } else if(this.wave2spawn < this.wave2max){
+                this.loop = game.time.events.loop(500, this.loadwave2, this);
+            } else if(this.wave3spawn < this.wave3max){
+                this.loop = game.time.events.loop(500, this.loadwave3, this);
+            }
+        }
+        
+    },
+    loadwave1: function(){
+        if(this.wave1spawn < this.wave1max){
+            var randomX = game.rnd.integerInRange(-10, 10); 
+            var randomY = game.rnd.integerInRange(-30, 30);     
+            enemy = this.enemies.add(new Zombie(game, randomX, randomY ));
+            this.physics.enable(enemy, Phaser.Physics.ARCADE);
+            this.wave1spawn++;
+        } else {
+            game.time.events.remove(this.loop);
+            this.spawnstart = true;
+        }
+    },
+    loadwave2: function(){
+        if(this.wave2spawn < this.wave2max){
+            var randomX = game.rnd.integerInRange(-10, 10); 
+            var randomY = game.rnd.integerInRange(-30, 30);       
+            enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
+            this.physics.enable(enemy, Phaser.Physics.ARCADE);
+            this.wave2spawn++;
+        } else {
+            game.time.events.remove(this.loop);
+            this.spawnstart = true;
+        }
+    },
+    loadwave3: function(){
+        if(this.wave3spawn < this.wave3max){
+            var randomX = game.rnd.integerInRange(-10, 10); 
+            var randomY = game.rnd.integerInRange(-30, 30);    
+            var enemy;
+            if(this.wave3spawn % 2 == 1)
+                enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
+            else
+                enemy = this.enemies.add(new Zombie(game, randomX, randomY ));
+            this.physics.enable(enemy, Phaser.Physics.ARCADE);
+            this.wave3spawn++;
+        } else {
+            game.time.events.remove(this.loop);
+            this.spawnstart = true;
+        }
+    }
 };

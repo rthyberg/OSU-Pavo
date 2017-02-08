@@ -34,6 +34,13 @@ TowerDefense.StartMenu.prototype = {
         text3.events.onInputDown.add(function(){
             game.state.start("LevelOne");
         }, this);
+        
+        var text4 = game.add.text(game.world.centerX-200, game.world.centerY-100, "WaveDemo", { font: "30px Arial", fill: "#ff0044", align: "center" });
+        text4.anchor.set(0.5);
+        text4.inputEnabled = true;
+        text4.events.onInputDown.add(function(){
+            game.state.start("WaveDemo");
+        }, this);
         //this.addMenuOption('Start', function () {
 //      game.state.start("Game");
 //        });
