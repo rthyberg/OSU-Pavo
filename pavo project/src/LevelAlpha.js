@@ -1,8 +1,3 @@
-
-TowerDefense.LevelAlpha = function(game) {
-    this.secondsElapsed;
-};
-
 TowerDefense.LevelAlpha = function(game) {
     this.preloadBar = null;
     this.titleText = null;
@@ -13,6 +8,16 @@ TowerDefense.LevelAlpha = function(game) {
     this.spawn1total = 25;
     this.totalspawn = 0;
     this.loop = null;
+
+    this.bmd = null;
+
+    this.points = {
+        'x': [ 32, 128, 256, 384, 512, 608 ],
+        'y': [ 240, 240, 240, 240, 240, 240 ]
+    };
+
+    this.path = [];
+    this.pi = 0;
 };
 
 TowerDefense.LevelAlpha.prototype = {
@@ -63,7 +68,7 @@ TowerDefense.LevelAlpha.prototype = {
         layer.resizeWorld();
 
         //add the home base
-        this.base = this.add.sprite(500, 200, 'base');
+        this.base = this.add.sprite(520, 200, 'base');
         this.physics.enable(this.base, Phaser.Physics.ARCADE);
         this.base.body.collideWorldBounds = true;
         this.base.body.immovable = true;
@@ -76,21 +81,65 @@ TowerDefense.LevelAlpha.prototype = {
         this.healthMeterIcons = this.game.add.plugin(Phaser.Plugin.HealthMeter);
         this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 20, x: 20, width: 32, height: 32, rows: 2});
 
-        this.test_Tower = new Tower(game,300,300);
-        this.test_Tower2 = new Tower(game,300,100);
-        this.add.existing(this.test_Tower);
-        this.add.existing(this.test_Tower2);
-      //  this.test_Tower.add(300,300);
+        // Towers
+        this.towerList = Tower.createGroup(this);
 
-       
+        this.uibutton = new createTowerButton(this, 300, 500, 'tower', 'tower', this.towerList);
+        this.uibutton.create();
+
+
+
         //this.fire = this.add.group();
         this.enemies = this.add.group();
-        
+
         this.buildEmitter();
         this.loop = game.time.events.loop(500, this.loadEnemies, this);
-//        
-	},
 
+        this.stage.backgroundColor = '#204090';
+
+        this.bmd = this.add.bitmapData(this.game.width, this.game.height);
+        this.bmd.addToWorld();
+
+        var py = this.points.y;
+
+        for (var i = 0; i < py.length; i++)
+        {
+            py[i] = this.rnd.between(300, 130);
+        }
+
+        this.plot();
+
+	},
+    plot: function () {
+
+        this.bmd.clear();
+
+        var x = 1 / game.width;
+
+        this.path = [];
+
+        for (var i = 0; i <= 1; i += x)
+        {
+            var px = this.math.linearInterpolation(this.points.x, i);
+            var py = this.math.linearInterpolation(this.points.y, i);
+
+            // var px = this.math.bezierInterpolation(this.points.x, i);
+            // var py = this.math.bezierInterpolation(this.points.y, i);
+
+            // var px = this.math.catmullRomInterpolation(this.points.x, i);
+            // var py = this.math.catmullRomInterpolation(this.points.y, i);
+
+            this.bmd.rect(px, py, 1, 1, 'rgba(255, 255, 255, 1)');
+
+            this.path.push( { x: px, y: py });
+        }
+
+        for (var p = 0; p < this.points.x.length; p++)
+        {
+            this.bmd.rect(this.points.x[p]-3, this.points.y[p]-3, 6, 6, 'rgba(255, 0, 0, 1)');
+        }
+
+    },
 	
     
     render: function(){
@@ -99,13 +148,10 @@ TowerDefense.LevelAlpha.prototype = {
     },
     
     loadEnemies: function(){
-        var randomY = game.rnd.integerInRange(200, 400);     
-        var zombie = this.enemies.create(0, randomY, 'zombie'); 
-        zombie.health = 10;
-        zombie.animations.add('walk');
-        zombie.play('walk', 10, true);
+        var randomY = game.rnd.integerInRange(200, 400);
+        zombie = this.enemies.add(new Zombie(game, 0, randomY ));
+        zombie.health = 3;
         this.physics.enable(zombie, Phaser.Physics.ARCADE);
-        zombie.enableBody = true;
         this.totalspawn++;
     },
     
@@ -115,15 +161,24 @@ TowerDefense.LevelAlpha.prototype = {
         }
         try {
             //console.log(game.width);
-            
+
             if (enemy.x > game.width)
             {
-                //rip++;
-                console.log(enemy.life);
-                console.log(enemy);
-                console.log(enemy.x);
+//                console.log(enemy.life);
+//                console.log(enemy);
+//                console.log(enemy.x);
                 this.enemies.remove(enemy, true);
             }
+
+            enemy.x = this.path[enemy.pi].x;
+            enemy.y = this.path[enemy.pi].y;
+            enemy.pi++;
+            if (enemy.pi >= this.path.length)
+            {
+                this.enemies.remove(enemy, true);
+                enemy.pi = 0;
+            }
+
         }
         catch (e)
         {
@@ -136,16 +191,15 @@ TowerDefense.LevelAlpha.prototype = {
         this.fire = this.add.group();
         this.input.onDown.add(this.fireBurst, this);
     },
-    
+
     fireBurst: function(pointer) {
         var f = this.fire.create(pointer.x, pointer.y, 'explosion');
         f.time = 2;
         f.animations.add('burst');
         this.physics.enable(f, Phaser.Physics.ARCADE);
     },
-    
+
     checkFire: function(f){
-        console.log(f.time);
         try {
             if (f.time < 0)
             {
@@ -158,15 +212,14 @@ TowerDefense.LevelAlpha.prototype = {
             console.log(f);
         }
     },
-    
+
     fireCollision: function(enemy, fire){
-        console.log(enemy);
-        console.log(fire);
+
         if(enemy.exists){
-            enemy.damage(2);
+            enemy.kill();
         }
     },
-    
+        
     baseCollision: function(enemy, base){
         
         
@@ -180,16 +233,10 @@ TowerDefense.LevelAlpha.prototype = {
     kill: function(enemy){
        this.enemies.remove(enemy, true);
     },
-
-    
     
     update: function () {
-        // -- 
-        // this.test_Tower.fire(this.enemies);
-        // this.test_Tower2.fire(this.enemies);
-
-        
-        
+        this.uibutton.update()
+        this.towerList.callAll('selectTarget', null, this.enemies);
         this.enemies.setAll('x', 1, true, true, 1);
         this.enemies.forEach(this.checkEnemy, this, true);
         this.fire.forEach(this.checkFire, this, true);
@@ -199,6 +246,10 @@ TowerDefense.LevelAlpha.prototype = {
         {
             this.enemies.forEach(this.kill, this, true);
             this.base.damage(1);
+            if (this.base.health==0){
+
+                game.paused=true;
+            }
         }
 	},
 };
