@@ -1,6 +1,6 @@
 /* Class File for Zombie*/
 Zombie = function (game, x, y) {
-    
+
     Phaser.Sprite.call(this, game, x, y, 'zombie');
     this.vx = x;
     this.vy = y;
@@ -16,7 +16,6 @@ Zombie = function (game, x, y) {
 
 Zombie.prototype = Object.create(Phaser.Sprite.prototype);
 Zombie.prototype.constructor = Zombie;
-
 Zombie.prototype.move = function(path){
     this.x = path[this.pi].x + this.vx;
     this.y = path[this.pi].y + this.vy;
