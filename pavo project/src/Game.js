@@ -55,15 +55,13 @@ TowerDefense.Game.prototype = {
         this.mum.body.velocity.x = 125;
         this.mum.animations.add('walk');
         //this.mum.animations.play('walk', 10, true);
-        this.test_Tower = new Tower(game,300,300);
-        this.test_Tower2 = new Tower(game,300,100);
-        this.add.existing(this.test_Tower);
-        this.add.existing(this.test_Tower2);
-      //  this.test_Tower.add(300,300);
 
+        this.towerList = Tower.createGroup(this);
+      //  this.towerList.create(300, 300, 'tower', 'bullet');
+      //  this.towerList.create(300, 100, 'tower', 'bullet');
 
-
-
+        this.uibutton = new createTowerButton(this, 300, 500, 'tower', 'tower', this.towerList);
+        this.uibutton.create();
         //add health to the base
         this.base.health = 3;
         this.base.maxHealth = 12;
@@ -78,8 +76,13 @@ TowerDefense.Game.prototype = {
 
 
     update: function() {
-        this.test_Tower.fire(this.mum);
-        this.test_Tower2.fire(this.mum);
+        this.uibutton.update();
+        //this.placeHolder.x = game.input.mousePointer.worldX;
+      //  this.placeHolder.y = game.input.mousePointer.worldY;
+      //  console.log(this.towerList.countLiving());
+        this.towerList.callAll('fire', null, this.mum);
+        //this.test_Tower.fire(this.mum);
+        //this.test_Tower2.fire(this.mum);
         if (this.physics.arcade.collide(this.base, this.mum)){
             if (this.base.health == 1)
                 this.base.heal(3);
