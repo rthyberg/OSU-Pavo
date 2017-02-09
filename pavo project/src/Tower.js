@@ -11,6 +11,8 @@ Tower = function (game, x, y, key, bulletkey) {
   this.weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
   this.weapon.bulletSpeed = 450;
   this.weapon.fireRate = 700;
+  this.weapon.bulletSpeed = 300;
+  this.weapon.fireRate = 500;
   // tracks the pos of the tower
   this.weapon.trackSprite(this,0,0,true);
 
@@ -107,6 +109,23 @@ createTowerButton.prototype = {
 //  Called if the bullet hits one of the veg sprites
 collisionHandler = function (sprite, bullet) {
     bullet.kill();
+    sprite.damage(1);
+}
+
+// Checks teh distance between Alive targets and the tower object
+distanceFormula = function (target) {
+  var contained = this.towerRange.contains(target.x, target.y); // set variable to if current target from group is in range
+if(contained) {
+  if(this.target == null) {  // if our current target is null make the first target in group the new target
+    this.target = target;
+  } else {
+    var current = game.physics.arcade.distanceBetween(target, this, true);  // check distance between current target and target of the group
+    var old = game.physics.arcade.distanceBetween(this.target, this, true);
+    if(current < old) {                                                    // set the current target if its closer than the old
+      this.target = target;
+    }
+  }
+ }
 }
 
 // Checks teh distance between Alive targets and the tower object
