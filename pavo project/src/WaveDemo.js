@@ -33,6 +33,7 @@ TowerDefense.WaveDemo.prototype = {
         console.log("wavedemo");
         this.game.load.tilemap('cave', 'img/tiles/cave/cave_base_map.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'img/tiles/cave/Cave.png');
+        
 	},
 
 	create: function () {
@@ -179,7 +180,7 @@ TowerDefense.WaveDemo.prototype = {
         if(this.wave1spawn < this.wave1max){
             var randomX = game.rnd.integerInRange(-10, 10); 
             var randomY = game.rnd.integerInRange(-30, 30);     
-            enemy = this.enemies.add(new Zombie(game, randomX, randomY ));
+            enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave1spawn++;
         } else {
