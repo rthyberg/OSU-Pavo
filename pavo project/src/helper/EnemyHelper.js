@@ -170,4 +170,88 @@ Spikes.prototype.move = function(path){
 }
 
 
+//BACKGROUND
+Flames = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'bg_fire');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 999;
+    this.pi = 0;
+    this.speed = 1.0;
+    this.animations.add('fly');
+    this.play('fly', 3, true);
+    this.enableBody = true;
+    this.loop;
+    this.path;
+}
 
+Flames.prototype = Object.create(Phaser.Sprite.prototype);
+Flames.prototype.constructor = Flames;
+
+Spikey = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'spikey');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 999;
+    this.pi = 0;
+    this.speed = 1.0;
+    this.animations.add('fly');
+    this.play('fly', 1, true);
+    this.enableBody = true;
+    this.loop;
+    this.path;
+}
+
+Spikey.prototype = Object.create(Phaser.Sprite.prototype);
+Spikey.prototype.constructor = Spikey;
+
+Rocks1 = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'rocks1');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 999;
+    this.pi = 0;
+    this.speed = 0.0;
+    this.animations.add('fly');
+    this.play('fly', 5, true);
+    this.enableBody = true;
+    this.loop;
+    this.path;
+}
+
+Rocks1.prototype = Object.create(Phaser.Sprite.prototype);
+Rocks1.prototype.constructor = Rocks1;
+
+Rocks2 = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'rocks2');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 999;
+    this.pi = 0;
+    this.speed = 0.0;
+    this.animations.add('fly');
+    this.play('fly', 5, true);
+    this.enableBody = true;
+    this.loop;
+    this.path;
+}
+
+Rocks2.prototype = Object.create(Phaser.Sprite.prototype);
+Rocks2.prototype.constructor = Rocks2;
+
+Rocks3 = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'rocks3');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 999;
+    this.pi = 0;
+    this.speed = 0.0;
+    this.animations.add('fly');
+    this.play('fly', 5, true);
+    this.enableBody = true;
+    this.loop;
+    this.path;
+}
+
+Rocks3.prototype = Object.create(Phaser.Sprite.prototype);
+Rocks3.prototype.constructor = Rocks3;

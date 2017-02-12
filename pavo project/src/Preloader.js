@@ -33,6 +33,11 @@ TowerDefense.Preloader.prototype = {
         this.game.load.spritesheet('spikes', 'img/spikes.png', 48, 48, 2);
         this.game.load.spritesheet('succ', 'img/succ.png', 32, 32, 2);
         this.game.load.spritesheet('base', 'img/base.png', 64, 64, 180);
+        this.game.load.spritesheet('bg_fire', 'img/bg_assets/fire_asset.png', 52, 52, 3);
+        this.game.load.spritesheet('spikey', 'img/bg_assets/grid_spikes.png', 31, 31, 1);
+        this.game.load.spritesheet('rocks1', 'img/bg_assets/rocks_basement.png', 31, 31, 1);
+        this.game.load.spritesheet('rocks2', 'img/bg_assets/rocks_sheol.png', 31, 31, 1);
+        this.game.load.spritesheet('rocks3', 'img/bg_assets/rocks_caves.png', 31, 31, 1);
         
         /**********AUDIO*******************/
 

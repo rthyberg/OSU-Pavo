@@ -46,7 +46,7 @@ TowerDefense.WaveDemo.prototype = {
         
         // SET enemies group
         this.enemies = this.add.group();
-        
+        this.bga = this.add.group();
         // Build User Weapon
         this.buildEmitter();
         
@@ -63,6 +63,43 @@ TowerDefense.WaveDemo.prototype = {
 
         this.plot();
 
+        for (var i = 0; i < game.rnd.integerInRange(2, 30); i++){
+            var randomX = game.rnd.integerInRange(10, 790); 
+            var randomY = game.rnd.integerInRange(10, 590); 
+            var bg_fire = this.bga.add(new Flames(game, randomX, randomY));
+            this.physics.enable(bg_fire, Phaser.Physics.ARCADE);
+            
+            
+        }
+
+        for (var i = 0; i < game.rnd.integerInRange(9, 16); i++){
+            var randomX = game.rnd.integerInRange(10, 790); 
+            var randomY = game.rnd.integerInRange(10, 590); 
+            var spikey = this.bga.add(new Spikey(game, randomX, randomY));
+            this.physics.enable(spikey, Phaser.Physics.ARCADE);
+            
+            
+        }
+        for (var i = 0; i < game.rnd.integerInRange(3, 10); i++){
+            var randomX = game.rnd.integerInRange(10, 790); 
+            var randomY = game.rnd.integerInRange(10, 590); 
+            var rocks1 = this.bga.add(new Rocks1(game, randomX, randomY));
+            this.physics.enable(rocks1, Phaser.Physics.ARCADE);           
+        }
+        
+        for (var i = 0; i < game.rnd.integerInRange(4, 12); i++){
+            var randomX = game.rnd.integerInRange(10, 790); 
+            var randomY = game.rnd.integerInRange(10, 590); 
+            var rocks2 = this.bga.add(new Rocks2(game, randomX, randomY));
+            this.physics.enable(rocks2, Phaser.Physics.ARCADE);           
+        }
+        
+        for (var i = 0; i < game.rnd.integerInRange(4, 17); i++){
+            var randomX = game.rnd.integerInRange(10, 790); 
+            var randomY = game.rnd.integerInRange(10, 590); 
+            var rocks3 = this.bga.add(new Rocks3(game, randomX, randomY));
+            this.physics.enable(rocks3, Phaser.Physics.ARCADE);           
+        }
     },
 
     plot: function () {
@@ -152,13 +189,15 @@ TowerDefense.WaveDemo.prototype = {
         }
     },
     // --- End OnClick FireBurst Logic
-    
+
     update: function () {
         // -- 
         this.checkwave();
         this.enemies.forEach(this.checkEnemy, this, true);
         this.fire.forEach(this.checkFire, this, true);
+        this.physics.arcade.overlap(this.bga, this.bga, this.fireCollision, null, this);
         this.physics.arcade.overlap(this.enemies, this.fire, this.fireCollision, null, this);
+        this.physics.arcade.overlap(this.bga, this.enemies, this.fireCollision, null, this);
 	},
     
     

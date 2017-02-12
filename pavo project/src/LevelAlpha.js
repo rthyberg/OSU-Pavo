@@ -28,6 +28,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.load.image('explosion', 'img/explosion.png');
         this.load.spritesheet('zombie', 'img/enemies/zombie64x64.png', 64, 64, 8);
         this.load.spritesheet('boom', 'img/explode.png', 128, 128, 8);
+        
 	},
 
 	create: function () {
