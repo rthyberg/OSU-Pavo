@@ -56,15 +56,19 @@ Road.prototype.draw = function(path){
         var vcell = Math.round(p.y/tilewidth);
         var hcell = Math.round(p.x/tilewidth);
         
-        if(mem[vcell][hcell] == undefined){
-            for(var i = p.y - pathwidth; i < p.y + pathwidth; i += tilewidth){
+        for(var i = p.y - pathwidth; i < p.y + pathwidth; i += tilewidth){
+            for( j = p.x - pathwidth; j < p.x + pathwidth; j += tilewidth){
                 vcell = Math.round(i/tilewidth);
-                hcell = Math.round(p.x/tilewidth);
-                if(mem[vcell][hcell] == undefined){
-                    mem[vcell][hcell] = true;
-                    game.add.sprite(hcell*tilewidth, vcell*tilewidth ,sprite);
+                hcell = Math.round(j/tilewidth);
+                if(vcell >= 0 && vcell < maxvcell && hcell >= 0 && hcell < maxhcell){
+                    if(mem[vcell][hcell] == undefined){
+                        mem[vcell][hcell] = true;
+                        game.add.sprite(hcell*tilewidth, vcell*tilewidth ,sprite);
+                    }
                 }
+
             }
+
         }
     });
 }

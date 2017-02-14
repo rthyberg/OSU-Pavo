@@ -4,7 +4,7 @@ TowerDefense.PathBuildDemo = function(game) {
     this.map = null;
 
     this.points = {
-        'x': [ 0, 300, 600, 800],
+        'x': [ 0, 300, 300, 800],
         'y': [ 250, 250, 400,  400 ]
     };
     
