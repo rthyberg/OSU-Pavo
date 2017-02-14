@@ -18,14 +18,16 @@ TowerDefense.Preloader.prototype = {
         /**********MAP*******************/
         this.game.load.image('tiles', 'img/ground.png');
         /*************TOWER****************/
-        game.load.image('tower', 'img/tower.png');
-        game.load.image('bullet', 'img/explosion.png');
+        this.game.load.image('tower', 'img/tower.png');
+        this.game.load.image('bullet', 'img/explosion.png');
+        this.game.load.image('darkroad', 'img/darkroad.png');
         /**********IMAGES*******************/
         this.game.load.image('heartFull', 'img/heartFull.png');
         this.game.load.image('explosion', 'img/explosion.png');
         /**********SPRITES*******************/
         this.game.load.spritesheet('mummy', 'img/placeholder-enemy.png', 64, 64, 180);
         this.game.load.spritesheet('spacebug', 'img/space-baddie.png', 16,16, 1);
+        this.game.load.spritesheet('ufo', 'img/ufo.png', 16,16, 1);
         this.game.load.spritesheet('zombie', 'img/enemies/zombie64x64.png', 64, 64, 8);
         this.game.load.spritesheet('base', 'img/base.png', 64, 64, 180);
         
