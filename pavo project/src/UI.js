@@ -40,3 +40,67 @@ createTowerButton.prototype = {
     this.placeHolder.y = this.game.input.mousePointer.worldY;
   }
 };
+
+
+towerUI = function(game) {
+	this.currentTower = null;
+    // add a button for each property we want to modify
+    this.dmgUp = game.add.button(-20, -20, 'dmgUp', dmgUp, this, 'Up', 'Up', 'UpPressed', 'Up'); // damage
+    this.rngUp = game.add.button(-20, -20, 'dmgUp',  rngUp, this, 'Up', 'Up', 'UpPressed', 'Up');// range
+    this.spdUp = game.add.button(-20, -20, 'dmgUp', spdUp, this, 'Up','Up', 'UpPressed', 'Up'); // Rate of fire
+    // disable all ablity to input until called
+    this.dmgUp.inputEnabled = false;
+    this.rngUp.inputEnabled = false;
+    this.spdUp.inputEnabled = false;
+    this.on = false;
+    // function that sets currentTower and enables buttons until next call
+    this.setTower = function(new_tower, pointer) {
+        if(!this.on) {
+            this.currentTower = new_tower;
+            // set dmg button offset
+            this.dmgUp.x = new_tower.x + 20;
+            this.dmgUp.y = new_tower.y -20;
+            this.dmgUp.inputEnabled = true;
+            // set the range button off set
+            this.rngUp.x = new_tower.x + 20;
+            this.rngUp.y = new_tower.y;
+            this.rngUp.inputEnabled = true;;;
+            // set the spd button off set
+            this.spdUp.x = new_tower.x + 20;
+            this.spdUp.y = new_tower.y +20;
+            this.spdUp.inputEnabled = true;
+            this.on = true;
+        } else {
+            // set back to default aka OFF SCREEN
+            this.dmgUp.x = -40;
+            this.dmgUp.y = new_tower.y -40;
+            this.dmgUp.inputEnabled = false;
+            // set the range button
+            this.rngUp.x = -40;
+            this.rngUp.y = -40;
+            this.rngUp.inputEnabled = false;
+            // set the spd button
+            this.spdUp.x = -40;
+            this.spdUp.y = -40;
+            this.spdUp.inputEnabled = false;
+            this.on = false;
+        }
+    }
+    // set dmgUp
+    function dmgUp() {
+        this.currentTower.damage++;
+        console.log(this.currentTower.damage);
+    }
+    // set range up
+    function rngUp() {
+        this.currentTower.weapon.bulletKillDistance += 50;
+        this.currentTower.updateRange();
+        console.log(this.currentTower.weapon.bulletKillDistance);
+    }
+    // set rate of fire up
+    function spdUp() {
+        this.currentTower.weapon.fireRate -= 50;
+        console.log(this.currentTower.weapon.fireRate);
+    }
+};
+

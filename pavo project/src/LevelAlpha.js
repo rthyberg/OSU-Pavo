@@ -72,8 +72,8 @@ TowerDefense.LevelAlpha.prototype = {
         this.physics.enable(this.base, Phaser.Physics.ARCADE);
         this.base.body.collideWorldBounds = true;
         this.base.body.immovable = true;
-        
-                //add health to the base
+
+        //add health to the base
         this.base.health = 3;
         this.base.maxHealth = 12;
         this.hearts = this.game.add.group();
@@ -82,8 +82,10 @@ TowerDefense.LevelAlpha.prototype = {
         this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 20, x: 20, width: 32, height: 32, rows: 2});
 
         // Towers
-        this.towerList = Tower.createGroup(this);
-
+        this.towerList = Tower.createGroup(this); // creates group  of towers
+        this.towerList.inputEnableChildren = true; // enable input for all future children
+        this.towerUI = new towerUI(game); // create a new UI object
+        this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
         this.uibutton = new createTowerButton(this, 300, 500, 'tower', 'tower', this.towerList);
         this.uibutton.create();
 
@@ -140,13 +142,13 @@ TowerDefense.LevelAlpha.prototype = {
         }
 
     },
-	
-    
+
+
     render: function(){
         game.debug.text("Group size: " + this.enemies.total, 32, 32);
         //game.debug.text("Destroyed: " + rip, 32, 64);
     },
-    
+
     loadEnemies: function(){
         var randomY = game.rnd.integerInRange(200, 400);
         zombie = this.enemies.add(new Zombie(game, 0, randomY ));
@@ -154,7 +156,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.physics.enable(zombie, Phaser.Physics.ARCADE);
         this.totalspawn++;
     },
-    
+
     checkEnemy: function(enemy){
         if(this.totalspawn > 25){
             game.time.events.remove(this.loop);
@@ -186,7 +188,7 @@ TowerDefense.LevelAlpha.prototype = {
         }
 
     },
-    
+
     buildEmitter:function() {
         this.fire = this.add.group();
         this.input.onDown.add(this.fireBurst, this);

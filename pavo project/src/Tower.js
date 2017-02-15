@@ -9,8 +9,6 @@ Tower = function (game, x, y, key, bulletkey) {
   // kills bullet if left world
   this.weapon.bulletKillDistance = 200;
   this.weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
-  this.weapon.bulletSpeed = 450;
-  this.weapon.fireRate = 700;
   this.weapon.bulletSpeed = 300;
   this.weapon.fireRate = 500;
   this.damage = 1;
@@ -27,6 +25,10 @@ Tower.prototype = Object.create(Phaser.Sprite.prototype);
 Tower.prototype.constructor = Tower;
 
 /* Fires at this.target */
+Tower.prototype.updateRange = function() {
+    this.towerRange = new Phaser.Circle(this.x,this.y, (this.weapon.bulletKillDistance*2));
+};
+
 Tower.prototype.fireAt = function () {
     this.weapon.fireAtSprite(this.target);
     game.physics.arcade.overlap(this.target, this.weapon.bullets, collisionHandler, null, this);

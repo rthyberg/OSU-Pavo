@@ -15,6 +15,7 @@ TowerDefense.Preloader.prototype = {
 		//this.load.setPreloadSprite(this.preloadBar);
 
          /*********MENU******************/
+        this.game.load.atlasJSONArray('dmgUp', 'img/UI/UP/TestButtonSheet.png', 'img/UI/UP/TestButtonSheet.json');
         /**********MAP*******************/
         this.game.load.image('tiles', 'img/ground.png');
         /*************TOWER****************/
