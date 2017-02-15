@@ -44,24 +44,17 @@ TowerDefense.WaveDemo.prototype = {
         layer.resizeWorld();
         layer.wrap = true;
         
+        
+        // GET map data to generate path
+        this.bmd = this.add.bitmapData(this.game.width, this.game.height);
+        this.bmd.addToWorld();
+        this.plot();
+        
         // SET enemies group
         this.enemies = this.add.group();
         this.bga = this.add.group();
         // Build User Weapon
         this.buildEmitter();
-        
-        // GET map data to generate path
-        this.bmd = this.add.bitmapData(this.game.width, this.game.height);
-        this.bmd.addToWorld();
-
-//        var py = this.points.y;
-//
-//        for (var i = 0; i < py.length; i++)
-//        {
-//            py[i] = this.rnd.between(200, 400);
-//        }
-
-        this.plot();
 
         for (var i = 0; i < game.rnd.integerInRange(2, 30); i++){
             var randomX = game.rnd.integerInRange(10, 790); 
@@ -124,6 +117,10 @@ TowerDefense.WaveDemo.prototype = {
         {
             this.bmd.rect(this.points.x[p]-3, this.points.y[p]-3, 6, 6, 'rgba(255, 0, 0, 1)');
         }
+        
+        // Draw Road
+        road = new Road("darkroad");
+        road.draw(this.path);
 
     },
     
@@ -138,14 +135,12 @@ TowerDefense.WaveDemo.prototype = {
             {
                 this.enemies.remove(enemy, true);
             }
-            enemy.move(this.path);
-//            enemy.x = this.path[enemy.pi].x;
-//            enemy.y = this.path[enemy.pi].y;
-//            enemy.pi++;
+            
             if (enemy.pi >= this.path.length)
             {
                 this.enemies.remove(enemy, true);
             }
+            enemy.move(this.path);
             
         }
         catch (e)
@@ -162,7 +157,7 @@ TowerDefense.WaveDemo.prototype = {
     },
     
     fireBurst: function(pointer) {
-        var f = this.fire.create(pointer.x, pointer.y, 'explosion');
+        var f = this.fire.create(pointer.x-10, pointer.y-10, 'explosion');
         f.time = 2;
         f.animations.add('burst');
         this.physics.enable(f, Phaser.Physics.ARCADE);
@@ -206,11 +201,11 @@ TowerDefense.WaveDemo.prototype = {
         if(this.spawnstart && this.enemies.total < 1){
             this.spawnstart = false;
             if(this.wave1spawn < this.wave1max){
-                this.loop = game.time.events.loop(500, this.loadwave1, this);
+                this.loop = game.time.events.loop(400, this.loadwave1, this);
             } else if(this.wave2spawn < this.wave2max){
-                this.loop = game.time.events.loop(500, this.loadwave2, this);
+                this.loop = game.time.events.loop(400, this.loadwave2, this);
             } else if(this.wave3spawn < this.wave3max){
-                this.loop = game.time.events.loop(500, this.loadwave3, this);
+                this.loop = game.time.events.loop(400, this.loadwave3, this);
             }
         }
         
@@ -218,7 +213,7 @@ TowerDefense.WaveDemo.prototype = {
     loadwave1: function(){
         if(this.wave1spawn < this.wave1max){
             var randomX = game.rnd.integerInRange(-10, 10); 
-            var randomY = game.rnd.integerInRange(-30, 30);     
+            var randomY = game.rnd.integerInRange(-30, 30);   
             enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave1spawn++;
@@ -244,10 +239,11 @@ TowerDefense.WaveDemo.prototype = {
             var randomX = game.rnd.integerInRange(-10, 10); 
             var randomY = game.rnd.integerInRange(-30, 30);    
             var enemy;
+            
             if(this.wave3spawn % 2 == 1)
                 enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
             else
-                enemy = this.enemies.add(new Zombie(game, randomX, randomY ));
+                enemy = this.enemies.add(new Ufo(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave3spawn++;
         } else {
