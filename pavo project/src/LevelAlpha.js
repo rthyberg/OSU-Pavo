@@ -14,11 +14,25 @@ TowerDefense.LevelAlpha = function(game) {
     // Wave variables
     this.spawnstart = true;
     this.wave1spawn = 0;
-    this.wave1max = 25;
+    this.wave1max = 10;
     this.wave2spawn = 0;
-    this.wave2max = 25;
+    this.wave2max = 15;
     this.wave3spawn = 0;
-    this.wave3max = 30;
+    this.wave3max = 25;
+    this.wave4spawn = 0;
+    this.wave4max = 30;
+    this.wave5spawn = 0;
+    this.wave5max = 30;
+    this.wave6spawn = 0;
+    this.wave6max = 30;
+    this.wave7spawn = 0;
+    this.wave7max = 35;
+    this.wave8spawn = 0;
+    this.wave8max = 40;
+    this.wave9spawn = 0;
+    this.wave9max = 40;
+    this.wave10spawn = 0;
+    this.wave10max = 45;
     
     
     this.points = {
@@ -80,7 +94,30 @@ TowerDefense.LevelAlpha.prototype = {
 
         this.buildEmitter();
         //this.loop = game.time.events.loop(500, this.loadEnemies, this);
+        this.bga = this.add.group();
+        for (var i = 0; i < game.rnd.integerInRange(9, 16); i++){
+            var randomX = game.rnd.integerInRange(10, 790); 
+            var randomY = game.rnd.integerInRange(10, 590); 
+            var spikey = this.bga.add(new Spikey(game, randomX, randomY));
+            this.physics.enable(spikey, Phaser.Physics.ARCADE);
+            
+            
+        }
 
+        
+        for (var i = 0; i < game.rnd.integerInRange(4, 12); i++){
+            var randomX = game.rnd.integerInRange(10, 790); 
+            var randomY = game.rnd.integerInRange(10, 590); 
+            var rocks2 = this.bga.add(new Rocks2(game, randomX, randomY));
+            this.physics.enable(rocks2, Phaser.Physics.ARCADE);           
+        }
+        
+        for (var i = 0; i < game.rnd.integerInRange(4, 17); i++){
+            var randomX = game.rnd.integerInRange(10, 790); 
+            var randomY = game.rnd.integerInRange(10, 590); 
+            var rocks3 = this.bga.add(new Rocks3(game, randomX, randomY));
+            this.physics.enable(rocks3, Phaser.Physics.ARCADE);           
+        }
        
 	},
     plot: function () {
@@ -120,7 +157,7 @@ TowerDefense.LevelAlpha.prototype = {
     loadEnemies: function(){
         var randomY = game.rnd.integerInRange(200, 400);
         zombie = this.enemies.add(new Zombie(game, 0, randomY ));
-        zombie.health = 3;
+        zombie.health = 10;
         this.physics.enable(zombie, Phaser.Physics.ARCADE);
         this.totalspawn++;
     },
@@ -181,7 +218,7 @@ TowerDefense.LevelAlpha.prototype = {
         
     baseCollision: function(enemy, base){
         
-        var f = this.fire.create(450, 150, 'boom');
+        var f = this.fire.create(600, 200, 'boom');
         f.time = 2;
         f.animations.add('burst');
     },
@@ -198,6 +235,9 @@ TowerDefense.LevelAlpha.prototype = {
         this.enemies.forEach(this.checkEnemy, this, true);
         this.fire.forEach(this.checkFire, this, true);
         this.physics.arcade.overlap(this.enemies, this.fire, this.fireCollision, null, this);
+        this.physics.arcade.overlap(this.bga, this.bga, this.fireCollision, null, this);
+        this.physics.arcade.overlap(this.bga, this.base, this.fireCollision, null, this);
+        this.physics.arcade.overlap(this.bga, this.enemies, this.fireCollision, null, this);
         this.physics.arcade.overlap(this.enemies, this.base, this.baseCollision, null, this);
         if (this.physics.arcade.overlap(this.base, this.enemies))
         {
@@ -220,15 +260,32 @@ TowerDefense.LevelAlpha.prototype = {
                 this.loop = game.time.events.loop(400, this.loadwave2, this);
             } else if(this.wave3spawn < this.wave3max){
                 this.loop = game.time.events.loop(400, this.loadwave3, this);
+            } else if(this.wave4spawn < this.wave4max){
+                this.loop = game.time.events.loop(400, this.loadwave4, this);
+            } else if(this.wave5spawn < this.wave5max){
+                this.loop = game.time.events.loop(400, this.loadwave5, this);
+            } else if(this.wave6spawn < this.wave6max){
+                this.loop = game.time.events.loop(400, this.loadwave6, this);
+            } else if(this.wave7spawn < this.wave7max){
+                this.loop = game.time.events.loop(400, this.loadwave7, this);
+            } else if(this.wave8spawn < this.wave8max){
+                this.loop = game.time.events.loop(400, this.loadwave8, this);
+            } else if(this.wave9spawn < this.wave9max){
+                this.loop = game.time.events.loop(400, this.loadwave9, this);
+            } else if(this.wave10spawn < this.wave10max){
+                this.loop = game.time.events.loop(400, this.loadwave10, this);
             }
+            
+            
+            
         }
         
     },
     loadwave1: function(){
         if(this.wave1spawn < this.wave1max){
-            var randomX = game.rnd.integerInRange(-30, 30); 
+            var randomX = game.rnd.integerInRange(-10, 10); 
             var randomY = game.rnd.integerInRange(-30, 30);   
-            enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
+            enemy = this.enemies.add(new Fly(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave1spawn++;
         } else {
@@ -238,7 +295,7 @@ TowerDefense.LevelAlpha.prototype = {
     },
     loadwave2: function(){
         if(this.wave2spawn < this.wave2max){
-            var randomX = game.rnd.integerInRange(-30, 30); 
+            var randomX = game.rnd.integerInRange(-10, 10); 
             var randomY = game.rnd.integerInRange(-30, 30);       
             enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
@@ -250,19 +307,120 @@ TowerDefense.LevelAlpha.prototype = {
     },
     loadwave3: function(){
         if(this.wave3spawn < this.wave3max){
-            var randomX = game.rnd.integerInRange(-30, 30); 
+            var randomX = game.rnd.integerInRange(-10, 10); 
             var randomY = game.rnd.integerInRange(-30, 30);    
             var enemy;
             
             if(this.wave3spawn % 2 == 1)
                 enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
             else
-                enemy = this.enemies.add(new Ufo(game, randomX, randomY ));
+                enemy = this.enemies.add(new Fly(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave3spawn++;
         } else {
             game.time.events.remove(this.loop);
             this.spawnstart = true;
         }
-    }
+    },
+    loadwave4: function(){
+        if(this.wave4spawn < this.wave4max){
+            var randomX = game.rnd.integerInRange(-10, 10); 
+            var randomY = game.rnd.integerInRange(-30, 30);    
+            enemy = this.enemies.add(new Biggy(game, randomX, randomY ));
+            this.physics.enable(enemy, Phaser.Physics.ARCADE);
+            this.wave4spawn++;
+        } else {
+            game.time.events.remove(this.loop);
+            this.spawnstart = true;
+        }
+    },
+    loadwave5: function(){
+        if(this.wave5spawn < this.wave5max){
+            var randomX = game.rnd.integerInRange(-10, 10); 
+            var randomY = game.rnd.integerInRange(-30, 30);    
+            var enemy;
+            
+            if(this.wave5spawn % 2 == 1)
+                enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
+            else
+                enemy = this.enemies.add(new Fly(game, randomX, randomY ));
+            this.physics.enable(enemy, Phaser.Physics.ARCADE);
+            this.wave5spawn++;
+        } else {
+            game.time.events.remove(this.loop);
+            this.spawnstart = true;
+        }
+    },
+    
+    loadwave6: function(){
+        if(this.wave6spawn < this.wave6max){
+            var randomX = game.rnd.integerInRange(-10, 10); 
+            var randomY = game.rnd.integerInRange(-30, 30);    
+            enemy = this.enemies.add(new Spikes(game, randomX, randomY ));       
+            this.physics.enable(enemy, Phaser.Physics.ARCADE);
+            this.wave6spawn++;
+        } else {
+            game.time.events.remove(this.loop);
+            this.spawnstart = true;
+        }
+    },
+    loadwave7: function(){
+        if(this.wave7spawn < this.wave7max){
+            var randomX = game.rnd.integerInRange(-10, 10); 
+            var randomY = game.rnd.integerInRange(-30, 30);    
+            enemy = this.enemies.add(new Succ(game, randomX, randomY ));       
+            this.physics.enable(enemy, Phaser.Physics.ARCADE);
+            this.wave7spawn++;
+        } else {
+            game.time.events.remove(this.loop);
+            this.spawnstart = true;
+        }
+    },
+    loadwave8: function(){
+        if(this.wave8spawn < this.wave8max){
+            var randomX = game.rnd.integerInRange(-10, 10); 
+            var randomY = game.rnd.integerInRange(-30, 30);    
+            var enemy;
+            
+            if(this.wave8spawn % 2 == 1)
+                enemy = this.enemies.add(new Drybaby(game, randomX, randomY ));
+            else
+                enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
+            this.physics.enable(enemy, Phaser.Physics.ARCADE);
+            this.wave8spawn++;
+        } else {
+            game.time.events.remove(this.loop);
+            this.spawnstart = true;
+        }
+    },
+    loadwave9: function(){
+        if(this.wave9spawn < this.wave9max){
+            var randomX = game.rnd.integerInRange(-10, 10); 
+            var randomY = game.rnd.integerInRange(-30, 30);    
+            enemy = this.enemies.add(new Succ(game, randomX, randomY ));       
+            this.physics.enable(enemy, Phaser.Physics.ARCADE);
+            this.wave9spawn++;
+        } else {
+            game.time.events.remove(this.loop);
+            this.spawnstart = true;
+        }
+    },
+    
+    loadwave10: function(){
+        if(this.wave10spawn < this.wave10max){
+            var randomX = game.rnd.integerInRange(-10, 10); 
+            var randomY = game.rnd.integerInRange(-30, 30);    
+            var enemy;
+            
+            if(this.wave10spawn % 2 == 1)
+                enemy = this.enemies.add(new Succ(game, randomX, randomY ));
+            else
+                enemy = this.enemies.add(new Drybaby(game, randomX, randomY ));
+            this.physics.enable(enemy, Phaser.Physics.ARCADE);
+            this.wave10spawn++;
+        } else {
+            game.time.events.remove(this.loop);
+            this.spawnstart = true;
+        }
+    },
 };

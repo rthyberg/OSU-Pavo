@@ -24,6 +24,8 @@ DynamicMapBuilder = function(state){
     map.addTilesetImage('tiles', 'tiles', 16, 16);
     layer = map.createLayer(0);
     layer.resizeWorld();
+    
+
 };
 
 
@@ -72,4 +74,6 @@ Road.prototype.draw = function(path){
         }
     });
 }
+
+
 

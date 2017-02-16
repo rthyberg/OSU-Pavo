@@ -94,7 +94,7 @@ Drybaby = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'drybaby');
     this.vx = x;
     this.vy = y;
-    this.hp = 5;
+    this.hp = 25;
     this.pi = 0;
     this.speed = 1.0;
     this.animations.add('walk');
@@ -118,11 +118,11 @@ Succ = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'succ');
     this.vx = x;
     this.vy = y;
-    this.hp = 5;
+    this.hp = 20;
     this.pi = 0;
     this.speed = 1.0;
-    this.animations.add('walk');
-    this.play('walk', 4, true);
+    this.animations.add('fly');
+    this.play('fly', 4, true);
     this.enableBody = true;
     this.loop;
     this.path;
@@ -142,7 +142,7 @@ Biggy = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'biggy');
     this.vx = x;
     this.vy = y;
-    this.hp = 5;
+    this.hp = 10;
     this.pi = 0;
     this.speed = 0.5;
     this.animations.add('fly');
@@ -166,7 +166,7 @@ Fly = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'fly');
     this.vx = x;
     this.vy = y;
-    this.hp = 5;
+    this.hp = 100;
     this.pi = 0;
     this.speed = 1.0;
     this.animations.add('fly');
@@ -191,7 +191,7 @@ Spikes = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'spikes');
     this.vx = x;
     this.vy = y;
-    this.hp = 5;
+    this.hp = 10;
     this.pi = 0;
     this.speed = 1.0;
     this.animations.add('fly');
