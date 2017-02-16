@@ -75,8 +75,8 @@ TowerDefense.LevelAlpha.prototype = {
 
         //this.fire = this.add.group();
         this.enemies = this.add.group();
-
-        this.buildEmitter();
+        this.fire = this.add.group();
+        //this.buildEmitter();
         //this.loop = game.time.events.loop(500, this.loadEnemies, this);
 
        
@@ -145,7 +145,6 @@ TowerDefense.LevelAlpha.prototype = {
     },
     
     buildEmitter:function() {
-        this.fire = this.add.group();
         this.input.onDown.add(this.fireBurst, this);
     },
 
@@ -171,9 +170,11 @@ TowerDefense.LevelAlpha.prototype = {
     },
 
     fireCollision: function(enemy, fire){
-
+        console.log(enemy.hit);
         if(enemy.exists){
-            enemy.kill();
+            enemy.hp -= 1;
+            if(enemy.hp <= 0)
+                enemy.kill();
         }
     },
         

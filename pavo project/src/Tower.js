@@ -109,7 +109,12 @@ createTowerButton.prototype = {
 //  Called if the bullet hits one of the veg sprites
 collisionHandler = function (sprite, bullet) {
     bullet.kill();
-    sprite.damage(1);
+    //sprite.damage(1);
+    
+    sprite.hp -= 1;
+    if(sprite.hp <= 0){
+        sprite.kill();
+    }
 }
 
 // Checks teh distance between Alive targets and the tower object

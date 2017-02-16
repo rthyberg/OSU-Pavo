@@ -12,7 +12,6 @@ TowerDefense.StartMenu.prototype = {
 		//this.preloadBar.cropEnabled = false;
         
         this.selection1 = this.add.bitmapText(this.world.centerX-155, this.world.centerY-180, 'nokia16', 'PAVOS TOWER DEFENSE', 24);
-        this.selection1.events.onInputDown.add(this.select1, this);
         
         var text = game.add.text(game.world.centerX, game.world.centerY-100, "Demo1", { font: "65px Arial", fill: "#ff0044", align: "center" });
         text.anchor.set(0.5);
@@ -66,7 +65,7 @@ TowerDefense.StartMenu.prototype = {
 //        });
     },
     select1: function(){
-        game.state.start("LevelOne");
+        
     },                     
                            
 	update: function () {

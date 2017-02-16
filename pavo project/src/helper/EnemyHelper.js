@@ -1,3 +1,15 @@
+MoveFunction = function(path){
+    pathindex = Math.round(this.pi);
+    if(pathindex < path.length){
+        this.x = path[pathindex].x + this.vx;
+        this.y = path[pathindex].y + this.vy;
+        this.pi += this.speed;
+    } else {
+        this.pi = path.length;
+    }
+}
+
+
 // BUILD UFO
 Ufo = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'ufo');
@@ -9,23 +21,11 @@ Ufo = function(game, x, y){
     this.animations.add('walk');
     this.play('walk', 5, true);
     this.enableBody = true;
-    this.loop;
-    this.path;
 }
 
 Ufo.prototype = Object.create(Phaser.Sprite.prototype);
 Ufo.prototype.constructor = Ufo;
-
-Ufo.prototype.move = function(path){
-    pathindex = Math.round(this.pi);
-    if(pathindex < path.length){
-        this.x = path[pathindex].x + this.vx;
-        this.y = path[pathindex].y + this.vy;
-        this.pi += this.speed;
-    } else {
-        this.pi = path.length;
-    }
-}
+Ufo.prototype.move = MoveFunction;
 
 
 
@@ -40,23 +40,10 @@ Spacebug = function(game, x, y){
     this.animations.add('walk');
     this.play('walk', 5, true);
     this.enableBody = true;
-    this.loop;
-    this.path;
 }
-
 Spacebug.prototype = Object.create(Phaser.Sprite.prototype);
 Spacebug.prototype.constructor = Spacebug;
-
-Spacebug.prototype.move = function(path){
-    pathindex = Math.round(this.pi);
-    if(pathindex < path.length){
-        this.x = path[pathindex].x + this.vx;
-        this.y = path[pathindex].y + this.vy;
-        this.pi += this.speed;
-    } else {
-        this.pi = path.length;
-    }
-}
+Spacebug.prototype.move = MoveFunction;
 
 
 /* Class File for Zombie*/
@@ -70,24 +57,11 @@ Zombie = function (game, x, y) {
     this.animations.add('walk');
     this.play('walk', 10, true);
     this.enableBody = true;
-    this.loop;
-    this.path;
 };
-
 Zombie.prototype = Object.create(Phaser.Sprite.prototype);
 Zombie.prototype.constructor = Zombie;
-Zombie.prototype.move = function(path){
-    
-    pathindex = Math.round(this.pi);
-    if(pathindex < path.length){
-        this.x = path[pathindex].x + this.vx;
-        this.y = path[pathindex].y + this.vy;
-        this.pi += this.speed;
-    } else {
-        this.pi = path.length;
-    }
-    
-}
+Zombie.prototype.move = MoveFunction;
+
 
 //BUILD DRY BABY (sneaky and mean, spider inside my dreams)
 Drybaby = function(game, x, y){
@@ -100,18 +74,11 @@ Drybaby = function(game, x, y){
     this.animations.add('walk');
     this.play('walk', 3, true);
     this.enableBody = true;
-    this.loop;
-    this.path;
 }
 
 Drybaby.prototype = Object.create(Phaser.Sprite.prototype);
 Drybaby.prototype.constructor = Drybaby;
-
-Drybaby.prototype.move = function(path){
-    this.x = path[this.pi].x + this.vx;
-    this.y = path[this.pi].y + this.vy;
-    this.pi += Math.round(this.speed);
-}
+Drybaby.prototype.move = MoveFunction;
 
 //BUILD SUCCUBUS
 Succ = function(game, x, y){
@@ -124,18 +91,11 @@ Succ = function(game, x, y){
     this.animations.add('walk');
     this.play('walk', 4, true);
     this.enableBody = true;
-    this.loop;
-    this.path;
 }
 
 Succ.prototype = Object.create(Phaser.Sprite.prototype);
 Succ.prototype.constructor = Succ;
-
-Succ.prototype.move = function(path){
-    this.x = path[this.pi].x + this.vx;
-    this.y = path[this.pi].y + this.vy;
-    this.pi += Math.round(this.speed);
-}
+Succ.prototype.move = MoveFunction;
 
 //BUILD Biggy
 Biggy = function(game, x, y){
@@ -148,18 +108,11 @@ Biggy = function(game, x, y){
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
-    this.loop;
-    this.path;
 }
 
 Biggy.prototype = Object.create(Phaser.Sprite.prototype);
 Biggy.prototype.constructor = Biggy;
-
-Biggy.prototype.move = function(path){
-    this.x = path[this.pi].x + this.vx;
-    this.y = path[this.pi].y + this.vy;
-    this.pi += Math.round(this.speed);
-}
+Biggy.prototype.move = MoveFunction;
 
 //BUILD Fly
 Fly = function(game, x, y){
@@ -172,18 +125,11 @@ Fly = function(game, x, y){
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
-    this.loop;
-    this.path;
 }
 
 Fly.prototype = Object.create(Phaser.Sprite.prototype);
 Fly.prototype.constructor = Fly;
-
-Fly.prototype.move = function(path){
-    this.x = path[this.pi].x + this.vx;
-    this.y = path[this.pi].y + this.vy;
-    this.pi += Math.round(this.speed);
-}
+Fly.prototype.move = MoveFunction;
 
 
 //BUILD Spikes
@@ -197,18 +143,11 @@ Spikes = function(game, x, y){
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
-    this.loop;
-    this.path;
 }
 
 Spikes.prototype = Object.create(Phaser.Sprite.prototype);
 Spikes.prototype.constructor = Spikes;
-
-Spikes.prototype.move = function(path){
-    this.x = path[this.pi].x + this.vx;
-    this.y = path[this.pi].y + this.vy;
-    this.pi += Math.round(this.speed);
-}
+Spikes.prototype.move = MoveFunction;
 
 
 //BACKGROUND
@@ -222,8 +161,6 @@ Flames = function(game, x, y){
     this.animations.add('fly');
     this.play('fly', 3, true);
     this.enableBody = true;
-    this.loop;
-    this.path;
 }
 
 Flames.prototype = Object.create(Phaser.Sprite.prototype);
@@ -239,8 +176,6 @@ Spikey = function(game, x, y){
     this.animations.add('fly');
     this.play('fly', 1, true);
     this.enableBody = true;
-    this.loop;
-    this.path;
 }
 
 Spikey.prototype = Object.create(Phaser.Sprite.prototype);
@@ -256,8 +191,6 @@ Rocks1 = function(game, x, y){
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
-    this.loop;
-    this.path;
 }
 
 Rocks1.prototype = Object.create(Phaser.Sprite.prototype);
@@ -273,8 +206,6 @@ Rocks2 = function(game, x, y){
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
-    this.loop;
-    this.path;
 }
 
 Rocks2.prototype = Object.create(Phaser.Sprite.prototype);
@@ -290,8 +221,6 @@ Rocks3 = function(game, x, y){
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
-    this.loop;
-    this.path;
 }
 
 Rocks3.prototype = Object.create(Phaser.Sprite.prototype);
