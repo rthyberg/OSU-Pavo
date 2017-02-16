@@ -56,11 +56,13 @@ TowerDefense.Game.prototype = {
         this.mum.animations.add('walk');
         //this.mum.animations.play('walk', 10, true);
 
-        this.towerList = Tower.createGroup(this);
-      //  this.towerList.create(300, 300, 'tower', 'bullet');
-      //  this.towerList.create(300, 100, 'tower', 'bullet');
+        this.towerList = Tower.createGroup(this); // creates group  of towers
+        this.towerList.inputEnableChildren = true; // enable input for all future children
 
-        this.uibutton = new createTowerButton(this, 300, 500, 'tower', 'tower', this.towerList);
+        this.towerUI = new towerUI(game); // create a new UI object
+        this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
+
+        this.uibutton = new createTowerButton(this, 300, 500, 'tower', 'tower', this.towerList);// create Tower button
         this.uibutton.create();
         //add health to the base
         this.base.health = 3;
@@ -77,12 +79,8 @@ TowerDefense.Game.prototype = {
 
     update: function() {
         this.uibutton.update();
-        //this.placeHolder.x = game.input.mousePointer.worldX;
-      //  this.placeHolder.y = game.input.mousePointer.worldY;
       //  console.log(this.towerList.countLiving());
-        this.towerList.callAll('fire', null, this.mum);
-        //this.test_Tower.fire(this.mum);
-        //this.test_Tower2.fire(this.mum);
+        //this.towerList.callAll('fireAt', null, this.mum);
         if (this.physics.arcade.collide(this.base, this.mum)){
             if (this.base.health == 1)
                 this.base.heal(3);

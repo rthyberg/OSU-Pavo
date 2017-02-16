@@ -9,10 +9,9 @@ Tower = function (game, x, y, key, bulletkey) {
   // kills bullet if left world
   this.weapon.bulletKillDistance = 200;
   this.weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
-  this.weapon.bulletSpeed = 450;
-  this.weapon.fireRate = 700;
   this.weapon.bulletSpeed = 300;
   this.weapon.fireRate = 500;
+  this.damage = 1;
   // tracks the pos of the tower
   this.weapon.trackSprite(this,0,0,true);
 
@@ -26,6 +25,10 @@ Tower.prototype = Object.create(Phaser.Sprite.prototype);
 Tower.prototype.constructor = Tower;
 
 /* Fires at this.target */
+Tower.prototype.updateRange = function() {
+    this.towerRange = new Phaser.Circle(this.x,this.y, (this.weapon.bulletKillDistance*2));
+};
+
 Tower.prototype.fireAt = function () {
     this.weapon.fireAtSprite(this.target);
     game.physics.arcade.overlap(this.target, this.weapon.bullets, collisionHandler, null, this);
@@ -64,54 +67,10 @@ Tower.createGroup = function (game) {
   return t;             // returns a refernce to this group
 }
 
-/*Creates a UI button *
-*key represents the button image key
-*place represets the image that will be glues to mouse
-*list represents the group created by Tower.creatGroup() */
-
- function createTowerButton(game, x, y, key, place, list) {
-  this.game = game; // sets the current game
-  this.towerList = list; // sets the tower group
-  this.placeHolder = game.add.sprite(game.input.x, game.input.y, place);    // add a sprite that hovers around the mouse
-  this.placeHolder.anchor.set(0.5,0.5);                                    // sets sprite to have centered origin
-  this.placeHolder.visible = false;                                        // hide this sprite
-  this.towerButton = game.add.button(x, y, key, null , game, 2,1,0);      // add the button to the x, y
-
-  // Displays Towers "range" when adding
-  var graphics = this.game.add.graphics(0, 0);
-  graphics.beginFill(0xFF0000, 0);
-  graphics.lineStyle(2, 0xffd900, 1)
-  graphics.drawCircle(0, 0, (200 *2));
-  this.placeHolder.addChild(graphics);
-};
-
-createTowerButton.prototype = {
-  // Call Create in the levels create function after the obj as been made
-  create: function ()  {
-    this.towerButton.onInputDown.add(showTower, this);                  // add listener for clicking button down
-    this.towerButton.onInputUp.add(buildTower, this);                  // add listener for releasing after clicking hte button
-    function showTower () {
-      this.placeHolder.visible = true;                                // when mouse pressed down show the "fake tower"
-    }
-    function  buildTower() {
-      this.placeHolder.visible = false;                             // when button let go build the tower on the x, y
-      this.towerList.create(this.game.input.x, this.game.input.y, 'tower', 'bullet');
-    }
-  },
-  // call update in the levels update function
-  update: function () {
-    this.placeHolder.x = this.game.input.mousePointer.worldX;
-    this.placeHolder.y = this.game.input.mousePointer.worldY;
-  }
-};
-
-
 //  Called if the bullet hits one of the veg sprites
 collisionHandler = function (sprite, bullet) {
     bullet.kill();
-    //sprite.damage(1);
-    
-    sprite.hp -= 1;
+    sprite.hp -= this.damage;
     if(sprite.hp <= 0){
         sprite.kill();
     }
@@ -119,23 +78,7 @@ collisionHandler = function (sprite, bullet) {
 
 // Checks teh distance between Alive targets and the tower object
 distanceFormula = function (target) {
-  var contained = this.towerRange.contains(target.x, target.y); // set variable to if current target from group is in range
-if(contained) {
-  if(this.target == null) {  // if our current target is null make the first target in group the new target
-    this.target = target;
-  } else {
-    var current = game.physics.arcade.distanceBetween(target, this, true);  // check distance between current target and target of the group
-    var old = game.physics.arcade.distanceBetween(this.target, this, true);
-    if(current < old) {                                                    // set the current target if its closer than the old
-      this.target = target;
-    }
-  }
- }
-}
-
-// Checks teh distance between Alive targets and the tower object
-distanceFormula = function (target) {
-  var contained = this.towerRange.contains(target.x, target.y); // set variable to if current target from group is in range
+var contained = this.towerRange.contains(target.x, target.y); // set variable to if current target from group is in range
 if(contained) {
   if(this.target == null) {  // if our current target is null make the first target in group the new target
     this.target = target;
