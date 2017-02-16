@@ -70,7 +70,10 @@ Tower.createGroup = function (game) {
 //  Called if the bullet hits one of the veg sprites
 collisionHandler = function (sprite, bullet) {
     bullet.kill();
-    sprite.damage(this.damage);
+    sprite.hp -= this.damage;
+    if(sprite.hp <= 0){
+        sprite.kill();
+    }
 }
 
 // Checks teh distance between Alive targets and the tower object
