@@ -35,13 +35,20 @@ TowerDefense.StartMenu.prototype = {
             game.state.start("LevelOne");
         }, this);
         
-        var text4 = game.add.text(game.world.centerX-200, game.world.centerY-100, "WaveDemo", { font: "30px Arial", fill: "#ff0044", align: "center" });
+        var text4 = game.add.text(game.world.centerX-300, game.world.centerY-100, "WaveDemo", { font: "25px Arial", fill: "#ff0044", align: "left" });
         text4.anchor.set(0.5);
         text4.inputEnabled = true;
         text4.events.onInputDown.add(function(){
             game.state.start("WaveDemo");
         },this);
           
+        var text5 = game.add.text(game.world.centerX-300, game.world.centerY-50, "PathBuildDemo", { font: "25px Arial", fill: "#ff0044", align: "left" });
+        text5.anchor.set(0.5);
+        text5.inputEnabled = true;
+        text5.events.onInputDown.add(function(){
+            game.state.start("PathBuildDemo");
+        },this);
+        
         var textAlpha = game.add.text(game.world.centerX, game.world.centerY+200, "LevelAlpha", { font: "65px Arial", fill: "#ff0044", align: "center" });
         textAlpha.anchor.set(0.5);
         textAlpha.inputEnabled = true;

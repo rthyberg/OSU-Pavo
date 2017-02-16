@@ -11,9 +11,19 @@ TowerDefense.LevelAlpha = function(game) {
 
     this.bmd = null;
 
+    // Wave variables
+    this.spawnstart = true;
+    this.wave1spawn = 0;
+    this.wave1max = 25;
+    this.wave2spawn = 0;
+    this.wave2max = 25;
+    this.wave3spawn = 0;
+    this.wave3max = 30;
+    
+    
     this.points = {
-        'x': [ 32, 128, 256, 384, 512, 608 ],
-        'y': [ 240, 240, 240, 240, 240, 240 ]
+        'x': [ 50, 50, 50, 250, 250,650 ],
+        'y': [ 0, 200, 400, 400, 240,240 ]
     };
 
     this.path = [];
@@ -28,51 +38,25 @@ TowerDefense.LevelAlpha.prototype = {
         this.load.image('explosion', 'img/explosion.png');
         this.load.spritesheet('zombie', 'img/enemies/zombie64x64.png', 64, 64, 8);
         this.load.spritesheet('boom', 'img/explode.png', 128, 128, 8);
+        
 	},
 
 	create: function () {
-        //create tiles
-        var data = '';
+        // Build dynamic map
+		DynamicMapBuilder(this);
 
-        for (var y = 0; y < 128; y++)
-        {
-            for (var x = 0; x < 128; x++)
-            {
-                data += this.rnd.between(0, 20).toString();
-
-                if (x < 127)
-                {
-                    data += ',';
-                }
-            }
-
-            if (y < 127)
-            {
-                data += "\n";
-            }
-        }
-
-        //console.log(data);
-
-        //add data to cache
-        this.cache.addTilemap('dynamicMap', null, data, Phaser.Tilemap.CSV);
-
-        //create map using 16x16 tiles
-        map = this.add.tilemap('dynamicMap', 16, 16);
-
-        //tiles == image cache key
-        map.addTilesetImage('tiles', 'tiles', 16, 16);
-
-        layer = map.createLayer(0);
-
-        layer.resizeWorld();
-
+        this.bmd = this.add.bitmapData(this.game.width, this.game.height);
+        this.bmd.addToWorld();
+        
+        // Plot and Draw Path First
+        this.plot();
+        
         //add the home base
-        this.base = this.add.sprite(520, 200, 'base');
+        this.base = this.add.sprite(600, 200, 'base');
         this.physics.enable(this.base, Phaser.Physics.ARCADE);
         this.base.body.collideWorldBounds = true;
         this.base.body.immovable = true;
-
+    
         //add health to the base
         this.base.health = 3;
         this.base.maxHealth = 12;
@@ -80,7 +64,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.hearts.enableBody = true;
         this.healthMeterIcons = this.game.add.plugin(Phaser.Plugin.HealthMeter);
         this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 20, x: 20, width: 32, height: 32, rows: 2});
-
+        
         // Towers
         this.towerList = Tower.createGroup(this); // creates group  of towers
         this.towerList.inputEnableChildren = true; // enable input for all future children
@@ -95,22 +79,9 @@ TowerDefense.LevelAlpha.prototype = {
         this.enemies = this.add.group();
 
         this.buildEmitter();
-        this.loop = game.time.events.loop(500, this.loadEnemies, this);
+        //this.loop = game.time.events.loop(500, this.loadEnemies, this);
 
-        this.stage.backgroundColor = '#204090';
-
-        this.bmd = this.add.bitmapData(this.game.width, this.game.height);
-        this.bmd.addToWorld();
-
-        var py = this.points.y;
-
-        for (var i = 0; i < py.length; i++)
-        {
-            py[i] = this.rnd.between(300, 130);
-        }
-
-        this.plot();
-
+       
 	},
     plot: function () {
 
@@ -125,12 +96,6 @@ TowerDefense.LevelAlpha.prototype = {
             var px = this.math.linearInterpolation(this.points.x, i);
             var py = this.math.linearInterpolation(this.points.y, i);
 
-            // var px = this.math.bezierInterpolation(this.points.x, i);
-            // var py = this.math.bezierInterpolation(this.points.y, i);
-
-            // var px = this.math.catmullRomInterpolation(this.points.x, i);
-            // var py = this.math.catmullRomInterpolation(this.points.y, i);
-
             this.bmd.rect(px, py, 1, 1, 'rgba(255, 255, 255, 1)');
 
             this.path.push( { x: px, y: py });
@@ -140,6 +105,9 @@ TowerDefense.LevelAlpha.prototype = {
         {
             this.bmd.rect(this.points.x[p]-3, this.points.y[p]-3, 6, 6, 'rgba(255, 0, 0, 1)');
         }
+        
+        road = new Road("darkroad");
+        road.draw(this.path);
 
     },
 
@@ -158,29 +126,18 @@ TowerDefense.LevelAlpha.prototype = {
     },
 
     checkEnemy: function(enemy){
-        if(this.totalspawn > 25){
-            game.time.events.remove(this.loop);
-        }
         try {
-            //console.log(game.width);
-
             if (enemy.x > game.width)
             {
-//                console.log(enemy.life);
-//                console.log(enemy);
-//                console.log(enemy.x);
                 this.enemies.remove(enemy, true);
             }
-
-            enemy.x = this.path[enemy.pi].x;
-            enemy.y = this.path[enemy.pi].y;
-            enemy.pi++;
+            
             if (enemy.pi >= this.path.length)
             {
                 this.enemies.remove(enemy, true);
-                enemy.pi = 0;
             }
-
+            enemy.move(this.path);
+            
         }
         catch (e)
         {
@@ -224,12 +181,9 @@ TowerDefense.LevelAlpha.prototype = {
         
     baseCollision: function(enemy, base){
         
-        
         var f = this.fire.create(450, 150, 'boom');
         f.time = 2;
         f.animations.add('burst');
-
-        
     },
     
     kill: function(enemy){
@@ -239,7 +193,8 @@ TowerDefense.LevelAlpha.prototype = {
     update: function () {
         this.uibutton.update()
         this.towerList.callAll('selectTarget', null, this.enemies);
-        this.enemies.setAll('x', 1, true, true, 1);
+        this.checkwave();
+        //this.enemies.setAll('x', 1, true, true, 1);
         this.enemies.forEach(this.checkEnemy, this, true);
         this.fire.forEach(this.checkFire, this, true);
         this.physics.arcade.overlap(this.enemies, this.fire, this.fireCollision, null, this);
@@ -249,9 +204,65 @@ TowerDefense.LevelAlpha.prototype = {
             this.enemies.forEach(this.kill, this, true);
             this.base.damage(1);
             if (this.base.health==0){
-
                 game.paused=true;
             }
         }
 	},
+    
+    
+    // MANAGE waves
+    checkwave: function(){
+        if(this.spawnstart && this.enemies.total < 1){
+            this.spawnstart = false;
+            if(this.wave1spawn < this.wave1max){
+                this.loop = game.time.events.loop(400, this.loadwave1, this);
+            } else if(this.wave2spawn < this.wave2max){
+                this.loop = game.time.events.loop(400, this.loadwave2, this);
+            } else if(this.wave3spawn < this.wave3max){
+                this.loop = game.time.events.loop(400, this.loadwave3, this);
+            }
+        }
+        
+    },
+    loadwave1: function(){
+        if(this.wave1spawn < this.wave1max){
+            var randomX = game.rnd.integerInRange(-30, 30); 
+            var randomY = game.rnd.integerInRange(-30, 30);   
+            enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
+            this.physics.enable(enemy, Phaser.Physics.ARCADE);
+            this.wave1spawn++;
+        } else {
+            game.time.events.remove(this.loop);
+            this.spawnstart = true;
+        }
+    },
+    loadwave2: function(){
+        if(this.wave2spawn < this.wave2max){
+            var randomX = game.rnd.integerInRange(-30, 30); 
+            var randomY = game.rnd.integerInRange(-30, 30);       
+            enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
+            this.physics.enable(enemy, Phaser.Physics.ARCADE);
+            this.wave2spawn++;
+        } else {
+            game.time.events.remove(this.loop);
+            this.spawnstart = true;
+        }
+    },
+    loadwave3: function(){
+        if(this.wave3spawn < this.wave3max){
+            var randomX = game.rnd.integerInRange(-30, 30); 
+            var randomY = game.rnd.integerInRange(-30, 30);    
+            var enemy;
+            
+            if(this.wave3spawn % 2 == 1)
+                enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
+            else
+                enemy = this.enemies.add(new Ufo(game, randomX, randomY ));
+            this.physics.enable(enemy, Phaser.Physics.ARCADE);
+            this.wave3spawn++;
+        } else {
+            game.time.events.remove(this.loop);
+            this.spawnstart = true;
+        }
+    }
 };
