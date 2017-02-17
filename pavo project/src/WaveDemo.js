@@ -214,7 +214,11 @@ TowerDefense.WaveDemo.prototype = {
         if(this.wave1spawn < this.wave1max){
             var randomX = game.rnd.integerInRange(-10, 10); 
             var randomY = game.rnd.integerInRange(-30, 30);   
+<<<<<<< HEAD
+            enemy = this.enemies.add(new Fly(game, randomX, randomY ));
+=======
             enemy = this.enemies.add(new Ufo(game, randomX, randomY ));
+>>>>>>> master
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave1spawn++;
         } else {
@@ -243,7 +247,7 @@ TowerDefense.WaveDemo.prototype = {
             if(this.wave3spawn % 2 == 1)
                 enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
             else
-                enemy = this.enemies.add(new Ufo(game, randomX, randomY ));
+                enemy = this.enemies.add(new Fly(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave3spawn++;
         } else {
@@ -251,4 +255,6 @@ TowerDefense.WaveDemo.prototype = {
             this.spawnstart = true;
         }
     }
+    
+   
 };
