@@ -15,7 +15,7 @@ Ufo = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'ufo');
     this.vx = x;
     this.vy = y;
-    this.hp = 5;
+    this.hp = 3;
     this.pi = 0;
     this.speed = 1;
     this.animations.add('walk');
@@ -34,7 +34,7 @@ Spacebug = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'spacebug');
     this.vx = x;
     this.vy = y;
-    this.hp = 5;
+    this.hp = 3;
     this.pi = 0;
     this.speed = 1.3;
     this.animations.add('walk');
@@ -102,7 +102,7 @@ Biggy = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'biggy');
     this.vx = x;
     this.vy = y;
-    this.hp = 10;
+    this.hp = 4;
     this.pi = 0;
     this.speed = 0.5;
     this.animations.add('fly');
@@ -119,7 +119,7 @@ Fly = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'fly');
     this.vx = x;
     this.vy = y;
-    this.hp = 100;
+    this.hp = 2;
     this.pi = 0;
     this.speed = 1.0;
     this.animations.add('fly');
@@ -137,7 +137,7 @@ Spikes = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'spikes');
     this.vx = x;
     this.vy = y;
-    this.hp = 10;
+    this.hp = 5;
     this.pi = 0;
     this.speed = 1.0;
     this.animations.add('fly');
