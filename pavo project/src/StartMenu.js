@@ -48,6 +48,20 @@ TowerDefense.StartMenu.prototype = {
             game.state.start("PathBuildDemo");
         },this);
         
+        var textDarkRoom = game.add.text(game.world.centerX-300, game.world.centerY+150, "DarkRoom", { font: "25px Arial", fill: "#ff0044", align: "left" });
+        textDarkRoom.anchor.set(0.5);
+        textDarkRoom.inputEnabled = true;
+        textDarkRoom.events.onInputDown.add(function(){
+            game.state.start("DarkRoom");
+        },this);
+        
+        var textSpookRoom = game.add.text(game.world.centerX-300, game.world.centerY+200, "SpookRoom", { font: "25px Arial", fill: "#ff0044", align: "left" });
+        textSpookRoom.anchor.set(0.5);
+        textSpookRoom.inputEnabled = true;
+        textSpookRoom.events.onInputDown.add(function(){
+            game.state.start("SpookRoom");
+        },this);
+        
         var textAlpha = game.add.text(game.world.centerX, game.world.centerY+200, "LevelAlpha", { font: "65px Arial", fill: "#ff0044", align: "center" });
         textAlpha.anchor.set(0.5);
         textAlpha.inputEnabled = true;

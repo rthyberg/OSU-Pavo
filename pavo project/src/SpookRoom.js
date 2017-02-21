@@ -1,4 +1,4 @@
-TowerDefense.LevelAlpha = function(game) {
+TowerDefense.SpookRoom = function(game) {
     this.preloadBar = null;
     this.titleText = null;
     this.map = null;
@@ -44,12 +44,12 @@ TowerDefense.LevelAlpha = function(game) {
     this.pi = 0;
 };
 
-TowerDefense.LevelAlpha.prototype = {
+TowerDefense.SpookRoom.prototype = {
 
 	create: function () {
         // Build dynamic map
-		DynamicMapBuilder(this, 0);
-        
+		DynamicMapBuilder(this, 2);
+
         this.bmd = this.add.bitmapData(this.game.width, this.game.height);
         this.bmd.addToWorld();
         
@@ -200,7 +200,7 @@ TowerDefense.LevelAlpha.prototype = {
     },
 
     fireCollision: function(enemy, fire){
-        console.log(enemy.hit);
+        //console.log(enemy.hit);
         if(enemy.exists){
             enemy.hp -= 1;
             if(enemy.hp <= 0)
@@ -246,28 +246,28 @@ TowerDefense.LevelAlpha.prototype = {
     checkwave: function(){
         if(this.spawnstart && this.enemies.total < 1){
             this.spawnstart = false;
-            if(this.wave1spawn < this.wave1max){
-                this.loop = game.time.events.loop(400, this.loadwave1, this);
-            } else if(this.wave2spawn < this.wave2max){
-                this.loop = game.time.events.loop(400, this.loadwave2, this);
-            } else if(this.wave3spawn < this.wave3max){
-                this.loop = game.time.events.loop(400, this.loadwave3, this);
-            } else if(this.wave4spawn < this.wave4max){
-                this.loop = game.time.events.loop(400, this.loadwave4, this);
-            } else if(this.wave5spawn < this.wave5max){
-                this.loop = game.time.events.loop(400, this.loadwave5, this);
-            } else if(this.wave6spawn < this.wave6max){
-                this.loop = game.time.events.loop(400, this.loadwave6, this);
-            } else if(this.wave7spawn < this.wave7max){
-                this.loop = game.time.events.loop(400, this.loadwave7, this);
-            } else if(this.wave8spawn < this.wave8max){
-                this.loop = game.time.events.loop(400, this.loadwave8, this);
-            } else if(this.wave9spawn < this.wave9max){
-                this.loop = game.time.events.loop(400, this.loadwave9, this);
-            } else if(this.wave10spawn < this.wave10max){
-                this.loop = game.time.events.loop(400, this.loadwave10, this);
-            }
-            
+            // if(this.wave1spawn < this.wave1max){
+                // this.loop = game.time.events.loop(400, this.loadwave1, this);
+            // }
+            // } else if(this.wave2spawn < this.wave2max){
+                // this.loop = game.time.events.loop(400, this.loadwave2, this);
+            // } else if(this.wave3spawn < this.wave3max){
+                // this.loop = game.time.events.loop(400, this.loadwave3, this);
+            // } else if(this.wave4spawn < this.wave4max){
+                // this.loop = game.time.events.loop(400, this.loadwave4, this);
+            // } else if(this.wave5spawn < this.wave5max){
+                // this.loop = game.time.events.loop(400, this.loadwave5, this);
+            // } else if(this.wave6spawn < this.wave6max){
+                // this.loop = game.time.events.loop(400, this.loadwave6, this);
+            // } else if(this.wave7spawn < this.wave7max){
+                // this.loop = game.time.events.loop(400, this.loadwave7, this);
+            // } else if(this.wave8spawn < this.wave8max){
+                // this.loop = game.time.events.loop(400, this.loadwave8, this);
+            // } else if(this.wave9spawn < this.wave9max){
+                // this.loop = game.time.events.loop(400, this.loadwave9, this);
+            // } else if(this.wave10spawn < this.wave10max){
+                if (this.wave10spawn < this.wave10max)
+                    this.loop = game.time.events.loop(400, this.loadwave10, this);
             
             
         }
@@ -403,7 +403,7 @@ TowerDefense.LevelAlpha.prototype = {
             var randomX = game.rnd.integerInRange(-10, 10); 
             var randomY = game.rnd.integerInRange(-30, 30);    
             var enemy;
-            enemy = this.enemies.add(new Stan(game, randomX, randomY ));     
+            enemy = this.enemies.add(new Baby(game, randomX, randomY ));  
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave10spawn++;
         } else {

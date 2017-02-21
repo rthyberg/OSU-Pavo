@@ -18,6 +18,8 @@ TowerDefense.Preloader.prototype = {
         this.game.load.atlasJSONArray('dmgUp', 'img/UI/UP/TestButtonSheet.png', 'img/UI/UP/TestButtonSheet.json');
         /**********MAP*******************/
         this.game.load.image('tiles', 'img/ground.png');
+        this.game.load.image('darkTile', 'img/dark_ground.png');
+        this.game.load.image('spook', 'img/spook_ground.png');
         /*************TOWER****************/
         this.game.load.image('tower', 'img/tower.png');
         this.game.load.image('bullet', 'img/explosion.png');
@@ -35,7 +37,10 @@ TowerDefense.Preloader.prototype = {
         this.game.load.spritesheet('fly', 'img/fly.png', 32, 32, 2);
         this.game.load.spritesheet('spikes', 'img/spikes.png', 48, 48, 2);
         this.game.load.spritesheet('succ', 'img/succ.png', 32, 32, 2);
-        this.game.load.spritesheet('base', 'img/base.png', 64, 64, 180);
+        this.game.load.spritesheet('base', 'img/base.png', 64, 64, 1);
+        this.game.load.spritesheet('stan', 'img/stan.png', 200, 124, 12);
+        this.game.load.spritesheet('mega', 'img/megasatan.png', 166, 293, 3);
+        this.game.load.spritesheet('baby', 'img/baby.png', 64, 64, 6);
         this.game.load.spritesheet('bg_fire', 'img/bg_assets/fire_asset.png', 52, 52, 3);
         this.game.load.spritesheet('spikey', 'img/bg_assets/grid_spikes.png', 31, 31, 1);
         this.game.load.spritesheet('rocks1', 'img/bg_assets/rocks_basement.png', 31, 31, 1);
