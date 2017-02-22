@@ -18,7 +18,7 @@ Tower = function (game, x, y, key, bulletkey) {
   // circle for range
   this.towerRange = new Phaser.Circle(x, y, (this.weapon.bulletKillDistance*2));
   this.target = null;
-  this.targetDist = null;
+  this.targetDist = 0;
   this.game.physics.enable(this, Phaser.Physics.ARCADE);
   };
 
@@ -31,12 +31,15 @@ Tower.prototype.updateRange = function() {
 };
 
 Tower.prototype.fireAt = function (path) {
-    var offSet = 2;
-    if(this.targetDist >(this.weapon.bulletKillDistance)/2 ) {
-      offSet = 50;
+    // offSet gets the time in flight times a facrot of 50 ten times the targets speed
+    var offSet = Math.round((this.targetDist/this.weapon.bulletSpeed)*50)*this.target.speed;
+    //console.log(offSet);
+    var pathIndex = Math.round(this.target.pi+offSet);
+    if(pathIndex > (path.length-1)) { // check that we dont go out of path's max index
+        pathIndex = (path.length-1);
     }
-    var xLoc = path[Math.round(this.target.pi) + offSet].x + this.target.vx;
-    var yLoc = path[Math.round(this.target.pi)+offSet].y + this.target.vy;
+    var xLoc = path[pathIndex].x + this.target.vx; // set location by gettin next path and adding targets offset
+    var yLoc = path[pathIndex].y + this.target.vy;
     this.weapon.fireAtXY(xLoc, yLoc);
     game.physics.arcade.overlap(this.target, this.weapon.bullets, collisionHandler, null, this);
 };
@@ -49,8 +52,8 @@ Tower.prototype.selectTarget = function(targets, path) {
       inRange = (this.towerRange.contains(this.target.x, this.target.y));  // check if current is inrange
       } else inRange = false;
   if(this.target == null || !inRange  || this.target.alive == false ) { // if target is not valid then find new
-    this.target = null;
-    targets.forEachAlive(distanceFormula, this);
+      this.target = null;
+      targets.forEachAlive(distanceFormula, this);
   }
   if(this.target != null && inRange) {
     this.targetDist = game.physics.arcade.distanceBetween(this.target, this, true);

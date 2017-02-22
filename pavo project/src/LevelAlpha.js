@@ -230,7 +230,7 @@ TowerDefense.LevelAlpha.prototype = {
 
     update: function () {
         this.uibutton.update()
-        this.towerList.callAll('selectTarget', null, this.enemies, this.path);
+        this.towerList.callAll('selectTarget', null, this.enemies, this.path); // now needs path variable to be passed in
         this.checkwave();
         //this.enemies.setAll('x', 1, true, true, 1);
         this.enemies.forEach(this.checkEnemy, this, true);
