@@ -18,7 +18,9 @@ TowerDefense.WaveDemo = function(game) {
     this.wave3spawn = 0;
     this.wave3max = 30;
     
-
+    //graphics - drawing object
+    this.screenMessage;
+    
     this.points = {
         'x': [ 0, 300, 600, 800],
         'y': [ 250, 250, 400,  400 ]
@@ -31,8 +33,6 @@ TowerDefense.WaveDemo.prototype = {
 
 	preload: function () {
         console.log("wavedemo");
-        this.game.load.tilemap('cave', 'img/tiles/cave/cave_base_map.json', null, Phaser.Tilemap.TILED_JSON);
-        this.game.load.image('tiles', 'img/tiles/cave/Cave.png');
         
 	},
 
@@ -93,6 +93,8 @@ TowerDefense.WaveDemo.prototype = {
             var rocks3 = this.bga.add(new Rocks3(game, randomX, randomY));
             this.physics.enable(rocks3, Phaser.Physics.ARCADE);           
         }
+        
+        
     },
 
     plot: function () {
@@ -201,11 +203,21 @@ TowerDefense.WaveDemo.prototype = {
         if(this.spawnstart && this.enemies.total < 1){
             this.spawnstart = false;
             if(this.wave1spawn < this.wave1max){
+                // Start Wave Message
+                this.screenMessage = drawWaveScreen(this, "Wave One", 2000);
                 this.loop = game.time.events.loop(400, this.loadwave1, this);
+                
+                
             } else if(this.wave2spawn < this.wave2max){
+                // Start Wave Message
+                this.screenMessage = drawWaveScreen(this, "Wave Two", 2000);
                 this.loop = game.time.events.loop(400, this.loadwave2, this);
             } else if(this.wave3spawn < this.wave3max){
+                // Start Wave Message
+                this.screenMessage = drawWaveScreen(this, "Wave Three", 2000);
                 this.loop = game.time.events.loop(400, this.loadwave3, this);
+            } else if(this.wave3spawn >= this.wave3max){
+                this.screenMessage = drawGameOverScreen(this, "Congratulations","Next Level", "LevelAlpha");   
             }
         }
         
@@ -214,11 +226,7 @@ TowerDefense.WaveDemo.prototype = {
         if(this.wave1spawn < this.wave1max){
             var randomX = game.rnd.integerInRange(-10, 10); 
             var randomY = game.rnd.integerInRange(-30, 30);   
-<<<<<<< HEAD
-            enemy = this.enemies.add(new Fly(game, randomX, randomY ));
-=======
             enemy = this.enemies.add(new Ufo(game, randomX, randomY ));
->>>>>>> master
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave1spawn++;
         } else {

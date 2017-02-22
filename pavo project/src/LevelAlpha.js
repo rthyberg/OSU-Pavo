@@ -178,7 +178,7 @@ TowerDefense.LevelAlpha.prototype = {
         }
         catch (e)
         {
-            console.log(enemy);
+            //console.log(enemy);
         }
 
     },
@@ -204,12 +204,12 @@ TowerDefense.LevelAlpha.prototype = {
         }
         catch (e)
         {
-            console.log(f);
+            //console.log(f);
         }
     },
 
     fireCollision: function(enemy, fire){
-        console.log(enemy.hit);
+        //console.log(enemy.hit);
         if(enemy.exists){
             enemy.hp -= 1;
             if(enemy.hp <= 0)

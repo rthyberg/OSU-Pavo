@@ -5,14 +5,14 @@ TowerDefense.StartMenu= function(game) {
 TowerDefense.StartMenu.prototype = {
 
 	preload: function () {
-        this.load.bitmapFont('nokia16', 'fonts/nokia16.png', 'fonts/nokia16.xml');
+        
 	},
 
 	create: function () {
-		//this.preloadBar.cropEnabled = false;
-        
+        // Write Title
         this.selection1 = this.add.bitmapText(this.world.centerX-155, this.world.centerY-180, 'nokia16', 'PAVOS TOWER DEFENSE', 24);
         
+        // Set Menu Items
         var text = game.add.text(game.world.centerX, game.world.centerY-100, "Demo1", { font: "65px Arial", fill: "#ff0044", align: "center" });
         text.anchor.set(0.5);
         text.inputEnabled = true;
@@ -54,26 +54,13 @@ TowerDefense.StartMenu.prototype = {
         textAlpha.events.onInputDown.add(function(){
             game.state.start("LevelAlpha");
         }, this);
-        //this.addMenuOption('Start', function () {
-//      game.state.start("Game");
-//        });
-//        this.addMenuOption('Options', function () {
-//          game.state.start("Options");
-//        });
-//        this.addMenuOption('Credits', function () {
-//          game.state.start("Credits");
-//        });
+        
     },
     select1: function(){
         
     },                     
                            
 	update: function () {
-//        if(this.cache.isSoundDecoded('game_audio') && this.ready == false) {
-//            this.ready = true;
-//            //this.state.start('StartMenu');
-//        }
         
-        //this.state.start('LevelOne');
 	}
 };
