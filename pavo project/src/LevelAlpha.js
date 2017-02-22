@@ -79,12 +79,14 @@ TowerDefense.LevelAlpha.prototype = {
         this.healthMeterIcons = this.game.add.plugin(Phaser.Plugin.HealthMeter);
         this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 20, x: 20, width: 32, height: 32, rows: 2});
 
+        // Add Player
+        this.player = new Player(game,200);
         // Towers
         this.towerList = Tower.createGroup(this); // creates group  of towers
         this.towerList.inputEnableChildren = true; // enable input for all future children
-        this.towerUI = new towerUI(game); // create a new UI object
+        this.towerUI = new towerUI(game, this.player); // create a new UI object
         this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
-        this.uibutton = new createTowerButton(this, 300, 500, 'tower', 'tower', this.towerList);
+        this.uibutton = new createTowerButton(this, 300, 500, 'tower', 'tower', this.towerList, this.player);
         this.uibutton.create();
 
 
@@ -231,6 +233,7 @@ TowerDefense.LevelAlpha.prototype = {
     update: function () {
         this.uibutton.update()
         this.towerList.callAll('selectTarget', null, this.enemies, this.path); // now needs path variable to be passed in
+        this.player.displayCoin();
         this.checkwave();
         //this.enemies.setAll('x', 1, true, true, 1);
         this.enemies.forEach(this.checkEnemy, this, true);
