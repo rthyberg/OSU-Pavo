@@ -8,6 +8,8 @@ function preload() {
     game.state.add('WaveDemo', TowerDefense.WaveDemo);
     game.state.add('PathBuildDemo', TowerDefense.PathBuildDemo);
     game.state.add('LevelAlpha', TowerDefense.LevelAlpha);
+    game.state.add('DarkRoom', TowerDefense.DarkRoom);
+    game.state.add('SpookRoom', TowerDefense.SpookRoom);
     //TODO - add a start menu state
     game.state.add('StartMenu', TowerDefense.StartMenu);
 
