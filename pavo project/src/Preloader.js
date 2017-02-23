@@ -29,6 +29,7 @@ TowerDefense.Preloader.prototype = {
         this.game.load.image('heartFull', 'img/heartFull.png');
         this.game.load.image('explosion', 'img/explosion.png');
         /**********SPRITES*******************/
+        this.game.load.spritesheet('boom', 'img/explode.png', 128, 128, 8);
         this.game.load.spritesheet('mummy', 'img/placeholder-enemy.png', 64, 64, 180);
         this.game.load.spritesheet('spacebug', 'img/space-baddie.png', 16,16, 1);
         this.game.load.spritesheet('ufo', 'img/ufo.png', 16,16, 1);
@@ -49,6 +50,10 @@ TowerDefense.Preloader.prototype = {
         this.game.load.spritesheet('rocks3', 'img/bg_assets/rocks_caves.png', 31, 31, 1);
 
         /**********AUDIO*******************/
+        this.game.load.audio('shootsfx', 'audio/shootsfx.mp3');
+        
+        /**********FONT*******************/
+        this.game.load.bitmapFont('nokia16', 'fonts/nokia16.png', 'fonts/nokia16.xml');
 
         //this.state.start('Game'); // changes state to Game.js
 

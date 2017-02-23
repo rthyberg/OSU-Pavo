@@ -1,3 +1,5 @@
+
+
 /* Class File for Tower*/
 Tower = function (game, x, y, key, bulletkey) {
   // Define null variables for tower class
@@ -20,6 +22,8 @@ Tower = function (game, x, y, key, bulletkey) {
   this.target = null;
   this.targetDist = 0;
   this.game.physics.enable(this, Phaser.Physics.ARCADE);
+
+  this.shootsfx = game.add.audio('shootsfx');
   };
 
 Tower.prototype = Object.create(Phaser.Sprite.prototype);
@@ -29,6 +33,7 @@ Tower.prototype.constructor = Tower;
 Tower.prototype.updateRange = function() {
     this.towerRange = new Phaser.Circle(this.x,this.y, (this.weapon.bulletKillDistance*2));
 };
+
 
 Tower.prototype.fireAt = function (path) {
     // offSet gets the time in flight times a facrot of 50 ten times the targets speed
@@ -104,3 +109,5 @@ if(contained) {
   }
  }
 }
+
+

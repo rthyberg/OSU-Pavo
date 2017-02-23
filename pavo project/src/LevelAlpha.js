@@ -41,6 +41,9 @@ TowerDefense.LevelAlpha = function(game) {
 
     this.path = [];
     this.pi = 0;
+    
+    //sound variables
+    this.shootsfx;
 };
 
 TowerDefense.LevelAlpha.prototype = {
@@ -92,7 +95,7 @@ TowerDefense.LevelAlpha.prototype = {
         //this.fire = this.add.group();
         this.enemies = this.add.group();
         this.fire = this.add.group();
-        //this.buildEmitter();
+        this.buildEmitter();
         //this.loop = game.time.events.loop(500, this.loadEnemies, this);
         this.bga = this.add.group();
         for (var i = 0; i < game.rnd.integerInRange(9, 16); i++){
@@ -118,7 +121,6 @@ TowerDefense.LevelAlpha.prototype = {
             var rocks3 = this.bga.add(new Rocks3(game, randomX, randomY));
             this.physics.enable(rocks3, Phaser.Physics.ARCADE);
         }
-
 	},
     plot: function () {
 
@@ -147,8 +149,10 @@ TowerDefense.LevelAlpha.prototype = {
         road.draw(this.path);
 
     },
-
-
+    setsound: function(){
+        this.shootsfx = game.add.audio('shootsfx');
+        //game.sound.setDecodedCallback([this.shootsfx], start, this);
+    },
     render: function(){
         game.debug.text("Group size: " + this.enemies.total, 32, 32);
         //game.debug.text("Destroyed: " + rip, 32, 64);
@@ -178,7 +182,7 @@ TowerDefense.LevelAlpha.prototype = {
         }
         catch (e)
         {
-            console.log(enemy);
+            //console.log(enemy);
         }
 
     },
@@ -198,13 +202,14 @@ TowerDefense.LevelAlpha.prototype = {
         try {
             if (f.time < 0)
             {
+                this.shootsfx.play();
                 this.fire.remove(f, true);
             }
             f.time--;
         }
         catch (e)
         {
-            console.log(f);
+            //console.log(f);
         }
     },
 

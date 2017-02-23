@@ -30,9 +30,43 @@ DynamicMapBuilder = function(state, room){
     layer = map.createLayer(0);
     layer.resizeWorld();
     
-
 };
 
+
+DMap = function(tilename){
+    var data = '';
+    for (var y = 0; y < 128; y++)
+    {
+        for (var x = 0; x < 128; x++)
+        {
+            data += game.rnd.between(0, 20).toString();
+            if (x < 127)
+            {
+                data += ',';
+            }
+        }
+        if (y < 127)
+        {
+            data += "\n";
+        }
+    }
+    
+    this.data = data;
+    this.tile = tilename;
+}
+DMap.prototype = DMap;
+DMap.prototype.draw = function(){
+    //add data to cache
+    game.cache.addTilemap('dynamicMap', null, this.data, Phaser.Tilemap.CSV);
+    //create map using 16x16 tiles
+    map = game.add.tilemap('dynamicMap', 16, 16);
+    //tiles == image cache key
+    map.addTilesetImage(this.tile, this.tile, 16, 16);
+    layer = map.createLayer(0);
+    //layer.resizeWorld();
+    
+    
+}
 
 /* Class File for Path*/
 // Define sprite as road used
@@ -78,6 +112,12 @@ Road.prototype.draw = function(path){
 
         }
     });
+    
+    var graphics = game.add.graphics(0, 0);
+    graphics.lineStyle(2, 0xeeeeee, 1);
+    graphics.beginFill(0xe9e9e9, 1);
+    graphics.drawRect(0, 0, 800, 50);
+    graphics.endFill();
 }
 
 
