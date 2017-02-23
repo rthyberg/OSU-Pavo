@@ -1,4 +1,4 @@
-TowerDefense.LevelAlpha = function(game) {
+TowerDefense.DarkRoom = function(game) {
     this.preloadBar = null;
     this.titleText = null;
     this.map = null;
@@ -41,15 +41,16 @@ TowerDefense.LevelAlpha = function(game) {
     };
 
     this.path = [];
+    
     this.pi = 0;
 };
 
-TowerDefense.LevelAlpha.prototype = {
+TowerDefense.DarkRoom.prototype = {
 
 	create: function () {
         // Build dynamic map
-		DynamicMapBuilder(this, 0);
-        
+		DynamicMapBuilder(this, 1);
+
         this.bmd = this.add.bitmapData(this.game.width, this.game.height);
         this.bmd.addToWorld();
         
@@ -91,8 +92,6 @@ TowerDefense.LevelAlpha.prototype = {
             var randomY = game.rnd.integerInRange(10, 590); 
             var spikey = this.bga.add(new Spikey(game, randomX, randomY));
             this.physics.enable(spikey, Phaser.Physics.ARCADE);
-            
-            
         }
 
         
@@ -109,6 +108,7 @@ TowerDefense.LevelAlpha.prototype = {
             var rocks3 = this.bga.add(new Rocks3(game, randomX, randomY));
             this.physics.enable(rocks3, Phaser.Physics.ARCADE);           
         }
+
        
 	},
     plot: function () {
@@ -136,6 +136,7 @@ TowerDefense.LevelAlpha.prototype = {
         
         road = new Road("darkroad");
         road.draw(this.path);
+        
 
     },
 
@@ -200,7 +201,7 @@ TowerDefense.LevelAlpha.prototype = {
     },
 
     fireCollision: function(enemy, fire){
-        console.log(enemy.hit);
+        //console.log(enemy.hit);
         if(enemy.exists){
             enemy.hp -= 1;
             if(enemy.hp <= 0)
@@ -219,6 +220,7 @@ TowerDefense.LevelAlpha.prototype = {
        this.enemies.remove(enemy, true);
     },
     
+   
     update: function () {
         this.uibutton.update()
         this.towerList.callAll('selectTarget', null, this.enemies);
@@ -227,9 +229,6 @@ TowerDefense.LevelAlpha.prototype = {
         this.enemies.forEach(this.checkEnemy, this, true);
         this.fire.forEach(this.checkFire, this, true);
         this.physics.arcade.overlap(this.enemies, this.fire, this.fireCollision, null, this);
-        this.physics.arcade.overlap(this.bga, this.bga, this.fireCollision, null, this);
-        this.physics.arcade.overlap(this.bga, this.base, this.fireCollision, null, this);
-        this.physics.arcade.overlap(this.bga, this.enemies, this.fireCollision, null, this);
         this.physics.arcade.overlap(this.enemies, this.base, this.baseCollision, null, this);
         if (this.physics.arcade.overlap(this.base, this.enemies))
         {
@@ -246,27 +245,29 @@ TowerDefense.LevelAlpha.prototype = {
     checkwave: function(){
         if(this.spawnstart && this.enemies.total < 1){
             this.spawnstart = false;
-            if(this.wave1spawn < this.wave1max){
-                this.loop = game.time.events.loop(400, this.loadwave1, this);
-            } else if(this.wave2spawn < this.wave2max){
-                this.loop = game.time.events.loop(400, this.loadwave2, this);
-            } else if(this.wave3spawn < this.wave3max){
-                this.loop = game.time.events.loop(400, this.loadwave3, this);
-            } else if(this.wave4spawn < this.wave4max){
-                this.loop = game.time.events.loop(400, this.loadwave4, this);
-            } else if(this.wave5spawn < this.wave5max){
-                this.loop = game.time.events.loop(400, this.loadwave5, this);
-            } else if(this.wave6spawn < this.wave6max){
-                this.loop = game.time.events.loop(400, this.loadwave6, this);
-            } else if(this.wave7spawn < this.wave7max){
-                this.loop = game.time.events.loop(400, this.loadwave7, this);
-            } else if(this.wave8spawn < this.wave8max){
-                this.loop = game.time.events.loop(400, this.loadwave8, this);
-            } else if(this.wave9spawn < this.wave9max){
-                this.loop = game.time.events.loop(400, this.loadwave9, this);
-            } else if(this.wave10spawn < this.wave10max){
-                this.loop = game.time.events.loop(400, this.loadwave10, this);
-            }
+            // if(this.wave1spawn < this.wave1max){
+                // this.loop = game.time.events.loop(400, this.loadwave1, this);
+            // }
+            // } else if(this.wave2spawn < this.wave2max){
+                // this.loop = game.time.events.loop(400, this.loadwave2, this);
+            // } else if(this.wave3spawn < this.wave3max){
+                // this.loop = game.time.events.loop(400, this.loadwave3, this);
+            // } else if(this.wave4spawn < this.wave4max){
+                // this.loop = game.time.events.loop(400, this.loadwave4, this);
+            // } else if(this.wave5spawn < this.wave5max){
+                // this.loop = game.time.events.loop(400, this.loadwave5, this);
+            // } else if(this.wave6spawn < this.wave6max){
+                // this.loop = game.time.events.loop(400, this.loadwave6, this);
+            // } else if(this.wave7spawn < this.wave7max){
+                // this.loop = game.time.events.loop(400, this.loadwave7, this);
+            // } else if(this.wave8spawn < this.wave8max){
+                // this.loop = game.time.events.loop(400, this.loadwave8, this);
+            // } else if(this.wave9spawn < this.wave9max){
+                // this.loop = game.time.events.loop(400, this.loadwave9, this);
+            // } else if(this.wave10spawn < this.wave10max){
+                if (this.wave10spawn < this.wave10max)
+                    this.loop = game.time.events.loop(400, this.loadwave10, this);
+            
             
             
             
@@ -402,8 +403,7 @@ TowerDefense.LevelAlpha.prototype = {
         if(this.wave10spawn < this.wave10max){
             var randomX = game.rnd.integerInRange(-10, 10); 
             var randomY = game.rnd.integerInRange(-30, 30);    
-            var enemy;
-            enemy = this.enemies.add(new Stan(game, randomX, randomY ));     
+            enemy = this.enemies.add(new Mega(game, randomX, randomY ));       
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave10spawn++;
         } else {
