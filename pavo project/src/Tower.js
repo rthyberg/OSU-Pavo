@@ -1,3 +1,5 @@
+
+
 /* Class File for Tower*/
 Tower = function (game, x, y, key, bulletkey) {
   // Define null variables for tower class
@@ -19,6 +21,8 @@ Tower = function (game, x, y, key, bulletkey) {
   this.towerRange = new Phaser.Circle(x, y, (this.weapon.bulletKillDistance*2));
   this.target = null;
   this.game.physics.enable(this, Phaser.Physics.ARCADE);
+
+  this.shootsfx = game.add.audio('shootsfx');
   };
 
 Tower.prototype = Object.create(Phaser.Sprite.prototype);
@@ -30,6 +34,7 @@ Tower.prototype.updateRange = function() {
 };
 
 Tower.prototype.fireAt = function () {
+    this.shootsfx.play();
     this.weapon.fireAtSprite(this.target);
     game.physics.arcade.overlap(this.target, this.weapon.bullets, collisionHandler, null, this);
 };
@@ -46,6 +51,7 @@ Tower.prototype.selectTarget = function(targets) {
     targets.forEachAlive(distanceFormula, this);
   }
   if(this.target != null && inRange) {
+      
     this.fireAt(); // call the fire function
   }
 };
@@ -91,3 +97,5 @@ if(contained) {
   }
  }
 }
+
+

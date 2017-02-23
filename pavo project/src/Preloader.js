@@ -44,7 +44,7 @@ TowerDefense.Preloader.prototype = {
         this.game.load.spritesheet('rocks3', 'img/bg_assets/rocks_caves.png', 31, 31, 1);
         
         /**********AUDIO*******************/
-        
+        this.game.load.audio('shootsfx', 'audio/shootsfx.mp3');
         
         /**********FONT*******************/
         this.game.load.bitmapFont('nokia16', 'fonts/nokia16.png', 'fonts/nokia16.xml');

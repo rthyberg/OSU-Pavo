@@ -59,6 +59,8 @@ DMap.prototype.draw = function(){
     map.addTilesetImage(this.tile, this.tile, 16, 16);
     layer = map.createLayer(0);
     //layer.resizeWorld();
+    
+    
 }
 
 /* Class File for Path*/
@@ -105,6 +107,12 @@ Road.prototype.draw = function(path){
 
         }
     });
+    
+    var graphics = game.add.graphics(0, 0);
+    graphics.lineStyle(2, 0xeeeeee, 1);
+    graphics.beginFill(0xe9e9e9, 1);
+    graphics.drawRect(0, 0, 800, 50);
+    graphics.endFill();
 }
 
 

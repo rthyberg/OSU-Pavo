@@ -53,6 +53,16 @@ TowerDefense.LevelOne.prototype = {
         // Plot and Draw Path First
         this.plot();
         
+        this.enemies = this.add.group();
+        this.fire = this.add.group();
+        
+        // Draw Top Bar
+         var graphics = game.add.graphics(0, 0);
+        graphics.lineStyle(2, 0xeeeeee, 1);
+        graphics.beginFill(0xe9e9e9, 1);
+        graphics.drawRect(0, 0, 800, 50);
+        graphics.endFill();
+        
         //add the home base
         this.base = this.add.sprite(600, 200, 'base');
         this.physics.enable(this.base, Phaser.Physics.ARCADE);
@@ -65,21 +75,20 @@ TowerDefense.LevelOne.prototype = {
         this.hearts = this.game.add.group();
         this.hearts.enableBody = true;
         this.healthMeterIcons = this.game.add.plugin(Phaser.Plugin.HealthMeter);
-        this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 20, x: 20, width: 32, height: 32, rows: 2});
+        this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 10, x: 20, width: 32, height: 32, rows: 2});
         
         // Towers
         this.towerList = Tower.createGroup(this); // creates group  of towers
         this.towerList.inputEnableChildren = true; // enable input for all future children
         this.towerUI = new towerUI(game); // create a new UI object
         this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
-        this.uibutton = new createTowerButton(this, 300, 500, 'tower', 'tower', this.towerList);
+        this.uibutton = new createTowerButton(this, 300, 20, 'tower', 'tower', this.towerList);
         this.uibutton.create();
 
 
 
         //this.fire = this.add.group();
-        this.enemies = this.add.group();
-        this.fire = this.add.group();
+        
         //this.buildEmitter();
         //this.loop = game.time.events.loop(500, this.loadEnemies, this);
         this.bga = this.add.group();
@@ -107,7 +116,9 @@ TowerDefense.LevelOne.prototype = {
             this.physics.enable(rocks3, Phaser.Physics.ARCADE);           
         }
         
+        
        
+        
 	},
     plot: function () {
 
