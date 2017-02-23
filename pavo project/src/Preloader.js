@@ -16,6 +16,7 @@ TowerDefense.Preloader.prototype = {
 
          /*********MENU******************/
         this.game.load.atlasJSONArray('dmgUp', 'img/UI/UP/TestButtonSheet.png', 'img/UI/UP/TestButtonSheet.json');
+        this.game.load.atlasJSONArray('coins', 'img/UI/GoldCoinSprite/coinsheet.png', 'img/UI/GoldCoinSprite/coin.json');
         /**********MAP*******************/
         this.game.load.image('tiles', 'img/ground.png');
         this.game.load.image('darkTile', 'img/dark_ground.png');
@@ -46,11 +47,11 @@ TowerDefense.Preloader.prototype = {
         this.game.load.spritesheet('rocks1', 'img/bg_assets/rocks_basement.png', 31, 31, 1);
         this.game.load.spritesheet('rocks2', 'img/bg_assets/rocks_sheol.png', 31, 31, 1);
         this.game.load.spritesheet('rocks3', 'img/bg_assets/rocks_caves.png', 31, 31, 1);
-        
+
         /**********AUDIO*******************/
 
         //this.state.start('Game'); // changes state to Game.js
-        
+
 	},
 
 	create: function () {
@@ -70,13 +71,13 @@ TowerDefense.Preloader.prototype = {
 	},
 
 	update: function () {
-        
+
 //        if(this.cache.isSoundDecoded('game_audio') && this.ready == false) {
 //            this.ready = true;
 //            //this.state.start('StartMenu');
 //        }
 
         //this.state.start('LevelOne');
-        
+
 	}
 };

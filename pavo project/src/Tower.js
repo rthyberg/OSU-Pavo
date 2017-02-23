@@ -18,6 +18,7 @@ Tower = function (game, x, y, key, bulletkey) {
   // circle for range
   this.towerRange = new Phaser.Circle(x, y, (this.weapon.bulletKillDistance*2));
   this.target = null;
+  this.targetDist = 0;
   this.game.physics.enable(this, Phaser.Physics.ARCADE);
   };
 
@@ -29,24 +30,34 @@ Tower.prototype.updateRange = function() {
     this.towerRange = new Phaser.Circle(this.x,this.y, (this.weapon.bulletKillDistance*2));
 };
 
-Tower.prototype.fireAt = function () {
-    this.weapon.fireAtSprite(this.target);
+Tower.prototype.fireAt = function (path) {
+    // offSet gets the time in flight times a facrot of 50 ten times the targets speed
+    var offSet = Math.round((this.targetDist/this.weapon.bulletSpeed)*50)*this.target.speed;
+    //console.log(offSet);
+    var pathIndex = Math.round(this.target.pi+offSet);
+    if(pathIndex > (path.length-1)) { // check that we dont go out of path's max index
+        pathIndex = (path.length-1);
+    }
+    var xLoc = path[pathIndex].x + this.target.vx; // set location by gettin next path and adding targets offset
+    var yLoc = path[pathIndex].y + this.target.vy;
+    this.weapon.fireAtXY(xLoc, yLoc);
     game.physics.arcade.overlap(this.target, this.weapon.bullets, collisionHandler, null, this);
 };
 
 /* Finds a target for the tower
  * Pass in a Phaser.group of sprites */
-Tower.prototype.selectTarget = function(targets) {
+Tower.prototype.selectTarget = function(targets, path) {
   var inRange;
   if(this.target != null) {
       inRange = (this.towerRange.contains(this.target.x, this.target.y));  // check if current is inrange
-  } else inRange = false;
+      } else inRange = false;
   if(this.target == null || !inRange  || this.target.alive == false ) { // if target is not valid then find new
-    this.target = null;
-    targets.forEachAlive(distanceFormula, this);
+      this.target = null;
+      targets.forEachAlive(distanceFormula, this);
   }
   if(this.target != null && inRange) {
-    this.fireAt(); // call the fire function
+    this.targetDist = game.physics.arcade.distanceBetween(this.target, this, true);
+    this.fireAt(path); // call the fire function
   }
 };
 
@@ -82,11 +93,13 @@ var contained = this.towerRange.contains(target.x, target.y); // set variable to
 if(contained) {
   if(this.target == null) {  // if our current target is null make the first target in group the new target
     this.target = target;
+
   } else {
     var current = game.physics.arcade.distanceBetween(target, this, true);  // check distance between current target and target of the group
     var old = game.physics.arcade.distanceBetween(this.target, this, true);
     if(current < old) {                                                    // set the current target if its closer than the old
       this.target = target;
+      this.targetDist = current
     }
   }
  }
