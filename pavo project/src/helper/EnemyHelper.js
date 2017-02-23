@@ -150,6 +150,57 @@ Spikes.prototype.constructor = Spikes;
 Spikes.prototype.move = MoveFunction;
 
 
+//STAN
+Stan = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'stan');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 100;
+    this.pi = 0;
+    this.speed = 0.5;
+    this.animations.add('fly');
+    this.play('fly', 5, true);
+    this.enableBody = true;
+}
+
+Stan.prototype = Object.create(Phaser.Sprite.prototype);
+Stan.prototype.constructor = Stan;
+Stan.prototype.move = MoveFunction;
+
+//STAN
+Mega = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'mega');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 100;
+    this.pi = 0;
+    this.speed = 0.25;
+    this.animations.add('fly');
+    this.play('fly', 1, true);
+    this.enableBody = true;
+}
+
+Mega.prototype = Object.create(Phaser.Sprite.prototype);
+Mega.prototype.constructor = Mega;
+Mega.prototype.move = MoveFunction;
+
+//Blue Baby
+Baby = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'baby');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 100;
+    this.pi = 0;
+    this.speed = 0.5;
+    this.animations.add('fly');
+    this.play('fly', 5, true);
+    this.enableBody = true;
+}
+
+Baby.prototype = Object.create(Phaser.Sprite.prototype);
+Baby.prototype.constructor = Baby;
+Baby.prototype.move = MoveFunction;
+
 //BACKGROUND
 Flames = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'bg_fire');

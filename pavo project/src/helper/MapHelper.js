@@ -1,5 +1,5 @@
 
-DynamicMapBuilder = function(state){
+DynamicMapBuilder = function(state, room){
     var data = '';
     for (var y = 0; y < 128; y++)
     {
@@ -21,7 +21,12 @@ DynamicMapBuilder = function(state){
     //create map using 16x16 tiles
     map = state.add.tilemap('dynamicMap', 16, 16);
     //tiles == image cache key
-    map.addTilesetImage('tiles', 'tiles', 16, 16);
+    if (room == 0)
+        map.addTilesetImage('tiles', 'tiles', 16, 16);
+    else if (room == 1)
+        map.addTilesetImage('darkTile', 'darkTile', 16, 16);
+    else
+        map.addTilesetImage('spook', 'spook', 16, 16);
     layer = map.createLayer(0);
     layer.resizeWorld();
     

@@ -214,11 +214,11 @@ TowerDefense.WaveDemo.prototype = {
         if(this.wave1spawn < this.wave1max){
             var randomX = game.rnd.integerInRange(-10, 10); 
             var randomY = game.rnd.integerInRange(-30, 30);   
-<<<<<<< HEAD
+
             enemy = this.enemies.add(new Fly(game, randomX, randomY ));
-=======
+
             enemy = this.enemies.add(new Ufo(game, randomX, randomY ));
->>>>>>> master
+
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave1spawn++;
         } else {
