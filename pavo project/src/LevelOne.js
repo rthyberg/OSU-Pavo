@@ -5,8 +5,6 @@ TowerDefense.LevelOne = function(game) {
     this.enemies = {};
     this.fire;
     this.layer = null;
-    this.spawn1total = 25;
-    this.totalspawn = 0;
     this.loop = null;
 
     this.bmd = null;
@@ -30,6 +28,8 @@ TowerDefense.LevelOne = function(game) {
     this.path = [];
     this.pi = 0;
     
+    this.player;
+    this.soundmanager;
     this.gameover = false;
 };
 
@@ -37,12 +37,20 @@ TowerDefense.LevelOne.prototype = {
 
 	preload: function () {
         console.log("levelOne");
-        
 	},
-
-	create: function () {
+    init: function(){
+        this.gameover = false;
+        this.spawnstart = true;
+        this.wave1spawn = 0;
+        this.wave1max = 10;
+        this.wave2spawn = 0;
+        this.wave2max = 15;
+        this.wave3spawn = 0;
+        this.wave3max = 25;
         
-
+    },
+	create: function () {
+        this.init();
         this.bmd = this.add.bitmapData(this.game.width, this.game.height);
         this.bmd.addToWorld();
         
@@ -77,30 +85,25 @@ TowerDefense.LevelOne.prototype = {
         this.healthMeterIcons = this.game.add.plugin(Phaser.Plugin.HealthMeter);
         this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 10, x: 20, width: 32, height: 32, rows: 2});
         
+        // Add Player
+        this.player = new Player(game,200);
+        
         // Towers
         this.towerList = Tower.createGroup(this); // creates group  of towers
         this.towerList.inputEnableChildren = true; // enable input for all future children
-        this.towerUI = new towerUI(game); // create a new UI object
+        this.towerUI = new towerUI(game, this.player); // create a new UI object
         this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
-        this.uibutton = new createTowerButton(this, 300, 20, 'tower', 'tower', this.towerList);
+        this.uibutton = new createTowerButton(this, 300, 20, 'tower', 'tower', this.towerList, this.player);
         this.uibutton.create();
 
-
-
-        //this.fire = this.add.group();
         
-        //this.buildEmitter();
-        //this.loop = game.time.events.loop(500, this.loadEnemies, this);
         this.bga = this.add.group();
         for (var i = 0; i < game.rnd.integerInRange(9, 16); i++){
             var randomX = game.rnd.integerInRange(10, 790); 
             var randomY = game.rnd.integerInRange(10, 590); 
             var spikey = this.bga.add(new Spikey(game, randomX, randomY));
             this.physics.enable(spikey, Phaser.Physics.ARCADE);
-            
-            
         }
-
         
         for (var i = 0; i < game.rnd.integerInRange(4, 12); i++){
             var randomX = game.rnd.integerInRange(10, 790); 
@@ -116,7 +119,8 @@ TowerDefense.LevelOne.prototype = {
             this.physics.enable(rocks3, Phaser.Physics.ARCADE);           
         }
         
-        
+        this.soundmanager = new soundManager(game);
+        this.soundmanager.game_music.play();
        
         
 	},
@@ -155,13 +159,6 @@ TowerDefense.LevelOne.prototype = {
         //game.debug.text("Destroyed: " + rip, 32, 64);
     },
 
-    loadEnemies: function(){
-        var randomY = game.rnd.integerInRange(200, 400);
-        zombie = this.enemies.add(new Zombie(game, 0, randomY ));
-        zombie.health = 10;
-        this.physics.enable(zombie, Phaser.Physics.ARCADE);
-        this.totalspawn++;
-    },
 
     checkEnemy: function(enemy){
         try {
@@ -184,16 +181,6 @@ TowerDefense.LevelOne.prototype = {
 
     },
 
-    buildEmitter:function() {
-        this.input.onDown.add(this.fireBurst, this);
-    },
-
-    fireBurst: function(pointer) {
-        var f = this.fire.create(pointer.x, pointer.y, 'explosion');
-        f.time = 2;
-        f.animations.add('burst');
-        this.physics.enable(f, Phaser.Physics.ARCADE);
-    },
 
     checkFire: function(f){
         try {
@@ -213,13 +200,14 @@ TowerDefense.LevelOne.prototype = {
         //console.log(enemy.hit);
         if(enemy.exists){
             enemy.hp -= 1;
-            if(enemy.hp <= 0)
+            if(enemy.hp <= 0){
+                this.soundmanager.explodesfx.play();
                 enemy.kill();
+            }
         }
     },
         
     baseCollision: function(enemy, base){
-        
         var f = this.fire.create(600, 200, 'boom');
         f.time = 2;
         f.animations.add('burst');
@@ -232,13 +220,11 @@ TowerDefense.LevelOne.prototype = {
     update: function () {
         if(this.gameover)
             return;
-        this.uibutton.update()
-        this.towerList.callAll('selectTarget', null, this.enemies);
+        this.uibutton.update();
+        this.towerList.callAll('selectTarget', null, this.enemies, this.path); // now needs path variable to be passed in
+        this.player.displayCoin();
         
-        //this.enemies.setAll('x', 1, true, true, 1);
         this.enemies.forEach(this.checkEnemy, this, true);
-        this.fire.forEach(this.checkFire, this, true);
-        this.physics.arcade.overlap(this.enemies, this.fire, this.fireCollision, null, this);
         this.physics.arcade.overlap(this.bga, this.bga, this.fireCollision, null, this);
         this.physics.arcade.overlap(this.bga, this.base, this.fireCollision, null, this);
         this.physics.arcade.overlap(this.bga, this.enemies, this.fireCollision, null, this);
@@ -248,6 +234,7 @@ TowerDefense.LevelOne.prototype = {
             this.enemies.forEach(this.kill, this, true);
             this.base.damage(1);
             if (this.base.health==0){
+                this.soundmanager.stop();
                 this.screenMessage = drawGameOverScreen(this, "Game Over", "Start Menu", "StartMenu"); 
                 this.gameover = true;
                 //game.paused=true;
@@ -277,6 +264,7 @@ TowerDefense.LevelOne.prototype = {
             } else if(this.wave3spawn >= this.wave3max){
                 // Printing Game Complete and link to next Level
                 this.screenMessage = drawGameOverScreen(this, "LevelOne Complete!", "Next Level: Alpha", "LevelAlpha"); 
+                this.soundmanager.stop();
             }
             
         }
