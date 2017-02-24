@@ -8,3 +8,8 @@ var soundManager = function(game){
     this.game_music.loop = true;
     
 }
+
+soundManager.prototype.constructor = soundManager;
+soundManager.prototype.stop = function(){
+    this.game_music.stop();
+}

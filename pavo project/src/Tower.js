@@ -23,7 +23,7 @@ Tower = function (game, x, y, key, bulletkey) {
   this.targetDist = 0;
   this.game.physics.enable(this, Phaser.Physics.ARCADE);
 
-  this.shootsfx = game.add.audio('shootsfx');
+  this.soundmanager = new soundManager(game);
   };
 
 Tower.prototype = Object.create(Phaser.Sprite.prototype);
@@ -89,6 +89,7 @@ collisionHandler = function (sprite, bullet) {
     sprite.hp -= this.damage;
     if(sprite.hp <= 0){
         sprite.kill();
+        this.soundmanager.explodesfx.play();
     }
 }
 

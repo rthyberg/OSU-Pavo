@@ -260,7 +260,9 @@ TowerDefense.LevelAlpha.prototype = {
             this.enemies.forEach(this.kill, this, true);
             this.base.damage(1);
             if (this.base.health==0){
+                this.soundmanager.stop();
                 game.paused=true;
+                
             }
         }
 	},
