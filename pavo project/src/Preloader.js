@@ -51,6 +51,7 @@ TowerDefense.Preloader.prototype = {
 
         /**********AUDIO*******************/
         this.game.load.audio('shootsfx', 'audio/shootsfx.mp3');
+        this.game.load.audio('explodesfx', 'audio/explodesfx.mp3');
         
         /**********FONT*******************/
         this.game.load.bitmapFont('nokia16', 'fonts/nokia16.png', 'fonts/nokia16.xml');
