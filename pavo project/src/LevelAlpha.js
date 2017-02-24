@@ -121,7 +121,7 @@ TowerDefense.LevelAlpha.prototype = {
         }
         
         this.soundmanager = new soundManager(game);
-        this.soundmanager.explodesfx.play();
+        this.soundmanager.game_music.play();
 	},
     
     plot: function () {
@@ -234,6 +234,8 @@ TowerDefense.LevelAlpha.prototype = {
         var f = this.fire.create(600, 200, 'boom');
         f.time = 2;
         f.animations.add('burst');
+        console.log("play explodesfx");
+        this.soundmanager.explodesfx.play();
     },
 
     kill: function(enemy){
