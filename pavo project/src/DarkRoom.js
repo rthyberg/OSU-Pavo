@@ -8,6 +8,7 @@ TowerDefense.DarkRoom = function(game) {
     this.spawn1total = 25;
     this.totalspawn = 0;
     this.loop = null;
+    this.player;
 
     this.bmd = null;
 
@@ -73,6 +74,7 @@ TowerDefense.DarkRoom.prototype = {
 
         // Add Player
         this.player = new Player(game,200);
+    
         // Towers
         this.towerList = Tower.createGroup(this); // creates group  of towers
         this.towerList.inputEnableChildren = true; // enable input for all future children
