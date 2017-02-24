@@ -43,7 +43,7 @@ TowerDefense.LevelAlpha = function(game) {
     this.pi = 0;
     
     //sound variables
-    this.shootsfx;
+    this.soundmanager;
 };
 
 TowerDefense.LevelAlpha.prototype = {
@@ -103,8 +103,6 @@ TowerDefense.LevelAlpha.prototype = {
             var randomY = game.rnd.integerInRange(10, 590);
             var spikey = this.bga.add(new Spikey(game, randomX, randomY));
             this.physics.enable(spikey, Phaser.Physics.ARCADE);
-
-
         }
 
 
@@ -121,7 +119,11 @@ TowerDefense.LevelAlpha.prototype = {
             var rocks3 = this.bga.add(new Rocks3(game, randomX, randomY));
             this.physics.enable(rocks3, Phaser.Physics.ARCADE);
         }
+        
+        this.soundmanager = new soundManager(game);
+        this.soundmanager.explodesfx.play();
 	},
+    
     plot: function () {
 
         this.bmd.clear();
@@ -196,13 +198,13 @@ TowerDefense.LevelAlpha.prototype = {
         f.time = 2;
         f.animations.add('burst');
         this.physics.enable(f, Phaser.Physics.ARCADE);
+        this.soundmanager.explodesfx.play();
     },
 
     checkFire: function(f){
         try {
             if (f.time < 0)
             {
-                this.shootsfx.play();
                 this.fire.remove(f, true);
             }
             f.time--;
@@ -217,8 +219,13 @@ TowerDefense.LevelAlpha.prototype = {
         //console.log(enemy.hit);
         if(enemy.exists){
             enemy.hp -= 1;
-            if(enemy.hp <= 0)
+            if(enemy.hp <= 0){
+                console.log("play shootsfx");
+                this.soundmanager.shootsfx.play();
                 enemy.kill();
+                
+            }
+                
         }
     },
 

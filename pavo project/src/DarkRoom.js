@@ -8,6 +8,7 @@ TowerDefense.DarkRoom = function(game) {
     this.spawn1total = 25;
     this.totalspawn = 0;
     this.loop = null;
+    this.player;
 
     this.bmd = null;
 
@@ -70,6 +71,10 @@ TowerDefense.DarkRoom.prototype = {
         this.hearts.enableBody = true;
         this.healthMeterIcons = this.game.add.plugin(Phaser.Plugin.HealthMeter);
         this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 20, x: 20, width: 32, height: 32, rows: 2});
+        
+        
+        // Add Player
+        this.player = new Player(game,200);
         
         // Towers
         this.towerList = Tower.createGroup(this); // creates group  of towers
