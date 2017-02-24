@@ -17,6 +17,8 @@ Ufo = function(game, x, y){
     this.vy = y;
     this.hp = 3;
     this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
     this.speed = 1;
     this.animations.add('walk');
     this.play('walk', 5, true);
@@ -36,6 +38,8 @@ Spacebug = function(game, x, y){
     this.vy = y;
     this.hp = 3;
     this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
     this.speed = 1.3;
     this.animations.add('walk');
     this.play('walk', 5, true);
@@ -53,6 +57,8 @@ Zombie = function (game, x, y) {
     this.vy = y;
     this.hp = 10;
     this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
     this.speed = 0.6;
     this.animations.add('walk');
     this.play('walk', 10, true);
@@ -70,6 +76,8 @@ Drybaby = function(game, x, y){
     this.vy = y;
     this.hp = 25;
     this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
     this.speed = 1.0;
     this.animations.add('walk');
     this.play('walk', 3, true);
@@ -87,6 +95,8 @@ Succ = function(game, x, y){
     this.vy = y;
     this.hp = 20;
     this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
     this.speed = 1.0;
     this.animations.add('fly');
     this.play('fly', 4, true);
@@ -104,6 +114,8 @@ Biggy = function(game, x, y){
     this.vy = y;
     this.hp = 4;
     this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
     this.speed = 0.5;
     this.animations.add('fly');
     this.play('fly', 5, true);
@@ -121,6 +133,8 @@ Fly = function(game, x, y){
     this.vy = y;
     this.hp = 2;
     this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
     this.speed = 1.0;
     this.animations.add('fly');
     this.play('fly', 5, true);
@@ -139,6 +153,8 @@ Spikes = function(game, x, y){
     this.vy = y;
     this.hp = 5;
     this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
     this.speed = 1.0;
     this.animations.add('fly');
     this.play('fly', 5, true);
@@ -157,6 +173,8 @@ Stan = function(game, x, y){
     this.vy = y;
     this.hp = 100;
     this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
     this.speed = 0.5;
     this.animations.add('fly');
     this.play('fly', 5, true);
@@ -175,6 +193,8 @@ Mega = function(game, x, y){
     this.hp = 100;
     this.pi = 0;
     this.speed = 0.25;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
     this.animations.add('fly');
     this.play('fly', 1, true);
     this.enableBody = true;
@@ -191,6 +211,8 @@ Baby = function(game, x, y){
     this.vy = y;
     this.hp = 100;
     this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
     this.speed = 0.5;
     this.animations.add('fly');
     this.play('fly', 5, true);
