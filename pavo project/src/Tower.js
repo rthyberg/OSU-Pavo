@@ -24,7 +24,11 @@ Tower = function (game, x, y, key, bulletkey) {
   this.game.physics.enable(this, Phaser.Physics.ARCADE);
 
   this.soundmanager = new soundManager(game);
-  };
+  this.speed = 1.0;
+  this.animations.add('xyz');
+  this.play('xyz', 4, true);
+  this.enableBody = true;
+};
 
 Tower.prototype = Object.create(Phaser.Sprite.prototype);
 Tower.prototype.constructor = Tower;
@@ -46,6 +50,7 @@ Tower.prototype.fireAt = function (path) {
     var xLoc = path[pathIndex].x + this.target.vx; // set location by gettin next path and adding targets offset
     var yLoc = path[pathIndex].y + this.target.vy;
     this.weapon.fireAtXY(xLoc, yLoc);
+
     game.physics.arcade.overlap(this.target, this.weapon.bullets, collisionHandler, null, this);
 };
 
@@ -72,7 +77,7 @@ Tower.prototype.update = function () {
 
 /****************Static functions************************/
 Tower.myload = function (game) {
-  game.load.image('tower', 'img/tower.png');
+  game.load.spritesheet('tower', 'img/tower_isaac.png', 32, 30, 1);
   game.load.image('bullet', 'img/explosion.png');
 }
 
@@ -105,7 +110,7 @@ if(contained) {
     var old = game.physics.arcade.distanceBetween(this.target, this, true);
     if(current < old) {                                                    // set the current target if its closer than the old
       this.target = target;
-      this.targetDist = current
+      this.targetDist = current;
     }
   }
  }

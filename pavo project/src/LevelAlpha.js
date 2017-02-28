@@ -67,7 +67,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.plot();
 
         //add the home base
-        this.base = this.add.sprite(600, 200, 'base');
+        this.base = this.add.sprite(600, 200, 'isaac');
         this.physics.enable(this.base, Phaser.Physics.ARCADE);
         this.base.body.collideWorldBounds = true;
         this.base.body.immovable = true;

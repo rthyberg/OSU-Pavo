@@ -59,7 +59,7 @@ TowerDefense.DarkRoom.prototype = {
         this.plot();
 
         //add the home base
-        this.base = this.add.sprite(600, 200, 'base');
+        this.base = this.add.sprite(600, 200, 'isaac');
         this.physics.enable(this.base, Phaser.Physics.ARCADE);
         this.base.body.collideWorldBounds = true;
         this.base.body.immovable = true;
@@ -248,29 +248,27 @@ TowerDefense.DarkRoom.prototype = {
     checkwave: function(){
         if(this.spawnstart && this.enemies.total < 1){
             this.spawnstart = false;
-            // if(this.wave1spawn < this.wave1max){
-                // this.loop = game.time.events.loop(400, this.loadwave1, this);
-            // }
-            // } else if(this.wave2spawn < this.wave2max){
-                // this.loop = game.time.events.loop(400, this.loadwave2, this);
-            // } else if(this.wave3spawn < this.wave3max){
-                // this.loop = game.time.events.loop(400, this.loadwave3, this);
-            // } else if(this.wave4spawn < this.wave4max){
-                // this.loop = game.time.events.loop(400, this.loadwave4, this);
-            // } else if(this.wave5spawn < this.wave5max){
-                // this.loop = game.time.events.loop(400, this.loadwave5, this);
-            // } else if(this.wave6spawn < this.wave6max){
-                // this.loop = game.time.events.loop(400, this.loadwave6, this);
-            // } else if(this.wave7spawn < this.wave7max){
-                // this.loop = game.time.events.loop(400, this.loadwave7, this);
-            // } else if(this.wave8spawn < this.wave8max){
-                // this.loop = game.time.events.loop(400, this.loadwave8, this);
-            // } else if(this.wave9spawn < this.wave9max){
-                // this.loop = game.time.events.loop(400, this.loadwave9, this);
-            // } else if(this.wave10spawn < this.wave10max){
-                if (this.wave10spawn < this.wave10max)
-                    this.loop = game.time.events.loop(400, this.loadwave10, this);
-
+            if(this.wave1spawn < this.wave1max){
+             this.loop = game.time.events.loop(400, this.loadwave1, this);
+            } else if(this.wave2spawn < this.wave2max){
+             this.loop = game.time.events.loop(400, this.loadwave2, this);
+            } else if(this.wave3spawn < this.wave3max){
+             this.loop = game.time.events.loop(400, this.loadwave3, this);
+            } else if(this.wave4spawn < this.wave4max){
+             this.loop = game.time.events.loop(400, this.loadwave4, this);
+            } else if(this.wave5spawn < this.wave5max){
+             this.loop = game.time.events.loop(400, this.loadwave5, this);
+            } else if(this.wave6spawn < this.wave6max){
+             this.loop = game.time.events.loop(400, this.loadwave6, this);
+            } else if(this.wave7spawn < this.wave7max){
+             this.loop = game.time.events.loop(400, this.loadwave7, this);
+            } else if(this.wave8spawn < this.wave8max){
+             this.loop = game.time.events.loop(400, this.loadwave8, this);
+            } else if(this.wave9spawn < this.wave9max){
+             this.loop = game.time.events.loop(400, this.loadwave9, this);
+            } else if(this.wave10spawn < this.wave10max){
+                this.loop = game.time.events.loop(400, this.loadwave10, this);
+            }
 
 
 
@@ -281,7 +279,7 @@ TowerDefense.DarkRoom.prototype = {
         if(this.wave1spawn < this.wave1max){
             var randomX = game.rnd.integerInRange(-10, 10);
             var randomY = game.rnd.integerInRange(-30, 30);
-            enemy = this.enemies.add(new Fly(game, randomX, randomY ));
+            enemy = this.enemies.add(new ScarredGuts(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave1spawn++;
         } else {
@@ -293,7 +291,7 @@ TowerDefense.DarkRoom.prototype = {
         if(this.wave2spawn < this.wave2max){
             var randomX = game.rnd.integerInRange(-10, 10);
             var randomY = game.rnd.integerInRange(-30, 30);
-            enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
+            enemy = this.enemies.add(new Fly(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave2spawn++;
         } else {
@@ -310,7 +308,7 @@ TowerDefense.DarkRoom.prototype = {
             if(this.wave3spawn % 2 == 1)
                 enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
             else
-                enemy = this.enemies.add(new Fly(game, randomX, randomY ));
+                enemy = this.enemies.add(new ScarredGuts(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave3spawn++;
         } else {
@@ -322,7 +320,7 @@ TowerDefense.DarkRoom.prototype = {
         if(this.wave4spawn < this.wave4max){
             var randomX = game.rnd.integerInRange(-10, 10);
             var randomY = game.rnd.integerInRange(-30, 30);
-            enemy = this.enemies.add(new Biggy(game, randomX, randomY ));
+            enemy = this.enemies.add(new Clotty(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave4spawn++;
         } else {
@@ -337,9 +335,9 @@ TowerDefense.DarkRoom.prototype = {
             var enemy;
 
             if(this.wave5spawn % 2 == 1)
-                enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
+                enemy = this.enemies.add(new Squirt(game, randomX, randomY ));
             else
-                enemy = this.enemies.add(new Fly(game, randomX, randomY ));
+                enemy = this.enemies.add(new DeathHead(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave5spawn++;
         } else {
@@ -352,7 +350,7 @@ TowerDefense.DarkRoom.prototype = {
         if(this.wave6spawn < this.wave6max){
             var randomX = game.rnd.integerInRange(-10, 10);
             var randomY = game.rnd.integerInRange(-30, 30);
-            enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
+            enemy = this.enemies.add(new Lilhaunt(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave6spawn++;
         } else {
@@ -364,7 +362,7 @@ TowerDefense.DarkRoom.prototype = {
         if(this.wave7spawn < this.wave7max){
             var randomX = game.rnd.integerInRange(-10, 10);
             var randomY = game.rnd.integerInRange(-30, 30);
-            enemy = this.enemies.add(new Succ(game, randomX, randomY ));
+            enemy = this.enemies.add(new DankDeath(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave7spawn++;
         } else {
@@ -379,9 +377,9 @@ TowerDefense.DarkRoom.prototype = {
             var enemy;
 
             if(this.wave8spawn % 2 == 1)
-                enemy = this.enemies.add(new Drybaby(game, randomX, randomY ));
+                enemy = this.enemies.add(new DeathHead(game, randomX, randomY ));
             else
-                enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
+                enemy = this.enemies.add(new Dip(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave8spawn++;
         } else {
@@ -393,7 +391,7 @@ TowerDefense.DarkRoom.prototype = {
         if(this.wave9spawn < this.wave9max){
             var randomX = game.rnd.integerInRange(-10, 10);
             var randomY = game.rnd.integerInRange(-30, 30);
-            enemy = this.enemies.add(new Succ(game, randomX, randomY ));
+            enemy = this.enemies.add(new DankDeath(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave9spawn++;
         } else {
