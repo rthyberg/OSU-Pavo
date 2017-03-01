@@ -72,11 +72,19 @@ Tower.prototype.fireAt = function(path) {
     var yLoc = path[pathIndex].y + this.target.vy;
     //this.weapon.bullets.getFirstExists(false, false).tint = 0x4444AA;
     if (this.frostShot == true && Math.random() * 100 <= this.frostChance) {
-        this.weapon.bullets.getFirstExists(false, false, null, null, "bullet", 1).frostApplySlow = true;
-        this.weapon2.bullets.getFirstExists(false, false, null, null, "bullet", 1).frostApplySlow = true;
+        var one = this.weapon.bullets.getFirstExists(false, false, null, null, "bullet", 1);
+        var two = this.weapon2.bullets.getFirstExists(false, false, null, null, "bullet", 1);
+        if(one != null && two != null) {
+            one.frostApplyShot = true;
+            two.frostApplyShot = true;
+        }
     } else {
-        this.weapon.bullets.getFirstExists(false, false, null, null, "bullet", this.fireType).frostApplySlow = false;
-        this.weapon2.bullets.getFirstExists(false, false, null, null, "bullet", this.fireType).frostApplySlow = false;
+        var one = this.weapon.bullets.getFirstExists(false, false, null, null, "bullet", this.fireType);
+        var two = this.weapon2.bullets.getFirstExists(false, false, null, null, "bullet", this.fireType);
+        if(one != null && two != null) {
+            one.frostApplyShot = false;
+            two.frostApplyShot = false;
+        }
     }
     if (this.doubleUp == true) {
         this.weapon2.fireAtXY(xLoc, yLoc);
