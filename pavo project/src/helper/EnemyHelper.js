@@ -1,6 +1,7 @@
+
 // *** Helper functions
 
-function MoveFunction(path){
+function MoveFunction(path) {
     pathindex = Math.round(this.pi);
     if(pathindex < path.length){
         this.x = path[pathindex].x + this.vx;
@@ -12,13 +13,54 @@ function MoveFunction(path){
 }
 
 
+function SetDynamicRetreat(enemy) {
+    enemy.forward = true;
+    enemy.retreat = false;
+    enemy.retreatpoint = 50;
+    enemy.retreatdist = 50;
+    enemy.retreatcount = 2;
+    
+}
+
 // Dynamic Move
-function DMoveFunction(enemy, path){
+function DynamicMoveFunction(path) {
+    var disttoend = (path.length - this.pi);
+    var totalretreat = (this.retreatpoint + this.retreatdist);
+    
+    if(this.retreatcount > 0){
+        // enemy is retreating
+        if(this.retreat && !this.forward){
+            if(disttoend > totalretreat){
+                //console.log(disttoend);
+                //console.log(forwarddist);
+                this.forward = true;
+                this.retreat = false;
+                this.retreatcount -= 1;
+            }
+        }
+
+        // enemy has not retreated yet
+        if(!this.retreat){
+            if(this.retreatpoint > disttoend){
+                this.retreat = true;
+                this.forward = false;
+            }
+        }
+    }
+    
+    
     pathindex = Math.round(this.pi);
+
     if(pathindex < path.length){
         this.x = path[pathindex].x + this.vx;
         this.y = path[pathindex].y + this.vy;
-        this.pi += this.speed;
+        if(this.forward){
+            this.pi += this.speed;
+        }else{
+            this.pi -= this.speed;
+            if(this.pi <= 0)
+                this.pi = path.length;
+        }
     } else {
         this.pi = path.length;
     }
@@ -200,12 +242,13 @@ Fly = function(game, x, y){
     this.play('fly', 5, true);
     
     SetEnemyDefault(this);
+    SetDynamicRetreat(this);
     EquipWeapon(this, 'bullet');
 }
 
 Fly.prototype = Object.create(Phaser.Sprite.prototype);
 Fly.prototype.constructor = Fly;
-Fly.prototype.move = MoveFunction;
+Fly.prototype.move = DynamicMoveFunction;
 Fly.prototype.fire = FireWeapon;
 
 
