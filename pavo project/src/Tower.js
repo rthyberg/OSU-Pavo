@@ -87,10 +87,18 @@ Tower.createGroup = function (game) {
 collisionHandler = function (sprite, bullet) {
     bullet.kill();
     sprite.hp -= this.damage;
+    //add red tint to damaged sprite
+    sprite.tint = 0xff0000;
+    setTimeout(function(){
+        // reset to null tint after 100 ms
+        sprite.tint = 0xffffff;
+    }, 100);
+    
     if(sprite.hp <= 0){
         sprite.kill();
         this.soundmanager.explodesfx.play();
     }
+    
 }
 
 // Checks teh distance between Alive targets and the tower object

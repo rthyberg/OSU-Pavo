@@ -72,7 +72,9 @@ TowerDefense.LevelOne.prototype = {
         graphics.endFill();
         
         //add the home base
-        this.base = this.add.sprite(600, 200, 'base');
+        this.base = this.add.sprite(650, 250, 'base');
+        this.base.anchor.x = 0.5;
+        this.base.anchor.y = 0.5;
         this.physics.enable(this.base, Phaser.Physics.ARCADE);
         this.base.body.collideWorldBounds = true;
         this.base.body.immovable = true;
@@ -225,6 +227,9 @@ TowerDefense.LevelOne.prototype = {
         this.player.displayCoin();
         
         this.enemies.forEach(this.checkEnemy, this, true);
+        
+        this.enemies.callAll('fire',null,this.base);
+        
         this.physics.arcade.overlap(this.bga, this.bga, this.fireCollision, null, this);
         this.physics.arcade.overlap(this.bga, this.base, this.fireCollision, null, this);
         this.physics.arcade.overlap(this.bga, this.enemies, this.fireCollision, null, this);
@@ -286,7 +291,7 @@ TowerDefense.LevelOne.prototype = {
         if(this.wave2spawn < this.wave2max){
             var randomX = game.rnd.integerInRange(-10, 10); 
             var randomY = game.rnd.integerInRange(-30, 30);       
-            enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
+            enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave2spawn++;
         } else {
@@ -301,7 +306,7 @@ TowerDefense.LevelOne.prototype = {
             var enemy;
             
             if(this.wave3spawn % 2 == 1)
-                enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
+                enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
             else
                 enemy = this.enemies.add(new Fly(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);

@@ -1,4 +1,6 @@
-MoveFunction = function(path){
+// *** Helper functions
+
+function MoveFunction(path){
     pathindex = Math.round(this.pi);
     if(pathindex < path.length){
         this.x = path[pathindex].x + this.vx;
@@ -10,6 +12,65 @@ MoveFunction = function(path){
 }
 
 
+// Dynamic Move
+function DMoveFunction(enemy, path){
+    pathindex = Math.round(this.pi);
+    if(pathindex < path.length){
+        this.x = path[pathindex].x + this.vx;
+        this.y = path[pathindex].y + this.vy;
+        this.pi += this.speed;
+    } else {
+        this.pi = path.length;
+    }
+}
+
+function SetEnemyDefault(enemy){
+    enemy.pi = 0;
+    enemy.anchor.x = 0.5;
+    enemy.anchor.y = 0.5;
+    enemy.enableBody = true;
+}
+
+function EquipWeapon(enemy, bullettype){
+    enemy.lastFired = 0;
+    enemy.fireRate = 1000;
+    enemy.fireRange = 400;
+    
+    enemy.weapon = game.add.weapon(30, 'bullet');
+    enemy.weapon.bulletKillDistance = 200;
+    enemy.weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
+    enemy.weapon.bulletSpeed = 300;
+    enemy.weapon.fireRate = 500;
+}
+
+function FireWeapon(target){
+    var dist = this.game.physics.arcade.distanceBetween(this, target);
+    
+    if (dist < this.fireRange && this.game.time.now > this.lastFired){
+        this.weapon.trackSprite(this,0,0,true);
+        this.weapon.bulletKillDistance = dist;
+        this.weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
+        this.weapon.fireAtXY(target.x, target.y);
+        this.lastFired = this.game.time.now + this.fireRate;
+    }
+};
+
+//function FireWeapon(enemy, target){
+//    var dist = enemy.game.physics.arcade.distanceBetween(enemy, target);
+//    console.log(dist);
+//    console.log("===");
+//    console.log(enemy.fireRange);
+//    if (dist < enemy.fireRange && enemy.game.time.now > enemy.lastFired){
+//        enemy.weapon.trackSprite(enemy,0,0,true);
+//        enemy.weapon.bulletKillDistance = dist;
+//        enemy.weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
+//        enemy.weapon.fireAtXY(target.x, target.y);
+//        enemy.lastFired = enemy.game.time.now + enemy.fireRate;
+//    }
+//};
+// *** END Helpers ***
+
+// *** Build Objects ***
 // BUILD UFO
 Ufo = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'ufo');
@@ -23,6 +84,7 @@ Ufo = function(game, x, y){
     this.animations.add('walk');
     this.play('walk', 5, true);
     this.enableBody = true;
+    SetEnemyDefault(this);
 }
 
 Ufo.prototype = Object.create(Phaser.Sprite.prototype);
@@ -126,24 +188,25 @@ Biggy.prototype = Object.create(Phaser.Sprite.prototype);
 Biggy.prototype.constructor = Biggy;
 Biggy.prototype.move = MoveFunction;
 
+
 //BUILD Fly
 Fly = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'fly');
     this.vx = x;
     this.vy = y;
     this.hp = 2;
-    this.pi = 0;
-    this.anchor.x = 0.5;
-    this.anchor.y = 0.5;
     this.speed = 1.0;
     this.animations.add('fly');
     this.play('fly', 5, true);
-    this.enableBody = true;
+    
+    SetEnemyDefault(this);
+    EquipWeapon(this, 'bullet');
 }
 
 Fly.prototype = Object.create(Phaser.Sprite.prototype);
 Fly.prototype.constructor = Fly;
 Fly.prototype.move = MoveFunction;
+Fly.prototype.fire = FireWeapon;
 
 
 //BUILD Spikes
