@@ -17,7 +17,16 @@ Tower = function (game, x, y, key, bulletkey) {
   // tracks the pos of the tower
   this.weapon.trackSprite(this,0,0,true);
 
-  // circle for range
+  this.weapon2 = game.add.weapon(30, bulletkey);
+  // kills bullet if left world
+  this.weapon2.bulletKillDistance = 200;
+  this.weapon2.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
+  this.weapon2.bulletSpeed = 300;
+  this.weapon2.fireRate = 500;
+  // tracks the pos of the tower
+  this.weapon2.trackSprite(this,0,0,true);
+
+  //// circle for range
   this.towerRange = new Phaser.Circle(x, y, (this.weapon.bulletKillDistance*2));
   this.target = null;
   this.targetDist = 0;
@@ -26,8 +35,13 @@ Tower = function (game, x, y, key, bulletkey) {
   // Frost Tower
   this.frostShot = false;
   this.frostChance = 25;
+  // Double up
+  this.doubleUp = false;
+
+  // Sound
   this.soundmanager = new soundManager(game);
   this.speed = 1.0;
+  // animations
   this.animations.add('xyz');
   this.play('xyz', 4, true);
   this.enableBody = true;
@@ -55,11 +69,16 @@ Tower.prototype.fireAt = function (path) {
     //this.weapon.bullets.getFirstExists(false, false).tint = 0x4444AA;
     if(this.frostShot == true  && Math.random() * 100 <= this.frostChance) {
         this.weapon.bullets.getFirstExists(false, false, null, null, "bullet", 1).frostApplySlow = true;
+        this.weapon2.bullets.getFirstExists(false, false, null, null, "bullet", 1).frostApplySlow = true;
     } else {
         this.weapon.bullets.getFirstExists(false, false, null, null, "bullet", 0).frostApplySlow = false;
+        this.weapon2.bullets.getFirstExists(false, false, null, null, "bullet", 0).frostApplySlow = false;
+    }
+    if(this.doubleUp == true) {
+        this.weapon2.fireAtXY(xLoc, yLoc);
+        game.physics.arcade.overlap(this.target, this.weapon2.bullets, collisionHandler, null, this);
     }
     this.weapon.fireAtXY(xLoc, yLoc);
-
     game.physics.arcade.overlap(this.target, this.weapon.bullets, collisionHandler, null, this);
 };
 
