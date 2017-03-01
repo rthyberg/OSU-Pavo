@@ -65,11 +65,14 @@ towerUI = function(game,player) {
     this.spdUp = game.add.button(-20, -20, 'dmgUp', spdUp, this, 'Up', 'Up', 'UpPressed', 'Up'); // Rate of fire
     this.frostUp = game.add.button(-20, -20, 'dmgUp', frostUp, this, 'Up', 'Up', 'UpPressed', 'Up'); // setFrost
     this.doubleUp = game.add.button(-20, -20, 'dmgUp', doubleUp, this, 'Up', 'Up', 'UpPressed', 'Up'); // setFrost
+    this.fireUp = game.add.button(-20, -20, 'dmgUp', fireUp, this, 'Up', 'Up', 'UpPressed', 'Up'); // setFrost
     // disable all ablity to input until called
     this.dmgUp.inputEnabled = false;
     this.rngUp.inputEnabled = false;
     this.spdUp.inputEnabled = false;
     this.frostUp.inputEnabled = false;
+    this.doubleUp.inputEnabled = false;
+    this.fireUp.inputEnabled = false;
     this.on = false
     var style = {
         font: "16px Arial",
@@ -88,7 +91,9 @@ towerUI = function(game,player) {
     this.frostUp.onInputDown.add(down2, this);
     this.frostUp.onInputUp.add(up, this);
     this.doubleUp.onInputDown.add(down2, this);
-    this.doubleUp.onInputUp.add(down2, this);
+    this.doubleUp.onInputUp.add(up, this);
+    this.fireUp.onInputDown.add(down2, this);
+    this.fireUp.onInputUp.add(up, this);
 
     // function that sets currentTower and enables buttons until next call
     this.setTower = function(new_tower, pointer) {
@@ -114,6 +119,10 @@ towerUI = function(game,player) {
                 this.doubleUp.x = new_tower.x -45;
                 this.doubleUp.y = new_tower.y;
                 this.doubleUp.inputEnabled = true;
+                // set fire up
+                this.fireUp.x = new_tower.x - 45;
+                this.fireUp.y = new_tower.y + 20;
+                this.fireUp.inputEnabled = true;
                 this.on = true;
             } else {
                 // set back to default aka OFF SCREEN
@@ -136,6 +145,10 @@ towerUI = function(game,player) {
                 this.doubleUp.x = -40;
                 this.doubleUp.y = -40;
                 this.doubleUp.inputEnabled = false;
+                // set fire Up off screen
+                this.fireUp.x = -40;
+                this.fireUp.y = -40;
+                this.fireUp.inputEnabled = false;
                 this.on = false;
             }
         }
@@ -175,6 +188,13 @@ towerUI = function(game,player) {
             this.currentTower.doubleUp = true;
             this.currentTower.weapon.trackSprite(this.currentTower, -15, 0, false);
             this.currentTower.weapon2.trackSprite(this.currentTower, 15, 0, false);
+        }
+    }
+    function fireUp() {
+        if(this.player.coins - 50 >= 0) {
+            this.player.updateCoin(-50);
+            this.currentTower.fireUp = true;
+            this.currentTower.fireType = 2;
         }
     }
     function down(button) {

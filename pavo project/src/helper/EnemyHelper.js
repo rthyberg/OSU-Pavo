@@ -422,7 +422,10 @@ Flames = function(game, x, y){
     this.vy = y;
     this.hp = 999;
     this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
     this.speed = 1.0;
+    this.damage = 1;
     this.animations.add('fly');
     this.play('fly', 3, true);
     this.enableBody = true;
