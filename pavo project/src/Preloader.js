@@ -24,7 +24,8 @@ TowerDefense.Preloader.prototype = {
         /*************TOWER****************/
         this.game.load.image('tower', 'img/tower.png');
         this.game.load.atlasJSONArray('bullet', 'img/bulletsheet.png', 'img/bullets.json');
-        /**********IMAGES*******************/
+        this.game.load.image('darkroad', 'img/darkroad.png');
+	    /**********IMAGES*******************/
         
         this.game.load.image('heartFull', 'img/heartFull.png');
         this.game.load.image('explosion', 'img/explosion.png');
@@ -100,3 +101,4 @@ TowerDefense.Preloader.prototype = {
 
 	}
 };
+
