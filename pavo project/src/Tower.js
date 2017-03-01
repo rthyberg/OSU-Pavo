@@ -26,7 +26,6 @@ Tower = function (game, x, y, key, bulletkey) {
   // Frost Tower
   this.frostShot = false;
   this.frostChance = 25;
-  this.frostApplySlow = false;
   this.soundmanager = new soundManager(game);
   };
 
@@ -51,11 +50,9 @@ Tower.prototype.fireAt = function (path) {
     var yLoc = path[pathIndex].y + this.target.vy;
     //this.weapon.bullets.getFirstExists(false, false).tint = 0x4444AA;
     if(this.frostShot == true  && Math.random() * 100 <= this.frostChance) {
-        this.weapon.bullets.getFirstExists(false, false, null, null, "bullet", 1);
-        this.frostApplySlow = true;
+        this.weapon.bullets.getFirstExists(false, false, null, null, "bullet", 1).frostApplySlow = true;
     } else {
-        this.frostApplySlow = false;
-        this.weapon.bullets.getFirstExists(false, false, null, null, "bullet", 0);
+        this.weapon.bullets.getFirstExists(false, false, null, null, "bullet", 0).frostApplySlow = false;
     }
     this.weapon.fireAtXY(xLoc, yLoc);
     game.physics.arcade.overlap(this.target, this.weapon.bullets, collisionHandler, null, this);
@@ -99,7 +96,7 @@ Tower.createGroup = function (game) {
 collisionHandler = function (sprite, bullet) {
     bullet.kill();
     sprite.hp -= this.damage;
-    if(this.frostApplySlow == true) {
+    if(bullet.frostApplySlow == true) {
         sprite.slow();
     }
     if(sprite.hp <= 0){
