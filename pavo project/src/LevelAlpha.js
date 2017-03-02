@@ -67,7 +67,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.plot();
 
         //add the home base
-        this.base = this.add.sprite(600, 200, 'base');
+        this.base = this.add.sprite(600, 200, 'isaac');
         this.physics.enable(this.base, Phaser.Physics.ARCADE);
         this.base.body.collideWorldBounds = true;
         this.base.body.immovable = true;
@@ -81,7 +81,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 20, x: 20, width: 32, height: 32, rows: 2});
 
         // Add Player
-        this.player = new Player(game,200);
+        this.player = new Player(game,9999);
         // Towers
         this.towerList = Tower.createGroup(this); // creates group  of towers
         this.towerList.inputEnableChildren = true; // enable input for all future children
@@ -246,6 +246,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.uibutton.update()
         this.towerList.callAll('selectTarget', null, this.enemies, this.path); // now needs path variable to be passed in
         this.player.displayCoin();
+        this.towerList.callAll('flameCollides', null, this, this.enemies);
         this.checkwave();
         //this.enemies.setAll('x', 1, true, true, 1);
         this.enemies.forEach(this.checkEnemy, this, true);
