@@ -22,11 +22,10 @@ TowerDefense.Preloader.prototype = {
         this.game.load.image('darkTile', 'img/dark_ground.png');
         this.game.load.image('spook', 'img/spook_ground.png');
         /*************TOWER****************/
-        
-        //this.game.load.image('tower', 'img/tower.png');
-        this.game.load.image('bullet', 'img/explosion.png');
+        this.game.load.image('tower', 'img/tower.png');
+        this.game.load.atlasJSONArray('bullet', 'img/bullet_sheet.png', 'img/bullets_sheet.json');
         this.game.load.image('darkroad', 'img/darkroad.png');
-        /**********IMAGES*******************/
+	    /**********IMAGES*******************/
         
         this.game.load.image('heartFull', 'img/heartFull.png');
         this.game.load.image('explosion', 'img/explosion.png');
@@ -102,3 +101,4 @@ TowerDefense.Preloader.prototype = {
 
 	}
 };
+
