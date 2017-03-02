@@ -134,6 +134,14 @@ Tower.createGroup = function(game) {
 collisionHandler = function(sprite, bullet) {
         bullet.kill();
         sprite.hp -= this.damage;
+        
+        //add red tint to damaged sprite
+        sprite.tint = 0xff0000;
+        setTimeout(function(){
+            // reset to null tint after 100 ms
+            sprite.tint = 0xffffff;
+        }, 100);
+    
         if (bullet.frostApplySlow == true) {
             sprite.slow();
         }
@@ -148,6 +156,7 @@ collisionHandler = function(sprite, bullet) {
     //  Called if the bullet hits one of the veg sprites
 collisionHandler2 = function(sprite, bullet) {
     sprite.hp -= this.damage;
+    
     //add red tint to damaged sprite
     sprite.tint = 0xff0000;
     setTimeout(function(){
