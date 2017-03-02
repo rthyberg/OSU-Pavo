@@ -223,6 +223,158 @@ Baby.prototype = Object.create(Phaser.Sprite.prototype);
 Baby.prototype.constructor = Baby;
 Baby.prototype.move = MoveFunction;
 
+//Squirt
+Squirt = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'squirt');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 10;
+    this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
+    this.speed = 1.0;
+    this.animations.add('fly');
+    this.play('fly', 5, true);
+    this.enableBody = true;
+}
+
+Squirt.prototype = Object.create(Phaser.Sprite.prototype);
+Squirt.prototype.constructor = Squirt;
+Squirt.prototype.move = MoveFunction;
+
+//DeathHead
+DeathHead = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'deathhead');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 20;
+    this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
+    this.speed = 1.0;
+    this.animations.add('fly');
+    this.play('fly', 5, true);
+    this.enableBody = true;
+}
+
+DeathHead.prototype = Object.create(Phaser.Sprite.prototype);
+DeathHead.prototype.constructor = DeathHead;
+DeathHead.prototype.move = MoveFunction;
+
+//Dip
+Dip = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'dip');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 1;
+    this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
+    this.speed = 1.0;
+    this.animations.add('fly');
+    this.play('fly', 5, true);
+    this.enableBody = true;
+}
+
+Dip.prototype = Object.create(Phaser.Sprite.prototype);
+Dip.prototype.constructor = Dip;
+Dip.prototype.move = MoveFunction;
+
+//lilhaunt
+Lilhaunt = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'lilhaunt');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 20;
+    this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
+    this.speed = 1.2;
+    this.animations.add('fly');
+    this.play('fly', 5, true);
+    this.enableBody = true;
+}
+
+Lilhaunt.prototype = Object.create(Phaser.Sprite.prototype);
+Lilhaunt.prototype.constructor = Lilhaunt;
+Lilhaunt.prototype.move = MoveFunction;
+
+//Clotty
+Clotty = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'clotty');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 5;
+    this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
+    this.speed = 1.0;
+    this.animations.add('fly');
+    this.play('fly', 10, true);
+    this.enableBody = true;
+}
+
+Clotty.prototype = Object.create(Phaser.Sprite.prototype);
+Clotty.prototype.constructor = Clotty;
+Clotty.prototype.move = MoveFunction;
+
+//DankDeath
+DankDeath = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'dankdeath');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 12;
+    this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
+    this.speed = 1.0;
+    this.animations.add('fly');
+    this.play('fly', 5, true);
+    this.enableBody = true;
+}
+
+DankDeath.prototype = Object.create(Phaser.Sprite.prototype);
+DankDeath.prototype.constructor = DankDeath;
+DankDeath.prototype.move = MoveFunction;
+
+//Guts
+Guts = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'guts');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 5;
+    this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
+    this.speed = 1.0;
+    this.animations.add('fly');
+    this.play('fly', 7, true);
+    this.enableBody = true;
+}
+
+Guts.prototype = Object.create(Phaser.Sprite.prototype);
+Guts.prototype.constructor = Guts;
+Guts.prototype.move = MoveFunction;
+
+//ScarredGuts
+ScarredGuts = function(game, x, y){
+    Phaser.Sprite.call(this, game, x, y, 'scarredguts');
+    this.vx = x;
+    this.vy = y;
+    this.hp = 7;
+    this.pi = 0;
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
+    this.speed = 1.0;
+    this.animations.add('fly');
+    this.play('fly', 7, true);
+    this.enableBody = true;
+}
+
+ScarredGuts.prototype = Object.create(Phaser.Sprite.prototype);
+ScarredGuts.prototype.constructor = ScarredGuts;
+ScarredGuts.prototype.move = MoveFunction;
+
 //BACKGROUND
 Flames = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'bg_fire');
