@@ -1,4 +1,7 @@
-MoveFunction = function(path){
+
+// *** Helper functions
+
+function MoveFunction(path) {
     pathindex = Math.round(this.pi);
     if(pathindex < path.length){
         this.x = path[pathindex].x + this.vx;
@@ -8,6 +11,84 @@ MoveFunction = function(path){
         this.pi = path.length;
     }
 }
+
+
+// Dynamic Move
+function DynamicMoveFunction(path) {
+    var disttoend = (path.length - this.pi);
+    var totalretreat = (this.retreatpoint + this.retreatdist);
+    
+    if(this.retreatcount > 0){
+        // enemy is retreating
+        if(this.retreat && !this.forward){
+            if(disttoend > totalretreat){
+                //console.log(disttoend);
+                //console.log(forwarddist);
+                this.forward = true;
+                this.retreat = false;
+                this.retreatcount -= 1;
+            }
+        }
+
+        // enemy has not retreated yet
+        if(!this.retreat){
+            if(this.retreatpoint > disttoend){
+                this.retreat = true;
+                this.forward = false;
+            }
+        }
+    }
+    
+    
+    pathindex = Math.round(this.pi);
+
+    if(pathindex < path.length){
+        this.x = path[pathindex].x + this.vx;
+        this.y = path[pathindex].y + this.vy;
+        if(this.forward){
+            this.pi += this.speed;
+        }else{
+            this.pi -= this.speed;
+            if(this.pi <= 0)
+                this.pi = path.length;
+        }
+    } else {
+        this.pi = path.length;
+    }
+}
+
+function SetEnemyDefault(enemy){
+    enemy.pi = 0;
+    enemy.anchor.x = 0.5;
+    enemy.anchor.y = 0.5;
+    enemy.enableBody = true;
+    enemy.forward = true;
+    enemy.retreat = false;
+}
+
+function EquipWeapon(enemy, bullettype){
+    enemy.lastFired = 0;
+    enemy.fireRate = 1000;
+    enemy.fireRange = 200;
+    
+    enemy.weapon = game.add.weapon(30, bullettype);
+    enemy.weapon.bulletKillDistance = 200;
+    enemy.weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
+    enemy.weapon.bulletSpeed = 300;
+    enemy.weapon.fireRate = 500;
+}
+
+function FireWeapon(target){
+    var dist = this.game.physics.arcade.distanceBetween(this, target);
+    
+    if (dist < this.fireRange && this.game.time.now > this.lastFired){
+        this.weapon.trackSprite(this,0,0,true);
+        this.weapon.bulletKillDistance = dist;
+        this.weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
+        this.weapon.fireAtXY(target.x, target.y);
+        this.lastFired = this.game.time.now + this.fireRate;
+    }
+};
 
 slow = function () {
     var time = 0.5
@@ -28,6 +109,14 @@ slow = function () {
         this.slowed = false;
         }
 }
+
+// *** END Helpers ***
+
+
+
+
+// *** Build Objects ***
+
 // BUILD UFO
 Ufo = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'ufo');
@@ -42,6 +131,7 @@ Ufo = function(game, x, y){
     this.animations.add('walk');
     this.play('walk', 5, true);
     this.enableBody = true;
+    SetEnemyDefault(this);
 }
 
 Ufo.prototype = Object.create(Phaser.Sprite.prototype);
@@ -156,26 +246,32 @@ Biggy.prototype.constructor = Biggy;
 Biggy.prototype.move = MoveFunction;
 Biggy.prototype.slow = slow;
 
+
 //BUILD Fly
 Fly = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'fly');
     this.vx = x;
     this.vy = y;
     this.hp = 2;
-    this.pi = 0;
-    this.anchor.x = 0.5;
-    this.anchor.y = 0.5;
     this.speed = 1.0;
-    this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 5, true);
-    this.enableBody = true;
+    this.slowed = false;
+  
+    this.retreatpoint = 50;
+    this.retreatdist = 50;
+    this.retreatcount = 2;
+    
+    SetEnemyDefault(this);
+    EquipWeapon(this, 'bullet');
 }
 
 Fly.prototype = Object.create(Phaser.Sprite.prototype);
 Fly.prototype.constructor = Fly;
-Fly.prototype.move = MoveFunction;
+Fly.prototype.move = DynamicMoveFunction;
+Fly.prototype.fire = FireWeapon;
 Fly.prototype.slow = slow;
+
 
 
 //BUILD Spikes

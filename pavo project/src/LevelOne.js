@@ -22,7 +22,7 @@ TowerDefense.LevelOne = function(game) {
     
     this.points = {
         'x': [ 50, 50, 50, 250, 250,650 ],
-        'y': [ 0, 200, 400, 400, 240,240 ]
+        'y': [ 75 , 200, 400, 400, 240,240 ]
     };
 
     this.path = [];
@@ -54,50 +54,12 @@ TowerDefense.LevelOne.prototype = {
         this.bmd = this.add.bitmapData(this.game.width, this.game.height);
         this.bmd.addToWorld();
         
-        // Build dynamic map
+        // LEVEL 1 Build dynamic map
 		this.map = new DMap('tiles');
         this.map.draw();
         
-        // Plot and Draw Path First
-        this.plot();
-        
-        this.enemies = this.add.group();
-        this.fire = this.add.group();
-        
-        // Draw Top Bar
-         var graphics = game.add.graphics(0, 0);
-        graphics.lineStyle(2, 0xeeeeee, 1);
-        graphics.beginFill(0xe9e9e9, 1);
-        graphics.drawRect(0, 0, 800, 50);
-        graphics.endFill();
-        
-        //add the home base
-        this.base = this.add.sprite(600, 200, 'base');
-        this.physics.enable(this.base, Phaser.Physics.ARCADE);
-        this.base.body.collideWorldBounds = true;
-        this.base.body.immovable = true;
-    
-        //add health to the base
-        this.base.health = 3;
-        this.base.maxHealth = 12;
-        this.hearts = this.game.add.group();
-        this.hearts.enableBody = true;
-        this.healthMeterIcons = this.game.add.plugin(Phaser.Plugin.HealthMeter);
-        this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 10, x: 20, width: 32, height: 32, rows: 2});
-        
-        // Add Player
-        this.player = new Player(game,200);
-        
-        // Towers
-        this.towerList = Tower.createGroup(this); // creates group  of towers
-        this.towerList.inputEnableChildren = true; // enable input for all future children
-        this.towerUI = new towerUI(game, this.player); // create a new UI object
-        this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
-        this.uibutton = new createTowerButton(this, 300, 20, 'tower', 'tower', this.towerList, this.player);
-        this.uibutton.create();
-
-        
-        this.bga = this.add.group();
+        // LEVEL 2 map objects
+          this.bga = this.add.group();
         for (var i = 0; i < game.rnd.integerInRange(9, 16); i++){
             var randomX = game.rnd.integerInRange(10, 790); 
             var randomY = game.rnd.integerInRange(10, 590); 
@@ -118,6 +80,56 @@ TowerDefense.LevelOne.prototype = {
             var rocks3 = this.bga.add(new Rocks3(game, randomX, randomY));
             this.physics.enable(rocks3, Phaser.Physics.ARCADE);           
         }
+        
+        // LEVEL 3 Draw Path
+        // Plot and Draw Path First
+        this.plot();
+        
+        // LEVEL 4 Enemies and Projectiles
+        this.enemies = this.add.group();
+        this.fire = this.add.group();
+        // Add Player
+        this.player = new Player(game,200);
+        
+        
+        
+        // LEVEL 5 HOME BASE
+        //add the home base
+        this.base = this.add.sprite(650, 250, 'base');
+        this.base.anchor.x = 0.5;
+        this.base.anchor.y = 0.5;
+        this.physics.enable(this.base, Phaser.Physics.ARCADE);
+        this.base.body.collideWorldBounds = true;
+        this.base.body.immovable = true;
+        //add health to the base
+        this.base.health = 3;
+        this.base.maxHealth = 12;
+        
+        
+        // LEVEL 6 STATUS BAR
+        // Draw Top Bar
+//         var graphics = game.add.graphics(0, 0);
+//        graphics.lineStyle(2, 0xeeeeee, 1);
+//        graphics.beginFill(0xe9e9e9, 1);
+//        graphics.drawRect(0, 0, 800, 50);
+//        graphics.endFill();
+        
+        // Towers
+        this.towerList = Tower.createGroup(this); // creates group  of towers
+        this.towerList.inputEnableChildren = true; // enable input for all future children
+        this.towerUI = new towerUI(game, this.player); // create a new UI object
+        this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
+        
+        
+        this.hearts = this.game.add.group();
+        this.hearts.enableBody = true;
+        this.healthMeterIcons = this.game.add.plugin(Phaser.Plugin.HealthMeter);
+        this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 10, x: 20, width: 32, height: 32, rows: 2});
+        
+        
+        this.uibutton = new createTowerButton(this, 300, 20, 'tower', 'tower', this.towerList, this.player);
+        this.uibutton.create();
+
         
         this.soundmanager = new soundManager(game);
         this.soundmanager.game_music.play();
@@ -225,6 +237,9 @@ TowerDefense.LevelOne.prototype = {
         this.player.displayCoin();
         
         this.enemies.forEach(this.checkEnemy, this, true);
+        
+        this.enemies.callAll('fire',null,this.base);
+        
         this.physics.arcade.overlap(this.bga, this.bga, this.fireCollision, null, this);
         this.physics.arcade.overlap(this.bga, this.base, this.fireCollision, null, this);
         this.physics.arcade.overlap(this.bga, this.enemies, this.fireCollision, null, this);
@@ -286,7 +301,7 @@ TowerDefense.LevelOne.prototype = {
         if(this.wave2spawn < this.wave2max){
             var randomX = game.rnd.integerInRange(-10, 10); 
             var randomY = game.rnd.integerInRange(-30, 30);       
-            enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
+            enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave2spawn++;
         } else {
@@ -301,7 +316,7 @@ TowerDefense.LevelOne.prototype = {
             var enemy;
             
             if(this.wave3spawn % 2 == 1)
-                enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
+                enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
             else
                 enemy = this.enemies.add(new Fly(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
