@@ -369,6 +369,7 @@ Squirt = function(game, x, y){
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.speed = 1.0;
+    this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
@@ -377,6 +378,7 @@ Squirt = function(game, x, y){
 Squirt.prototype = Object.create(Phaser.Sprite.prototype);
 Squirt.prototype.constructor = Squirt;
 Squirt.prototype.move = MoveFunction;
+Squirt.prototype.slow = slow;
 
 //DeathHead
 DeathHead = function(game, x, y){
@@ -388,6 +390,7 @@ DeathHead = function(game, x, y){
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.speed = 1.0;
+    this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
@@ -396,6 +399,7 @@ DeathHead = function(game, x, y){
 DeathHead.prototype = Object.create(Phaser.Sprite.prototype);
 DeathHead.prototype.constructor = DeathHead;
 DeathHead.prototype.move = MoveFunction;
+DeathHead.prototype.slow = slow;
 
 //Dip
 Dip = function(game, x, y){
@@ -407,6 +411,7 @@ Dip = function(game, x, y){
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.speed = 1.0;
+    this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
@@ -415,6 +420,7 @@ Dip = function(game, x, y){
 Dip.prototype = Object.create(Phaser.Sprite.prototype);
 Dip.prototype.constructor = Dip;
 Dip.prototype.move = MoveFunction;
+Dip.prototype.slow = slow;
 
 //lilhaunt
 Lilhaunt = function(game, x, y){
@@ -426,6 +432,7 @@ Lilhaunt = function(game, x, y){
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.speed = 1.2;
+    this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
@@ -434,6 +441,7 @@ Lilhaunt = function(game, x, y){
 Lilhaunt.prototype = Object.create(Phaser.Sprite.prototype);
 Lilhaunt.prototype.constructor = Lilhaunt;
 Lilhaunt.prototype.move = MoveFunction;
+Lilhaunt.prototype.slow = slow;
 
 //Clotty
 Clotty = function(game, x, y){
@@ -445,6 +453,7 @@ Clotty = function(game, x, y){
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.speed = 1.0;
+    this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 10, true);
     this.enableBody = true;
@@ -453,6 +462,7 @@ Clotty = function(game, x, y){
 Clotty.prototype = Object.create(Phaser.Sprite.prototype);
 Clotty.prototype.constructor = Clotty;
 Clotty.prototype.move = MoveFunction;
+Clotty.prototype.slow = slow;
 
 //DankDeath
 DankDeath = function(game, x, y){
@@ -464,6 +474,7 @@ DankDeath = function(game, x, y){
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.speed = 1.0;
+    this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
@@ -472,6 +483,7 @@ DankDeath = function(game, x, y){
 DankDeath.prototype = Object.create(Phaser.Sprite.prototype);
 DankDeath.prototype.constructor = DankDeath;
 DankDeath.prototype.move = MoveFunction;
+DankDeath.prototype.slow = slow;
 
 //Guts
 Guts = function(game, x, y){
@@ -483,6 +495,7 @@ Guts = function(game, x, y){
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.speed = 1.0;
+    this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 7, true);
     this.enableBody = true;
@@ -491,6 +504,7 @@ Guts = function(game, x, y){
 Guts.prototype = Object.create(Phaser.Sprite.prototype);
 Guts.prototype.constructor = Guts;
 Guts.prototype.move = MoveFunction;
+Guts.prototype.slow = slow;
 
 //ScarredGuts
 ScarredGuts = function(game, x, y){
@@ -502,6 +516,7 @@ ScarredGuts = function(game, x, y){
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.speed = 1.0;
+    this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 7, true);
     this.enableBody = true;
@@ -510,6 +525,7 @@ ScarredGuts = function(game, x, y){
 ScarredGuts.prototype = Object.create(Phaser.Sprite.prototype);
 ScarredGuts.prototype.constructor = ScarredGuts;
 ScarredGuts.prototype.move = MoveFunction;
+ScarredGuts.prototype.slow = slow;
 
 //BACKGROUND
 Flames = function(game, x, y){
