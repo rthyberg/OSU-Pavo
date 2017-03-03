@@ -74,17 +74,21 @@ Tower.prototype.fireAt = function(path) {
     if (this.frostShot == true && Math.random() * 100 <= this.frostChance) {
         var one = this.weapon.bullets.getFirstExists(false, false, null, null, "bullet", 1);
         var two = this.weapon2.bullets.getFirstExists(false, false, null, null, "bullet", 1);
-        if(one != null && two != null) {
-            one.frostApplyShot = true;
-            two.frostApplyShot = true;
-        }
+        if(one != null) {
+            one.frostApplySlow = true;
+          }
+        if(two != null) {
+            two.frostApplySlow = true;
+          }
     } else {
         var one = this.weapon.bullets.getFirstExists(false, false, null, null, "bullet", this.fireType);
         var two = this.weapon2.bullets.getFirstExists(false, false, null, null, "bullet", this.fireType);
-        if(one != null && two != null) {
-            one.frostApplyShot = false;
-            two.frostApplyShot = false;
-        }
+        if(one != null) {
+            one.frostApplySlow = false;
+          }
+        if(two != null) {
+            two.frostApplySlow = false;
+          }
     }
     if (this.doubleUp == true) {
         this.weapon2.fireAtXY(xLoc, yLoc);
@@ -134,14 +138,13 @@ Tower.createGroup = function(game) {
 collisionHandler = function(sprite, bullet) {
         bullet.kill();
         sprite.hp -= this.damage;
-        
+
         //add red tint to damaged sprite
         sprite.tint = 0xff0000;
         setTimeout(function(){
             // reset to null tint after 100 ms
             sprite.tint = 0xffffff;
         }, 100);
-    
         if (bullet.frostApplySlow == true) {
             sprite.slow();
         }
@@ -156,19 +159,19 @@ collisionHandler = function(sprite, bullet) {
     //  Called if the bullet hits one of the veg sprites
 collisionHandler2 = function(sprite, bullet) {
     sprite.hp -= this.damage;
-    
+
     //add red tint to damaged sprite
     sprite.tint = 0xff0000;
     setTimeout(function(){
         // reset to null tint after 100 ms
         sprite.tint = 0xffffff;
     }, 100);
-    
+
     if(sprite.hp <= 0){
         sprite.kill();
         this.soundmanager.explodesfx.play();
     }
-    
+
 }
 
 // Checks teh distance between Alive targets and the tower object

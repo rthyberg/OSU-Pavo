@@ -17,7 +17,7 @@ function MoveFunction(path) {
 function DynamicMoveFunction(path) {
     var disttoend = (path.length - this.pi);
     var totalretreat = (this.retreatpoint + this.retreatdist);
-    
+
     if(this.retreatcount > 0){
         // enemy is retreating
         if(this.retreat && !this.forward){
@@ -38,8 +38,8 @@ function DynamicMoveFunction(path) {
             }
         }
     }
-    
-    
+
+
     pathindex = Math.round(this.pi);
 
     if(pathindex < path.length){
@@ -70,7 +70,7 @@ function EquipWeapon(enemy, bullettype){
     enemy.lastFired = 0;
     enemy.fireRate = 1000;
     enemy.fireRange = 200;
-    
+
     enemy.weapon = game.add.weapon(30, bullettype);
     enemy.weapon.bulletKillDistance = 200;
     enemy.weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
@@ -80,7 +80,7 @@ function EquipWeapon(enemy, bullettype){
 
 function FireWeapon(target){
     var dist = this.game.physics.arcade.distanceBetween(this, target);
-    
+
     if (dist < this.fireRange && this.game.time.now > this.lastFired){
         this.weapon.trackSprite(this,0,0,true);
         this.weapon.bulletKillDistance = dist;
@@ -98,7 +98,7 @@ slow = function () {
         this.speed = this.speed/2;
         this.slowed = true;
         this.timer.add(500, normal, this, null);
-        this.timer.start()
+        this.timer.start();
     } else {
         this.timer.stop(true);
         this.timer.add(500, normal, this, null);
@@ -257,11 +257,11 @@ Fly = function(game, x, y){
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.slowed = false;
-  
+
     this.retreatpoint = 50;
     this.retreatdist = 50;
     this.retreatcount = 2;
-    
+
     SetEnemyDefault(this);
     EquipWeapon(this, 'bullet');
 }
