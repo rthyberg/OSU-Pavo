@@ -138,6 +138,11 @@ Tower.createGroup = function(game) {
 collisionHandler = function(sprite, bullet) {
         bullet.kill();
         sprite.hp -= this.damage;
+        var randomS = game.rnd.integerInRange(0, 2);
+        if (randomS == 0)
+            this.soundmanager.tear4.play();
+        else if (randomS == 1)
+            this.soundmanager.tear5.play();
 
         //add red tint to damaged sprite
         sprite.tint = 0xff0000;
@@ -153,13 +158,23 @@ collisionHandler = function(sprite, bullet) {
                 this.makeAfterFire(sprite);
             }
             sprite.kill();
-            this.soundmanager.explodesfx.play();
+            var randomG = game.rnd.integerInRange(0, 2);
+            if (randomG == 0)
+                this.soundmanager.splatter0.play();
+            else if (randomG == 1)
+                this.soundmanager.splatter1.play();
+            else if (randomG == 2)
+                this.soundmanager.splatter2.play();
         }
     }
     //  Called if the bullet hits one of the veg sprites
 collisionHandler2 = function(sprite, bullet) {
     sprite.hp -= this.damage;
-
+    var randomS = game.rnd.integerInRange(0, 2);
+    if (randomS == 0)
+        this.soundmanager.tear4.play();
+    else if (randomS == 1)
+        this.soundmanager.tear5.play();
     //add red tint to damaged sprite
     sprite.tint = 0xff0000;
     setTimeout(function(){
@@ -169,7 +184,13 @@ collisionHandler2 = function(sprite, bullet) {
 
     if(sprite.hp <= 0){
         sprite.kill();
-        this.soundmanager.explodesfx.play();
+        var randomG = game.rnd.integerInRange(0, 2);
+        if (randomG == 0)
+            this.soundmanager.splatter0.play();
+        else if (randomG == 1)
+            this.soundmanager.splatter1.play();
+        else if (randomG == 2)
+            this.soundmanager.splatter2.play();
     }
 
 }
