@@ -19,6 +19,11 @@ var soundManager = function(game){
     this.splatter1 = game.add.audio("splatter1");
     this.splatter2 = game.add.audio("splatter2");
     this.stanspawn = game.add.audio("stanspawn");
+    this.laugh = game.add.audio("laugh");
+    this.mega = game.add.audio("mega");
+    this.burst = game.add.audio("burst");
+    this.burst2 = game.add.audio("burst2");
+    this.burst3 = game.add.audio("burst3");
     
     this.death1 = game.add.audio("death1");
     this.death2 = game.add.audio("death2");
@@ -30,8 +35,22 @@ var soundManager = function(game){
     this.boss1 = game.add.audio("boss1");
     this.boss1.loop = true;
     
+    this.boss2 = game.add.audio("boss2");
+    this.boss2.loop = true;
+
+    this.boss3 = game.add.audio("boss3");
+    this.boss3.loop = true;    
+
+    
     this.level1 = game.add.audio("level1");
     this.level1.loop = true;
+    this.level2 = game.add.audio("level2");
+    this.level2.loop = true;
+    this.level3a = game.add.audio("level3a");
+    this.level3a.loop = true;
+    this.level3b = game.add.audio("level3b");
+    this.level3b.loop = true;
+
     this.intro = game.add.audio("intro");
     this.intro.loop = true;
     
@@ -49,6 +68,9 @@ soundManager.prototype.stop = function(){
     this.intro.stop();
     this.jingle.stop();
     this.level1.stop();
+    this.level2.stop();
+    this.level3a.stop();
+    this.level3b.stop();
     this.summon.stop();
     this.hurt1.stop();
     this.hurt2.stop();
@@ -67,6 +89,9 @@ soundManager.prototype.musicstop = function(){
     this.intro.stop();
     this.jingle.stop();
     this.level1.stop();
+    this.level2.stop();
+    this.level3a.stop();
+    this.level3b.stop();
     this.uded.stop();
 
 

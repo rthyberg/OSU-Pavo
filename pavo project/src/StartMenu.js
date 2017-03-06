@@ -25,7 +25,23 @@ TowerDefense.StartMenu.prototype = {
             this.soundmanager.stop();
             this.soundmanager.jingle.play();
             var pic = game.add.image(game.world.centerX, game.world.height, 'bgblack');
-            var pictxt = game.add.image(game.world.centerX, game.world.centerY, 'loader');
+            var randomS = game.rnd.integerInRange(0, 6);
+            if (randomS == 0)
+                var pictxt = game.add.image(game.world.centerX, game.world.centerY, 'loader');
+            else if (randomS == 1)
+                var pictxt = game.add.image(game.world.centerX, game.world.centerY, 'loader2');           
+            else if (randomS == 2)
+                var pictxt = game.add.image(game.world.centerX, game.world.centerY, 'loader3');  
+            else if (randomS == 3)
+                var pictxt = game.add.image(game.world.centerX, game.world.centerY, 'loader3');  
+            else if (randomS == 4)
+                var pictxt = game.add.image(game.world.centerX, game.world.centerY, 'loader4');  
+
+            else if (randomS == 5)
+                var pictxt = game.add.image(game.world.centerX, game.world.centerY, 'loader5');  
+            else if (randomS == 6)
+                var pictxt = game.add.image(game.world.centerX, game.world.centerY, 'loader7');  
+            
             pic.anchor.setTo(0.5, 1);
             pictxt.anchor.setTo(0.5, 1);
             game.time.events.add(Phaser.Timer.SECOND * 5, fadePicture, this);

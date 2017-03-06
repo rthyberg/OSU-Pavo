@@ -92,7 +92,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.map.draw();
         
         // LEVEL 2 map objects
-          this.bga = this.add.group();
+        this.bga = this.add.group();
         for (var i = 0; i < game.rnd.integerInRange(9, 16); i++){
             var randomX = game.rnd.integerInRange(10, 790); 
             var randomY = game.rnd.integerInRange(10, 590); 
@@ -151,7 +151,7 @@ TowerDefense.LevelAlpha.prototype = {
 
 
 
-        this.soundmanager.level1.play();
+        this.soundmanager.level2.play();
 	},
     
     plot: function () {
@@ -254,10 +254,9 @@ TowerDefense.LevelAlpha.prototype = {
 
     baseCollision: function(enemy, base){
         this.base.tint = 0xff0000;
-        setTimeout(function(){
-        // reset to null tint after 100 ms
-            this.base.tint = 0xffffff;
-        }, 100)
+ 
+        game.time.events.add(Phaser.Timer.SECOND * .1, this.resetTint, this); 
+
         //var f = this.fire.create(600, 200, 'boom');
         //f.time = 2;
         //f.animations.add('burst');
@@ -270,6 +269,10 @@ TowerDefense.LevelAlpha.prototype = {
         else if (randomS == 2)
             this.soundmanager.hurt3.play();
         //this.soundmanager.explodesfx.play();
+    },
+    
+    resetTint: function(){
+        this.base.tint = 0xffffff;
     },
 
     kill: function(enemy){
@@ -302,7 +305,6 @@ TowerDefense.LevelAlpha.prototype = {
         {
             this.enemies.forEach(this.kill, this, true);
             this.base.damage(1);
-;
             if (this.base.health==0){
                 this.soundmanager.musicstop();
                 var randomS = game.rnd.integerInRange(0, 2);
@@ -379,7 +381,7 @@ TowerDefense.LevelAlpha.prototype = {
             }
             else if(this.wave10spawn >= this.wave10max){
                 // Printing Game Complete and link to next Level
-                this.screenMessage = drawGameOverScreen(this, "LevelAlpha Complete!", "Next Level: Dark Room", "DarkRoom"); 
+                this.screenMessage = drawGameOverScreen(this, "LevelAlpha Complete!", "Next Level: Skeletal Room", "SpookRoom"); 
                 this.soundmanager.stop();
             }
 
@@ -511,9 +513,14 @@ TowerDefense.LevelAlpha.prototype = {
     },
     loadwave9: function(){
         if(this.wave9spawn < this.wave9max){
+            this.soundmanager.laugh.play();
             var randomX = game.rnd.integerInRange(-10, 10);
             var randomY = game.rnd.integerInRange(-30, 30);
             enemy = this.enemies.add(new Succ(game, randomX, randomY ));
+            if(this.wave9spawn % 2 == 1)
+                enemy = this.enemies.add(new Drybaby(game, randomX, randomY ));
+            else
+                enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave9spawn++;
         } else {

@@ -138,7 +138,7 @@ Tower.createGroup = function(game) {
 collisionHandler = function(sprite, bullet) {
         bullet.kill();
         sprite.hp -= this.damage;
-        var randomS = game.rnd.integerInRange(0, 2);
+        var randomS = game.rnd.integerInRange(0, 1);
         if (randomS == 0)
             this.soundmanager.tear4.play();
         else if (randomS == 1)
@@ -160,11 +160,11 @@ collisionHandler = function(sprite, bullet) {
             sprite.kill();
             var randomG = game.rnd.integerInRange(0, 2);
             if (randomG == 0)
-                this.soundmanager.splatter0.play();
+                this.soundmanager.burst.play();
             else if (randomG == 1)
-                this.soundmanager.splatter1.play();
+                this.soundmanager.burst2.play();
             else if (randomG == 2)
-                this.soundmanager.splatter2.play();
+                this.soundmanager.burst3.play();
         }
     }
     //  Called if the bullet hits one of the veg sprites
@@ -175,6 +175,13 @@ collisionHandler2 = function(sprite, bullet) {
         this.soundmanager.tear4.play();
     else if (randomS == 1)
         this.soundmanager.tear5.play();
+    var randomX = game.rnd.integerInRange(0, 30);
+    if (randomX == 0)
+        this.soundmanager.splatter0.play();
+    else if (randomX == 1)
+        this.soundmanager.splatter1.play();
+    else if (randomX == 2)
+        this.soundmanager.splatter2.play();    
     //add red tint to damaged sprite
     sprite.tint = 0xff0000;
     setTimeout(function(){
@@ -186,11 +193,11 @@ collisionHandler2 = function(sprite, bullet) {
         sprite.kill();
         var randomG = game.rnd.integerInRange(0, 2);
         if (randomG == 0)
-            this.soundmanager.splatter0.play();
+            this.soundmanager.burst.play();
         else if (randomG == 1)
-            this.soundmanager.splatter1.play();
+            this.soundmanager.burst2.play();
         else if (randomG == 2)
-            this.soundmanager.splatter2.play();
+            this.soundmanager.burst3.play();
     }
 
 }

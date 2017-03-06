@@ -80,13 +80,14 @@ function EquipWeapon(enemy, bullettype){
 
 function FireWeapon(target){
     var dist = this.game.physics.arcade.distanceBetween(this, target);
-
+    
     if (dist < this.fireRange && this.game.time.now > this.lastFired){
         this.weapon.trackSprite(this,0,0,true);
         this.weapon.bulletKillDistance = dist;
         this.weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
         this.weapon.fireAtXY(target.x, target.y);
         this.lastFired = this.game.time.now + this.fireRate;
+
     }
 };
 
@@ -234,7 +235,7 @@ Biggy = function(game, x, y){
     this.pi = 0;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
-    this.speed = 0.5;
+    this.speed = 3.5;
     this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 5, true);
@@ -301,7 +302,7 @@ Stan = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'stan');
     this.vx = x;
     this.vy = y;
-    this.hp = 100;
+    this.hp = 1500;
     this.pi = 0;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
@@ -322,14 +323,14 @@ Mega = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'mega');
     this.vx = x;
     this.vy = y;
-    this.hp = 100;
+    this.hp = 2000;
     this.pi = 0;
     this.speed = 0.25;
     this.slowed = false;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.animations.add('fly');
-    this.play('fly', 1, true);
+    this.play('fly', 2, true);
     this.enableBody = true;
 }
 
@@ -343,7 +344,7 @@ Baby = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'baby');
     this.vx = x;
     this.vy = y;
-    this.hp = 100;
+    this.hp = 3000;
     this.pi = 0;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
@@ -410,7 +411,7 @@ Dip = function(game, x, y){
     this.pi = 0;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
-    this.speed = 1.0;
+    this.speed = 3.5;
     this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 5, true);
@@ -431,7 +432,7 @@ Lilhaunt = function(game, x, y){
     this.pi = 0;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
-    this.speed = 1.2;
+    this.speed = 1.5;
     this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 5, true);

@@ -31,6 +31,12 @@ TowerDefense.Preloader.prototype = {
         this.game.load.image('explosion', 'img/explosion.png');
         this.game.load.image('bgblack', 'img/bgblack.png');
         this.game.load.image('loader', 'img/loader.png');
+        this.game.load.image('loader2', 'img/loader2.png');
+        this.game.load.image('loader3', 'img/loader3.png');
+        this.game.load.image('loader4', 'img/loader4.png');
+        this.game.load.image('loader5', 'img/loader5.png');
+        this.game.load.image('loader6', 'img/loader6.png');
+        this.game.load.image('loader7', 'img/loader7.png');
         /**********SPRITES*******************/
         this.game.load.spritesheet('isaac', 'img/isaac.png', 66, 58, 1);
         this.game.load.spritesheet('tower', 'img/tower_isaac.png', 32, 30, 2);
@@ -66,6 +72,11 @@ TowerDefense.Preloader.prototype = {
         this.game.load.spritesheet('rocks3', 'img/bg_assets/rocks_caves.png', 31, 31, 1);
 
         /**********AUDIO*******************/
+        this.game.load.audio('mega', ['audio/sfx/mega.mp3']);
+        this.game.load.audio('laugh', ['audio/sfx/laugh.wav']);
+        this.game.load.audio('burst', ['audio/sfx/burst.wav']);
+        this.game.load.audio('burst3', ['audio/sfx/burst3.wav']);
+        this.game.load.audio('burst2', ['audio/sfx/burst2.wav']);
         this.game.load.audio('summon', ['audio/sfx/summonsound.mp3']);
         this.game.load.audio('drip1', ['audio/sfx/drip1.wav']);
         this.game.load.audio('drop2', ['audio/sfx/drop2.wav']);
@@ -90,11 +101,16 @@ TowerDefense.Preloader.prototype = {
         this.game.load.audio('explodesfx', 'audio/explodesfx.mp3');
         this.game.load.audio('game_music', ['audio/game_music.mp3']);
         this.game.load.audio('level1', ['audio/level1.mp3']);
+        this.game.load.audio('level2', ['audio/level2.mp3']);
+        this.game.load.audio('level3a', ['audio/level3a.mp3']);
+        this.game.load.audio('level3b', ['audio/level3b.mp3']);
         this.game.load.audio('intro', ['audio/intro.mp3']);
         this.game.load.audio('jingle', ['audio/jingle.mp3']);
         this.game.load.audio('deathjingle', ['audio/deathjingle.mp3']);
         this.game.load.audio('uded', ['audio/uded.mp3']);
         this.game.load.audio('boss1', ['audio/boss1.mp3']);
+        this.game.load.audio('boss2', ['audio/boss2.mp3']);
+        this.game.load.audio('boss3', ['audio/boss3.mp3']);
         /**********FONT*******************/
         this.game.load.bitmapFont('nokia16', 'fonts/nokia16.png', 'fonts/nokia16.xml');
 
