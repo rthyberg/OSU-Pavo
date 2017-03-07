@@ -60,6 +60,9 @@ var soundManager = function(game){
     this.uded = game.add.audio("uded");
     this.uded.loop = true;
     
+    this.calm = game.add.audio("calm");
+    this.calm.loop = true;
+    
 }
 
 soundManager.prototype.constructor = soundManager;
@@ -91,8 +94,12 @@ soundManager.prototype.musicstop = function(){
     this.level1.stop();
     this.level2.stop();
     this.level3a.stop();
+    this.boss1.stop();
+    this.boss2.stop();
+    this.boss3.stop();
     this.level3b.stop();
     this.uded.stop();
+    this.calm.stop();
 
 
 }

@@ -111,6 +111,7 @@ TowerDefense.Preloader.prototype = {
         this.game.load.audio('boss1', ['audio/boss1.mp3']);
         this.game.load.audio('boss2', ['audio/boss2.mp3']);
         this.game.load.audio('boss3', ['audio/boss3.mp3']);
+        this.game.load.audio('calm', ['audio/calm.mp3']);
         /**********FONT*******************/
         this.game.load.bitmapFont('nokia16', 'fonts/nokia16.png', 'fonts/nokia16.xml');
 

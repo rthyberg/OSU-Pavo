@@ -376,14 +376,16 @@ TowerDefense.LevelAlpha.prototype = {
             else if(this.wave10spawn < this.wave10max){
                 this.soundmanager.stop();
                 this.screenMessage = drawWaveScreen(this, "Wave 10: BOSS!", 2000);
-                this.soundmanager.stanspawn.play();
-                game.time.events.add(Phaser.Timer.SECOND * 2, this.loadwave10, this);
-
+                
+                game.time.events.add(Phaser.Timer.SECOND * 1, this.loadwave10, this);
+                this.spawnstart = true;
             }
             else if(this.wave10spawn >= this.wave10max){
                 // Printing Game Complete and link to next Level
-                this.screenMessage = drawGameOverScreen(this, "LevelAlpha Complete!", "Next Level: Skeletal Room", "SpookRoom"); 
                 this.soundmanager.stop();
+                this.soundmanager.musicstop();
+                this.screenMessage = drawNextGame(this, "LevelAlpha Complete!", "Next Level: Skeletal Room", "SpookRoom"); 
+                
             }
 
 
@@ -530,7 +532,9 @@ TowerDefense.LevelAlpha.prototype = {
     },
 
     loadwave10: function(){
+        
         if(this.wave10spawn < this.wave10max){
+            this.soundmanager.stanspawn.play();
             this.soundmanager.summon.play();
             this.soundmanager.boss1.play();
             var randomX = game.rnd.integerInRange(-10, 10);

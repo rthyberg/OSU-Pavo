@@ -323,7 +323,7 @@ Mega = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'mega');
     this.vx = x;
     this.vy = y;
-    this.hp = 2000;
+    this.hp = 2;
     this.pi = 0;
     this.speed = 0.25;
     this.slowed = false;
@@ -344,7 +344,7 @@ Baby = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'baby');
     this.vx = x;
     this.vy = y;
-    this.hp = 3000;
+    this.hp = 3;
     this.pi = 0;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;

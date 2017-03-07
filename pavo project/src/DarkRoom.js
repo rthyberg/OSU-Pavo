@@ -326,7 +326,7 @@ TowerDefense.DarkRoom.prototype = {
              this.screenMessage = drawWaveScreen(this, "Wave 1", 2000);
              this.soundmanager.summon.play();
              this.loop = game.time.events.loop(400, this.loadwave1, this);
-            } /*else if(this.wave2spawn < this.wave2max){
+            } else if(this.wave2spawn < this.wave2max){
              this.screenMessage = drawWaveScreen(this, "Wave 2", 2000);
              this.soundmanager.summon.play();
              this.loop = game.time.events.loop(400, this.loadwave2, this);
@@ -358,18 +358,21 @@ TowerDefense.DarkRoom.prototype = {
              this.screenMessage = drawWaveScreen(this, "Wave 9", 2000);
              this.soundmanager.summon.play();
              this.loop = game.time.events.loop(400, this.loadwave9, this);
-            } */
+            } 
             else if(this.wave10spawn < this.wave10max){
+                this.soundmanager.musicstop();
                 this.soundmanager.stop();
                 this.screenMessage = drawWaveScreen(this, "Wave 10: BOSS!", 2000);
-                this.soundmanager.laugh.play();
-                game.time.events.add(Phaser.Timer.SECOND * 2, this.loadwave10, this);
-
+                
+                game.time.events.add(Phaser.Timer.SECOND * 1, this.loadwave10, this);
+                this.spawnstart = true;
             }
             else if(this.wave10spawn >= this.wave10max){
                 // Printing Game Complete and link to next Level
-                this.screenMessage = drawGameOverScreen(this, "Skeletal Room Complete!", "Next Level: Dark Room", "DarkRoom"); 
                 this.soundmanager.stop();
+                this.soundmanager.musicstop();
+                this.screenMessage = drawNextGame(this, "Game Complete!", "Back to Main Menu", "StartMenu"); 
+
             }
 
 
