@@ -1,5 +1,9 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'TowerDefense', { preload: preload });
 
+//default game volume between 0-10;
+var gameVolume = 7;
+var gameSfxVolume = 7;
+
 function preload() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.state.add('Boot', TowerDefense.Boot); // sets phaser settings
@@ -12,6 +16,7 @@ function preload() {
     game.state.add('SpookRoom', TowerDefense.SpookRoom);
     //TODO - add a start menu state
     game.state.add('StartMenu', TowerDefense.StartMenu);
+    game.state.add('OptionMenu', TowerDefense.OptionMenu);
 
     //TODO Should be modularized later into 3 differnt levels
     game.state.add('Game', TowerDefense.Game); // Currently adds our test level.
