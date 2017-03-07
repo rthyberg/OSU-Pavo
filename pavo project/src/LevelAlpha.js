@@ -368,6 +368,7 @@ TowerDefense.LevelAlpha.prototype = {
              this.soundmanager.summon.play();
              this.loop = game.time.events.loop(400, this.loadwave8, this);
             } else if(this.wave9spawn < this.wave9max){
+             this.soundmanager.laugh.play();
              this.screenMessage = drawWaveScreen(this, "Wave 9", 2000);
              this.soundmanager.summon.play();
              this.loop = game.time.events.loop(400, this.loadwave9, this);
@@ -513,14 +514,13 @@ TowerDefense.LevelAlpha.prototype = {
     },
     loadwave9: function(){
         if(this.wave9spawn < this.wave9max){
-            this.soundmanager.laugh.play();
+            
             var randomX = game.rnd.integerInRange(-10, 10);
             var randomY = game.rnd.integerInRange(-30, 30);
-            enemy = this.enemies.add(new Succ(game, randomX, randomY ));
             if(this.wave9spawn % 2 == 1)
                 enemy = this.enemies.add(new Drybaby(game, randomX, randomY ));
             else
-                enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
+                enemy = this.enemies.add(new Succ(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave9spawn++;
         } else {
