@@ -129,6 +129,7 @@ Ufo = function(game, x, y){
     this.anchor.y = 0.5;
     this.speed = 1;
     this.slowed = false;
+    this.coins = 1;
     this.animations.add('walk');
     this.play('walk', 5, true);
     this.enableBody = true;
@@ -153,6 +154,7 @@ Spacebug = function(game, x, y){
     this.anchor.y = 0.5;
     this.speed = 1.3;
     this.slowed = false;
+    this.coins = 1;
     this.animations.add('walk');
     this.play('walk', 5, true);
     this.enableBody = true;
@@ -174,6 +176,7 @@ Zombie = function (game, x, y) {
     this.anchor.y = 0.5;
     this.speed = 0.6;
     this.slowed = false;
+    this.coins = 1;
     this.animations.add('walk');
     this.play('walk', 10, true);
     this.enableBody = true;
@@ -195,6 +198,7 @@ Drybaby = function(game, x, y){
     this.anchor.y = 0.5;
     this.speed = 1.0;
     this.slowed = false;
+    this.coins = 3;
     this.animations.add('walk');
     this.play('walk', 3, true);
     this.enableBody = true;
@@ -215,6 +219,7 @@ Succ = function(game, x, y){
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.speed = 1.0;
+    this.coins = 3;
     this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 4, true);
@@ -237,6 +242,7 @@ Biggy = function(game, x, y){
     this.anchor.y = 0.5;
     this.speed = 3.5;
     this.slowed = false;
+    this.coins = 1;
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
@@ -258,6 +264,7 @@ Fly = function(game, x, y){
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.slowed = false;
+    this.coins = 1;
 
     this.retreatpoint = 50;
     this.retreatdist = 50;
@@ -285,6 +292,7 @@ Spikes = function(game, x, y){
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.speed = 1.0;
+    this.coins = 1;
     this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 5, true);
@@ -306,8 +314,10 @@ Stan = function(game, x, y){
     this.pi = 0;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
+    this.coins = 100;
     this.speed = 0.5;
     this.slowed = false;
+    this.coins = 1;
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
@@ -327,6 +337,7 @@ Mega = function(game, x, y){
     this.pi = 0;
     this.speed = 0.25;
     this.slowed = false;
+    this.coins = 100;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.animations.add('fly');
@@ -349,6 +360,7 @@ Baby = function(game, x, y){
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.speed = 0.5;
+    this.coins = 100;
     this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 5, true);
@@ -371,6 +383,7 @@ Squirt = function(game, x, y){
     this.anchor.y = 0.5;
     this.speed = 1.0;
     this.slowed = false;
+    this.coins = 1;
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
@@ -392,6 +405,7 @@ DeathHead = function(game, x, y){
     this.anchor.y = 0.5;
     this.speed = 1.0;
     this.slowed = false;
+    this.coins = 3;
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
@@ -413,6 +427,7 @@ Dip = function(game, x, y){
     this.anchor.y = 0.5;
     this.speed = 3.5;
     this.slowed = false;
+    this.coins = 1;
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
@@ -434,6 +449,7 @@ Lilhaunt = function(game, x, y){
     this.anchor.y = 0.5;
     this.speed = 1.5;
     this.slowed = false;
+    this.coins = 3;
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
@@ -455,6 +471,7 @@ Clotty = function(game, x, y){
     this.anchor.y = 0.5;
     this.speed = 1.0;
     this.slowed = false;
+    this.coins = 1;
     this.animations.add('fly');
     this.play('fly', 10, true);
     this.enableBody = true;
@@ -475,6 +492,7 @@ DankDeath = function(game, x, y){
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.speed = 1.0;
+    this.coins = 3;
     this.slowed = false;
     this.animations.add('fly');
     this.play('fly', 5, true);
@@ -497,6 +515,7 @@ Guts = function(game, x, y){
     this.anchor.y = 0.5;
     this.speed = 1.0;
     this.slowed = false;
+    this.coins = 1;
     this.animations.add('fly');
     this.play('fly', 7, true);
     this.enableBody = true;
@@ -518,6 +537,7 @@ ScarredGuts = function(game, x, y){
     this.anchor.y = 0.5;
     this.speed = 1.0;
     this.slowed = false;
+    this.coins = 1;
     this.animations.add('fly');
     this.play('fly', 7, true);
     this.enableBody = true;

@@ -44,7 +44,8 @@ createTowerButton.prototype = {
             if(this.player.coins-15 >= 0) {
                 this.player.updateCoin(-15);
                 this.placeHolder.visible = false; // when button let go build the tower on the x, y
-                this.towerList.create(this.game.input.x, this.game.input.y, 'tower', 'bullet');
+                var newTower = this.towerList.create(this.game.input.x, this.game.input.y, 'tower', 'bullet');
+                newTower.setPlayer(this.player);
             } else this.text.visible = false; // disable font if tower isnt being built
         }
     },

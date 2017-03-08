@@ -122,7 +122,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.enemies = this.add.group();
         this.fire = this.add.group();
         // Add Player
-        this.player = new Player(game,200);
+        this.player = new Player(this, 200);
         this.base = this.add.sprite(650, 250, 'isaac');
         this.base.anchor.x = 0.5;
         this.base.anchor.y = 0.5;
