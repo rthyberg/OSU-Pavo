@@ -5,14 +5,17 @@
  *place represets the image that will be glues to mouse
  *list represents the group created by Tower.creatGroup() */
 
-function createTowerButton(game, x, y, key, place, list, player) {
+function createTowerButton(game, x, y, key, place, list, player, path) {
     this.game = game; // sets the current game
     this.towerList = list; // sets the tower group
     this.placeHolder = game.add.sprite(game.input.x, game.input.y, place); // add a sprite that hovers around the mouse
     this.placeHolder.anchor.set(0.5, 0.5); // sets sprite to have centered origin
     this.placeHolder.visible = false; // hide this sprite
+    this.game.physics.enable(this.placeHolder, Phaser.Physics.ARCADE); // enable physics to check tower stacking
     this.towerButton = game.add.button(x, y, key, null, game, 2, 1, 0); // add the button to the x, y
     this.player = player;
+    this.path = path;
+    console.log(this.path);
     // display Font
     var style = {
         font: "16px Arial",
@@ -30,7 +33,19 @@ function createTowerButton(game, x, y, key, place, list, player) {
 };
 
 createTowerButton.prototype = {
-    // Call Create in the levels create function after the obj as been made
+    // Function checks if x and y are cooridnates inside the given path based on the point and how wide the path is.
+    // it checks the if the values are with in the four corners of the squal that would make up that part of the path
+    squareCheck: function (x, y) {
+        for(var i = 0; i < this.path.length; i ++) {
+            if(x >= this.path[i].x-50 && x  <= this.path[i].x+74 &&
+                y >= this.path[i].y-50 && y <= this.path[i].y +66) {
+                return false;
+            }
+        }
+        return true;
+    },
+
+// Call Create in the levels create function after the obj as been made
     create: function() {
         this.towerButton.onInputDown.add(showTower, this); // add listener for clicking button down
         this.towerButton.onInputUp.add(buildTower, this); // add listener for releasing after clicking hte button
@@ -41,11 +56,19 @@ createTowerButton.prototype = {
         }
 
         function buildTower() {
-            if(this.player.coins-15 >= 0) {
+            if(this.player.coins-15 >= 0 &&
+                this.squareCheck(this.game.input.x, this.game.input.y) &&
+                !this.game.physics.arcade.overlap(this.placeHolder, this.towerList, null, null, null)) {
                 this.player.updateCoin(-15);
                 this.placeHolder.visible = false; // when button let go build the tower on the x, y
-                this.towerList.create(this.game.input.x, this.game.input.y, 'tower', 'bullet');
-            } else this.text.visible = false; // disable font if tower isnt being built
+                var newTower = this.towerList.create(this.game.input.x, this.game.input.y, 'tower', 'bullet');
+                newTower.setPlayer(this.player);
+            } else {
+                this.text.visible = false; // disable font if tower isnt being built
+                this.placeHolder.visible = false; // disable placeholder if cant be placed
+                // TODO Add invalid sound effect?
+            }
+
         }
     },
     // call update in the levels update function

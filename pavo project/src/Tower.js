@@ -118,6 +118,10 @@ Tower.prototype.selectTarget = function(targets, path) {
 Tower.prototype.flameCollides = function(game, targets) {
     this.game.physics.arcade.overlap(targets, this.flames, collisionHandler2, null, this);
 };
+Tower.prototype.setPlayer = function(player) {
+    this.player = player;
+};
+
 Tower.prototype.update = function() {
 
 };
@@ -157,6 +161,8 @@ collisionHandler = function(sprite, bullet) {
             if(this.fireUp == true) {
                 this.makeAfterFire(sprite);
             }
+            //console.log(this.player.coins);
+            this.player.updateCoin(sprite.coins);
             sprite.kill();
             var randomG = game.rnd.integerInRange(0, 2);
             if (randomG == 0)
@@ -181,7 +187,7 @@ collisionHandler2 = function(sprite, bullet) {
     else if (randomX == 1)
         this.soundmanager.splatter1.play();
     else if (randomX == 2)
-        this.soundmanager.splatter2.play();    
+        this.soundmanager.splatter2.play();
     //add red tint to damaged sprite
     sprite.tint = 0xff0000;
     setTimeout(function(){
@@ -190,6 +196,7 @@ collisionHandler2 = function(sprite, bullet) {
     }, 100);
 
     if(sprite.hp <= 0){
+        this.player.updateCoin(sprite.coins);
         sprite.kill();
         var randomG = game.rnd.integerInRange(0, 2);
         if (randomG == 0)
