@@ -86,6 +86,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.bmd.addToWorld();
         this.soundmanager = new soundManager(game);
         this.soundmanager.stop();
+        this.soundmanager.level1.play();
         // Build dynamic map
         // LEVEL 1 Build dynamic map
 		this.map = new DMap('tiles');
@@ -151,7 +152,7 @@ TowerDefense.LevelAlpha.prototype = {
 
 
 
-        this.soundmanager.level2.play();
+        
 	},
     
     plot: function () {
@@ -234,6 +235,7 @@ TowerDefense.LevelAlpha.prototype = {
             //console.log(f);
         }
     },
+
 
     fireCollision: function(enemy, fire){
         //console.log(enemy.hit);
@@ -506,7 +508,7 @@ TowerDefense.LevelAlpha.prototype = {
             if(this.wave8spawn % 2 == 1)
                 enemy = this.enemies.add(new Drybaby(game, randomX, randomY ));
             else
-                enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
+                enemy = this.enemies.add(new vis(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave8spawn++;
         } else {

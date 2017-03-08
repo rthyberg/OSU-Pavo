@@ -29,6 +29,9 @@ var soundManager = function(game){
     this.death2 = game.add.audio("death2");
     this.death3 = game.add.audio("death3");
     
+    this.shoot = game.add.audio("shoot");
+    this.shoot2 = game.add.audio("shoot2");
+    this.shoot3 = game.add.audio("shoot3");    
     //Music
     this.game_music = game.add.audio("game_music");
     this.game_music.loop = true;

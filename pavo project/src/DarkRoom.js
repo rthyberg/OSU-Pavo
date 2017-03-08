@@ -411,7 +411,7 @@ TowerDefense.DarkRoom.prototype = {
             var enemy;
 
             if(this.wave3spawn % 2 == 1)
-                enemy = this.enemies.add(new Spacebug(game, randomX, randomY ));
+                enemy = this.enemies.add(new vis(game, randomX, randomY ));
             else
                 enemy = this.enemies.add(new ScarredGuts(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
@@ -467,7 +467,7 @@ TowerDefense.DarkRoom.prototype = {
         if(this.wave7spawn < this.wave7max){
             var randomX = game.rnd.integerInRange(-10, 10);
             var randomY = game.rnd.integerInRange(-30, 30);
-            enemy = this.enemies.add(new DankDeath(game, randomX, randomY ));
+            enemy = this.enemies.add(new laserhead(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave7spawn++;
         } else {
