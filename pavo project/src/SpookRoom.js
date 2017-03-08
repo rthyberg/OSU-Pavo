@@ -80,6 +80,7 @@ TowerDefense.SpookRoom.prototype = {
         this.bmd.addToWorld();
         this.soundmanager = new soundManager(game);
         this.soundmanager.stop();
+        this.soundmanager.level2.play();
         // Build dynamic map
         // LEVEL 1 Build dynamic map
 		this.map = new DMap('spook');
@@ -145,7 +146,7 @@ TowerDefense.SpookRoom.prototype = {
 
 
 
-        this.soundmanager.level2.play();
+        
 	},
     plot: function () {
 
@@ -358,14 +359,16 @@ TowerDefense.SpookRoom.prototype = {
             else if(this.wave10spawn < this.wave10max){
                 this.soundmanager.stop();
                 this.screenMessage = drawWaveScreen(this, "Wave 10: BOSS!", 2000);
-                this.soundmanager.mega.play();
-                game.time.events.add(Phaser.Timer.SECOND * 2, this.loadwave10, this);
-
+                
+                game.time.events.add(Phaser.Timer.SECOND * 1, this.loadwave10, this);
+                this.spawnstart = true;
             }
             else if(this.wave10spawn >= this.wave10max){
                 // Printing Game Complete and link to next Level
-                this.screenMessage = drawGameOverScreen(this, "Skeletal Room Complete!", "Next Level: Dark Room", "DarkRoom"); 
                 this.soundmanager.stop();
+                this.soundmanager.musicstop();
+                this.screenMessage = drawNextGame(this, "Skeletal Room Complete!", "Next Level: Dark Room", "DarkRoom"); 
+                
             }
 
 
@@ -489,7 +492,7 @@ TowerDefense.SpookRoom.prototype = {
         if(this.wave9spawn < this.wave9max){
             var randomX = game.rnd.integerInRange(-10, 10);
             var randomY = game.rnd.integerInRange(-30, 30);
-            enemy = this.enemies.add(new DankDeath(game, randomX, randomY ));
+            enemy = this.enemies.add(new laserhead(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave9spawn++;
         } else {
@@ -500,6 +503,7 @@ TowerDefense.SpookRoom.prototype = {
 
     loadwave10: function(){
         if(this.wave10spawn < this.wave10max){
+            this.soundmanager.mega.play();
             this.soundmanager.summon.play();
             this.soundmanager.boss2.play();
             var randomX = game.rnd.integerInRange(-10, 10);

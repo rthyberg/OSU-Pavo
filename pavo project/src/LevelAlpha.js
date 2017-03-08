@@ -86,6 +86,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.bmd.addToWorld();
         this.soundmanager = new soundManager(game);
         this.soundmanager.stop();
+        this.soundmanager.level1.play();
         // Build dynamic map
         // LEVEL 1 Build dynamic map
 		this.map = new DMap('tiles');
@@ -151,7 +152,7 @@ TowerDefense.LevelAlpha.prototype = {
 
 
 
-        this.soundmanager.level2.play();
+        
 	},
 
     plot: function () {
@@ -234,6 +235,7 @@ TowerDefense.LevelAlpha.prototype = {
             //console.log(f);
         }
     },
+
 
     fireCollision: function(enemy, fire){
         //console.log(enemy.hit);
@@ -368,6 +370,7 @@ TowerDefense.LevelAlpha.prototype = {
              this.soundmanager.summon.play();
              this.loop = game.time.events.loop(400, this.loadwave8, this);
             } else if(this.wave9spawn < this.wave9max){
+             this.soundmanager.laugh.play();
              this.screenMessage = drawWaveScreen(this, "Wave 9", 2000);
              this.soundmanager.summon.play();
              this.loop = game.time.events.loop(400, this.loadwave9, this);
@@ -375,14 +378,16 @@ TowerDefense.LevelAlpha.prototype = {
             else if(this.wave10spawn < this.wave10max){
                 this.soundmanager.stop();
                 this.screenMessage = drawWaveScreen(this, "Wave 10: BOSS!", 2000);
-                this.soundmanager.stanspawn.play();
-                game.time.events.add(Phaser.Timer.SECOND * 2, this.loadwave10, this);
-
+                
+                game.time.events.add(Phaser.Timer.SECOND * 1, this.loadwave10, this);
+                this.spawnstart = true;
             }
             else if(this.wave10spawn >= this.wave10max){
                 // Printing Game Complete and link to next Level
-                this.screenMessage = drawGameOverScreen(this, "LevelAlpha Complete!", "Next Level: Skeletal Room", "SpookRoom");
                 this.soundmanager.stop();
+                this.soundmanager.musicstop();
+                this.screenMessage = drawNextGame(this, "LevelAlpha Complete!", "Next Level: Skeletal Room", "SpookRoom"); 
+                
             }
 
 
@@ -503,7 +508,7 @@ TowerDefense.LevelAlpha.prototype = {
             if(this.wave8spawn % 2 == 1)
                 enemy = this.enemies.add(new Drybaby(game, randomX, randomY ));
             else
-                enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
+                enemy = this.enemies.add(new vis(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave8spawn++;
         } else {
@@ -513,14 +518,13 @@ TowerDefense.LevelAlpha.prototype = {
     },
     loadwave9: function(){
         if(this.wave9spawn < this.wave9max){
-            this.soundmanager.laugh.play();
+            
             var randomX = game.rnd.integerInRange(-10, 10);
             var randomY = game.rnd.integerInRange(-30, 30);
-            enemy = this.enemies.add(new Succ(game, randomX, randomY ));
             if(this.wave9spawn % 2 == 1)
                 enemy = this.enemies.add(new Drybaby(game, randomX, randomY ));
             else
-                enemy = this.enemies.add(new Spikes(game, randomX, randomY ));
+                enemy = this.enemies.add(new Succ(game, randomX, randomY ));
             this.physics.enable(enemy, Phaser.Physics.ARCADE);
             this.wave9spawn++;
         } else {
@@ -530,7 +534,9 @@ TowerDefense.LevelAlpha.prototype = {
     },
 
     loadwave10: function(){
+        
         if(this.wave10spawn < this.wave10max){
+            this.soundmanager.stanspawn.play();
             this.soundmanager.summon.play();
             this.soundmanager.boss1.play();
             var randomX = game.rnd.integerInRange(-10, 10);

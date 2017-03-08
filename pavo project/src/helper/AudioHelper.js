@@ -29,6 +29,9 @@ var soundManager = function(game){
     this.death2 = game.add.audio("death2");
     this.death3 = game.add.audio("death3");
     
+    this.shoot = game.add.audio("shoot");
+    this.shoot2 = game.add.audio("shoot2");
+    this.shoot3 = game.add.audio("shoot3");    
     //Music
     this.game_music = game.add.audio("game_music");
     this.game_music.loop = true;
@@ -59,6 +62,9 @@ var soundManager = function(game){
     
     this.uded = game.add.audio("uded");
     this.uded.loop = true;
+    
+    this.calm = game.add.audio("calm");
+    this.calm.loop = true;
     
 }
 
@@ -91,8 +97,12 @@ soundManager.prototype.musicstop = function(){
     this.level1.stop();
     this.level2.stop();
     this.level3a.stop();
+    this.boss1.stop();
+    this.boss2.stop();
+    this.boss3.stop();
     this.level3b.stop();
     this.uded.stop();
+    this.calm.stop();
 
 
 }

@@ -22,7 +22,7 @@ TowerDefense.Preloader.prototype = {
         this.game.load.image('darkTile', 'img/dark_ground.png');
         this.game.load.image('spook', 'img/spook_ground.png');
         /*************TOWER****************/
-        this.game.load.image('tower', 'img/tower.png');
+        //this.game.load.image('tower', 'img/tower.png');
         this.game.load.atlasJSONArray('bullet', 'img/bullet_sheet.png', 'img/bullets_sheet.json');
         this.game.load.image('darkroad', 'img/darkroad.png');
 	    /**********IMAGES*******************/
@@ -41,6 +41,12 @@ TowerDefense.Preloader.prototype = {
         this.game.load.spritesheet('isaac', 'img/isaac.png', 66, 58, 1);
         this.game.load.spritesheet('tower', 'img/tower_isaac.png', 32, 30, 2);
         this.game.load.spritesheet('boom', 'img/explode.png', 128, 128, 8);
+        this.game.load.spritesheet('belial', 'img/belial.png', 128, 128, 8);
+        this.game.load.spritesheet('megaTear', 'img/megaTear.png', 128, 128, 8);
+        this.game.load.spritesheet('megaExplode', 'img/megaExplode.png', 128, 128, 12);
+        this.game.load.spritesheet('enemyTear', 'img/enemyTear.png', 128, 128, 8);
+        this.game.load.spritesheet('stanTear', 'img/stanTear.png', 128, 128, 8);
+        this.game.load.spritesheet('babyTear', 'img/babyTear.png', 48, 48, 5);
         this.game.load.spritesheet('mummy', 'img/placeholder-enemy.png', 64, 64, 180);
         this.game.load.spritesheet('spacebug', 'img/space-baddie.png', 16,16, 1);
         this.game.load.spritesheet('ufo', 'img/ufo.png', 16,16, 1);
@@ -49,6 +55,8 @@ TowerDefense.Preloader.prototype = {
         this.game.load.spritesheet('biggy', 'img/bigDude.png', 82, 82, 5);
         this.game.load.spritesheet('fly', 'img/fly.png', 32, 32, 2);
         this.game.load.spritesheet('spikes', 'img/spikes.png', 48, 48, 2);
+        this.game.load.spritesheet('laserhead', 'img/laserhead.png', 48, 48, 3);
+        this.game.load.spritesheet('vis', 'img/vis.png', 94, 32, 3);
         this.game.load.spritesheet('succ', 'img/succ.png', 32, 32, 2);
         this.game.load.spritesheet('base', 'img/base.png', 64, 64, 1);
         this.game.load.spritesheet('stan', 'img/stan.png', 200, 124, 12);
@@ -97,6 +105,9 @@ TowerDefense.Preloader.prototype = {
         this.game.load.audio('death1', ['audio/sfx/death1.mp3']);
         this.game.load.audio('death2', ['audio/sfx/death2.mp3']);
         this.game.load.audio('death3', ['audio/sfx/death3.mp3']);
+        this.game.load.audio('shoot', ['audio/sfx/shoot.wav']);
+        this.game.load.audio('shoot2', ['audio/sfx/shoot2.wav']);
+        this.game.load.audio('shoot3', ['audio/sfx/shoot3.wav']);
         this.game.load.audio('shootsfx', 'audio/shootsfx.mp3');
         this.game.load.audio('explodesfx', 'audio/explodesfx.mp3');
         this.game.load.audio('game_music', ['audio/game_music.mp3']);
@@ -111,6 +122,7 @@ TowerDefense.Preloader.prototype = {
         this.game.load.audio('boss1', ['audio/boss1.mp3']);
         this.game.load.audio('boss2', ['audio/boss2.mp3']);
         this.game.load.audio('boss3', ['audio/boss3.mp3']);
+        this.game.load.audio('calm', ['audio/calm.mp3']);
         /**********FONT*******************/
         this.game.load.bitmapFont('nokia16', 'fonts/nokia16.png', 'fonts/nokia16.xml');
 
