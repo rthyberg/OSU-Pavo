@@ -166,6 +166,6 @@ TowerDefense.StartMenu.prototype = {
         }
         return "";
     }
-	}
+	
 
 };

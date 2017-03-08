@@ -93,8 +93,8 @@ function EquipBossWeapon(enemy, bullettype){
 }
 
 function FireWeapon(target){
-    //this.soundmanager = new soundManager(game);
     var dist = this.game.physics.arcade.distanceBetween(this, target);
+    game.physics.arcade.overlap(target, this.weapon.bullets, BaseCollisionHandler, null, this);
     
     if (dist < this.fireRange && this.game.time.now > this.lastFired &&  this.hp > 0){
         this.weapon.trackSprite(this,0,0,true);
@@ -103,14 +103,6 @@ function FireWeapon(target){
         this.weapon.fireAtXY(target.x, target.y);
         this.lastFired = this.game.time.now + this.fireRate;
         
-      
-        // var randomS = game.rnd.integerInRange(0, 2);
-        // if (randomS == 0)
-            // this.soundmanager.shoot.play();
-        // else if (randomS == 1)
-            // this.soundmanager.shoot2.play();
-        // else if (randomS == 2)
-            // this.soundmanager.shoot3.play();
 
     }
 };
@@ -137,6 +129,18 @@ function FireBoss1Weapon(target){
     }
 };
 
+
+function BaseCollisionHandler(base, bullet){
+    bullet.kill();
+    base.damage(this.damage);
+    //add red tint to damaged sprite
+    base.tint = 0xff0000;
+    setTimeout(function(){
+        // reset to null tint after 100 ms
+        base.tint = 0xffffff;
+    }, 100);
+}
+
 slow = function () {
     var time = 0.5
     if(this.slowed == false) {
@@ -156,6 +160,8 @@ slow = function () {
         this.slowed = false;
         }
 }
+
+
 
 // *** END Helpers ***
 
@@ -321,6 +327,7 @@ Fly = function(game, x, y){
     this.retreatdist = 50;
     this.retreatcount = 99;
 
+    this.damage = 1;
     SetEnemyDefault(this);
     EquipWeapon(this, 'enemyTear');
 }
