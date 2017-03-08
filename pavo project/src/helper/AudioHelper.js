@@ -1,7 +1,11 @@
 var soundManager = function(game){
     // sound effects
     this.shootsfx = game.add.audio("shootsfx");
+    this.shootsfx.volume = gameSfxVolume * 0.1;
+    
     this.explodesfx = game.add.audio("explodesfx");
+    this.explodesfx.volume = gameSfxVolume * 0.1;
+    
     this.summon = game.add.audio("summon");
     this.hurt1 = game.add.audio("hurt1");
     this.hurt2 = game.add.audio("hurt2");
@@ -32,9 +36,12 @@ var soundManager = function(game){
     this.shoot = game.add.audio("shoot");
     this.shoot2 = game.add.audio("shoot2");
     this.shoot3 = game.add.audio("shoot3");    
+  
     //Music
     this.game_music = game.add.audio("game_music");
     this.game_music.loop = true;
+    this.game_music.volume = gameVolume * 0.1;
+  
     this.boss1 = game.add.audio("boss1");
     this.boss1.loop = true;
     

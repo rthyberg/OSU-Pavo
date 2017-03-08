@@ -91,7 +91,7 @@ Tower.prototype.fireAt = function(path) {
           }
     }
     if (this.doubleUp == true) {
-        this.weapon2.fireAtXY(xLoc, yLoc);
+         this.weapon2.fireAtXY(xLoc, yLoc);
         game.physics.arcade.overlap(this.target, this.weapon2.bullets, collisionHandler, null, this);
     }
     this.weapon.fireAtXY(xLoc, yLoc);

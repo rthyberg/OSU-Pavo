@@ -96,7 +96,7 @@ function FireWeapon(target){
     //this.soundmanager = new soundManager(game);
     var dist = this.game.physics.arcade.distanceBetween(this, target);
     
-    if (dist < this.fireRange && this.game.time.now > this.lastFired){
+    if (dist < this.fireRange && this.game.time.now > this.lastFired &&  this.hp > 0){
         this.weapon.trackSprite(this,0,0,true);
         this.weapon.bulletKillDistance = dist;
         this.weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
@@ -119,7 +119,7 @@ function FireBoss1Weapon(target){
     //this.soundmanager = new soundManager(game);
     var dist = this.game.physics.arcade.distanceBetween(this, target);
     
-    if (dist < this.fireRange && this.game.time.now > this.lastFired){
+    if (dist < this.fireRange && this.game.time.now > this.lastFired &&  this.hp > 0){
         this.weapon.trackSprite(this,0,0,true);
         this.weapon.bulletKillDistance = dist;
         this.weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;

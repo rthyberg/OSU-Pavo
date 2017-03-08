@@ -8,7 +8,14 @@ TowerDefense.StartMenu= function(game) {
 TowerDefense.StartMenu.prototype = {
 
 	preload: function () {
-        
+        var gamevolume = this.getVolume("gameVolume");
+        var soundvolume = this.getVolume("soundVolume");
+        if(gamevolume.length > 0){
+            gameVolume = gamevolume;
+        }
+        if(soundvolume.length > 0){
+            gameSfxVolume = soundvolume;
+        }
 	},
 
 	create: function () {
@@ -48,6 +55,12 @@ TowerDefense.StartMenu.prototype = {
 
         }, this);
         
+        var optiontext = game.add.text(game.world.centerX-25, game.world.centerY+200, "Options", { font: "45px Arial", fill: "#ff0044", align: "center" });
+        optiontext.anchor.set(0.5);
+        optiontext.inputEnabled = true;
+        optiontext.events.onInputDown.add(function(){
+            game.state.start("OptionMenu");
+        }, this);
         
         // **** DEMO MENU *** 
         // Set Menu Items
@@ -137,7 +150,22 @@ TowerDefense.StartMenu.prototype = {
 	update: function () {
                     
 
-        
+	},
+    
+    getVolume: function (cname){
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
 	}
 
 };
