@@ -284,6 +284,23 @@ TowerDefense.LevelAlpha.prototype = {
     update: function () {
         if(this.gameover)
             return;
+        
+        if (this.base.health < 1){
+            this.soundmanager.musicstop();
+            var randomS = game.rnd.integerInRange(0, 2);
+            if (randomS == 0)
+                this.soundmanager.death1.play();
+            else if (randomS == 1)
+                this.soundmanager.death2.play();
+            else if (randomS == 2)
+                this.soundmanager.death3.play();
+
+            this.soundmanager.deathjingle.play();
+            this.gameover = true;
+            game.time.events.add(Phaser.Timer.SECOND * 5, endGame, this);
+        }
+        
+        
         this.uibutton.update();
         var randomW = game.rnd.integerInRange(0, 200);
         if (randomW == 0)
@@ -318,6 +335,7 @@ TowerDefense.LevelAlpha.prototype = {
                     this.soundmanager.death3.play();
 
                 this.soundmanager.deathjingle.play();
+                this.gameover = true;
                 game.time.events.add(Phaser.Timer.SECOND * 5, endGame, this);
 
 

@@ -232,6 +232,13 @@ TowerDefense.LevelOne.prototype = {
     update: function () {
         if(this.gameover)
             return;
+        
+        if(this.base.health < 1){
+            this.soundmanager.stop();
+            this.screenMessage = drawGameOverScreen(this, "Game Over", "Start Menu", "StartMenu"); 
+            this.gameover = true;
+        }
+        
         this.uibutton.update();
         this.towerList.callAll('selectTarget', null, this.enemies, this.path); // now needs path variable to be passed in
         this.player.displayCoin();
