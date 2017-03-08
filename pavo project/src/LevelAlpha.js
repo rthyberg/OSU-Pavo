@@ -33,9 +33,9 @@ TowerDefense.LevelAlpha = function(game) {
         this.wave9max = 40;
         this.wave10spawn = 0;
         this.wave10max = 1;
-    
+
     this.map;
-    
+
     this.points = {
         'x': [ 50, 50, 50, 250, 250,650 ],
         'y': [ 75 , 200, 400, 400, 240,240 ]
@@ -43,7 +43,7 @@ TowerDefense.LevelAlpha = function(game) {
 
     this.path = [];
     this.pi = 0;
-    
+
     this.player;
     this.soundmanager;
     this.gameover = false;
@@ -73,7 +73,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.wave9max = 40;
         this.wave10spawn = 0;
         this.wave10max = 1;
-        
+
     },
 
 	preload: function () {
@@ -90,34 +90,34 @@ TowerDefense.LevelAlpha.prototype = {
         // LEVEL 1 Build dynamic map
 		this.map = new DMap('tiles');
         this.map.draw();
-        
+
         // LEVEL 2 map objects
         this.bga = this.add.group();
         for (var i = 0; i < game.rnd.integerInRange(9, 16); i++){
-            var randomX = game.rnd.integerInRange(10, 790); 
-            var randomY = game.rnd.integerInRange(10, 590); 
+            var randomX = game.rnd.integerInRange(10, 790);
+            var randomY = game.rnd.integerInRange(10, 590);
             var spikey = this.bga.add(new Spikey(game, randomX, randomY));
             this.physics.enable(spikey, Phaser.Physics.ARCADE);
         }
-        
+
         for (var i = 0; i < game.rnd.integerInRange(4, 12); i++){
-            var randomX = game.rnd.integerInRange(10, 790); 
-            var randomY = game.rnd.integerInRange(10, 590); 
+            var randomX = game.rnd.integerInRange(10, 790);
+            var randomY = game.rnd.integerInRange(10, 590);
             var rocks2 = this.bga.add(new Rocks2(game, randomX, randomY));
-            this.physics.enable(rocks2, Phaser.Physics.ARCADE);           
+            this.physics.enable(rocks2, Phaser.Physics.ARCADE);
         }
-        
+
         for (var i = 0; i < game.rnd.integerInRange(4, 17); i++){
-            var randomX = game.rnd.integerInRange(10, 790); 
-            var randomY = game.rnd.integerInRange(10, 590); 
+            var randomX = game.rnd.integerInRange(10, 790);
+            var randomY = game.rnd.integerInRange(10, 590);
             var rocks3 = this.bga.add(new Rocks3(game, randomX, randomY));
-            this.physics.enable(rocks3, Phaser.Physics.ARCADE);           
+            this.physics.enable(rocks3, Phaser.Physics.ARCADE);
         }
-        
+
         // LEVEL 3 Draw Path
         // Plot and Draw Path First
         this.plot();
-        
+
         // LEVEL 4 Enemies and Projectiles
         this.enemies = this.add.group();
         this.fire = this.add.group();
@@ -137,15 +137,15 @@ TowerDefense.LevelAlpha.prototype = {
         this.towerList.inputEnableChildren = true; // enable input for all future children
         this.towerUI = new towerUI(game, this.player); // create a new UI object
         this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
-        
-        
+
+
         this.hearts = this.game.add.group();
         this.hearts.enableBody = true;
         this.healthMeterIcons = this.game.add.plugin(Phaser.Plugin.HealthMeter);
         this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 10, x: 20, width: 32, height: 32, rows: 2});
-        
-        
-        this.uibutton = new createTowerButton(this, 300, 20, 'tower', 'tower', this.towerList, this.player);
+
+
+        this.uibutton = new createTowerButton(this, 300, 20, 'tower', 'tower', this.towerList, this.player, this.path);
         this.uibutton.create();
 
 
@@ -153,7 +153,7 @@ TowerDefense.LevelAlpha.prototype = {
 
         this.soundmanager.level2.play();
 	},
-    
+
     plot: function () {
 
         this.bmd.clear();
@@ -176,7 +176,7 @@ TowerDefense.LevelAlpha.prototype = {
         {
             this.bmd.rect(this.points.x[p]-3, this.points.y[p]-3, 6, 6, 'rgba(255, 0, 0, 1)');
         }
-        
+
         road = new Road("darkroad");
         road.draw(this.path);
 
@@ -238,24 +238,24 @@ TowerDefense.LevelAlpha.prototype = {
     fireCollision: function(enemy, fire){
         //console.log(enemy.hit);
 
-        
-        
+
+
         if(enemy.exists){
             enemy.hp -= 1;
             if(enemy.hp <= 0){
                 //console.log("play shootsfx");
 
                 enemy.kill();
-                
+
             }
-                
+
         }
     },
 
     baseCollision: function(enemy, base){
         this.base.tint = 0xff0000;
- 
-        game.time.events.add(Phaser.Timer.SECOND * .1, this.resetTint, this); 
+
+        game.time.events.add(Phaser.Timer.SECOND * .1, this.resetTint, this);
 
         //var f = this.fire.create(600, 200, 'boom');
         //f.time = 2;
@@ -270,7 +270,7 @@ TowerDefense.LevelAlpha.prototype = {
             this.soundmanager.hurt3.play();
         //this.soundmanager.explodesfx.play();
     },
-    
+
     resetTint: function(){
         this.base.tint = 0xffffff;
     },
@@ -292,11 +292,11 @@ TowerDefense.LevelAlpha.prototype = {
             this.soundmanager.drop3.play();
         this.towerList.callAll('selectTarget', null, this.enemies, this.path); // now needs path variable to be passed in
         this.player.displayCoin();
-        
+
         this.enemies.forEach(this.checkEnemy, this, true);
-        
+
         this.enemies.callAll('fire',null,this.base);
-        
+
         this.physics.arcade.overlap(this.bga, this.bga, this.fireCollision, null, this);
         this.physics.arcade.overlap(this.bga, this.base, this.fireCollision, null, this);
         this.physics.arcade.overlap(this.bga, this.enemies, this.fireCollision, null, this);
@@ -314,18 +314,18 @@ TowerDefense.LevelAlpha.prototype = {
                     this.soundmanager.death2.play();
                 else if (randomS == 2)
                     this.soundmanager.death3.play();
-                
+
                 this.soundmanager.deathjingle.play();
                 game.time.events.add(Phaser.Timer.SECOND * 5, endGame, this);
-                
-                
+
+
             }
         }
         function endGame(){
-            
-            this.screenMessage = drawGameOverScreen(this, "Game Over", "Start Menu", "StartMenu"); 
+
+            this.screenMessage = drawGameOverScreen(this, "Game Over", "Start Menu", "StartMenu");
             this.gameover = true;
-            
+
         }
         this.checkwave();
 	},
@@ -371,7 +371,7 @@ TowerDefense.LevelAlpha.prototype = {
              this.screenMessage = drawWaveScreen(this, "Wave 9", 2000);
              this.soundmanager.summon.play();
              this.loop = game.time.events.loop(400, this.loadwave9, this);
-            } 
+            }
             else if(this.wave10spawn < this.wave10max){
                 this.soundmanager.stop();
                 this.screenMessage = drawWaveScreen(this, "Wave 10: BOSS!", 2000);
@@ -381,7 +381,7 @@ TowerDefense.LevelAlpha.prototype = {
             }
             else if(this.wave10spawn >= this.wave10max){
                 // Printing Game Complete and link to next Level
-                this.screenMessage = drawGameOverScreen(this, "LevelAlpha Complete!", "Next Level: Skeletal Room", "SpookRoom"); 
+                this.screenMessage = drawGameOverScreen(this, "LevelAlpha Complete!", "Next Level: Skeletal Room", "SpookRoom");
                 this.soundmanager.stop();
             }
 

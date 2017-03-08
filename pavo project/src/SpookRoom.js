@@ -139,7 +139,7 @@ TowerDefense.SpookRoom.prototype = {
         this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 10, x: 20, width: 32, height: 32, rows: 2});
         
         
-        this.uibutton = new createTowerButton(this, 300, 20, 'tower', 'tower', this.towerList, this.player);
+        this.uibutton = new createTowerButton(this, 300, 20, 'tower', 'tower', this.towerList, this.player, this.path);
         this.uibutton.create();
 
 
