@@ -55,8 +55,8 @@ TowerDefense.Preloader.prototype = {
         this.game.load.spritesheet('biggy', 'img/bigDude.png', 82, 82, 5);
         this.game.load.spritesheet('fly', 'img/fly.png', 32, 32, 2);
         this.game.load.spritesheet('spikes', 'img/spikes.png', 48, 48, 2);
-        this.game.load.spritesheet('laserhead', 'img/laserhead.png', 48, 48, 3);
-        this.game.load.spritesheet('vis', 'img/vis.png', 94, 32, 3);
+        this.game.load.spritesheet('laserhead', 'img/laserhead.png', 48, 48, 2);
+        this.game.load.spritesheet('vis', 'img/vis.png', 32, 32, 2);
         this.game.load.spritesheet('succ', 'img/succ.png', 32, 32, 2);
         this.game.load.spritesheet('base', 'img/base.png', 64, 64, 1);
         this.game.load.spritesheet('stan', 'img/stan.png', 200, 124, 12);
