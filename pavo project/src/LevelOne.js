@@ -3,6 +3,7 @@ TowerDefense.LevelOne = function(game) {
     this.titleText = null;
     this.map = null;
     this.enemies = {};
+    this.ability;
     this.fire;
     this.layer = null;
     this.loop = null;
@@ -133,6 +134,10 @@ TowerDefense.LevelOne.prototype = {
         
         this.soundmanager = new soundManager(game);
         this.soundmanager.game_music.play();
+        
+        //this.ability=new AbilityFire(game);
+        this.ability = GetRandomAbility();
+        this.input.onDown.add(this.ability.castEffect, this, this.ability);
        
         
 	},
@@ -244,7 +249,7 @@ TowerDefense.LevelOne.prototype = {
         this.player.displayCoin();
         
         this.enemies.forEach(this.checkEnemy, this, true);
-        
+        this.ability.checkTimer();
         this.enemies.callAll('fire',null,this.base);
         
         this.physics.arcade.overlap(this.bga, this.bga, this.fireCollision, null, this);
