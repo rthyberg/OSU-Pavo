@@ -20,7 +20,7 @@ AbilityFire = function(game){
 
 AbilityFire.prototype = Object.create(Phaser.Sprite.prototype);
 AbilityFire.prototype.constructor = AbilityFire;
-AbilityFire.prototype.castEffect = function(){
+AbilityFire.prototype.castEffect = function(pointer){
     // Check if cooldown completed
     if(this.ability.ready < game.time.now){
         var graphics = game.add.graphics(0, 0);
@@ -69,7 +69,7 @@ AbilityIce = function(){
 }
 AbilityIce.prototype = Object.create(Phaser.Sprite.prototype);
 AbilityIce.prototype.constructor = AbilityIce;
-AbilityIce.prototype.castEffect = function(state){
+AbilityIce.prototype.castEffect = function(pointer){
     
     if(this.ability.ready < game.time.now){
         var graphics = game.add.graphics(0, 0);
