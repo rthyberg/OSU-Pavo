@@ -324,25 +324,14 @@ TowerDefense.LevelAlpha.prototype = {
         {
             this.enemies.forEach(this.kill, this, true);
             this.base.damage(1);
-            if (this.base.health==0){
-                this.soundmanager.musicstop();
-                var randomS = game.rnd.integerInRange(0, 2);
-                if (randomS == 0)
-                    this.soundmanager.death1.play();
-                else if (randomS == 1)
-                    this.soundmanager.death2.play();
-                else if (randomS == 2)
-                    this.soundmanager.death3.play();
-
-                this.soundmanager.deathjingle.play();
-                this.gameover = true;
-                game.time.events.add(Phaser.Timer.SECOND * 5, endGame, this);
 
 
-            }
         }
-        function endGame(){
+        
+        
 
+        function endGame(){
+            //this.soundmanager.musicstop();
             this.screenMessage = drawGameOverScreen(this, "Game Over", "Start Menu", "StartMenu");
             this.gameover = true;
 
