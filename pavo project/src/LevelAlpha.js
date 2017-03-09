@@ -35,7 +35,8 @@ TowerDefense.LevelAlpha = function(game) {
         this.wave10max = 1;
 
     this.map;
-
+    this.ability;
+    
     this.points = {
         'x': [ 50, 50, 50, 250, 250,650 ],
         'y': [ 75 , 200, 400, 400, 240,240 ]
@@ -149,7 +150,9 @@ TowerDefense.LevelAlpha.prototype = {
         this.uibutton = new createTowerButton(this, 300, 20, 'tower', 'tower', this.towerList, this.player, this.path);
         this.uibutton.create();
 
-
+        //this.ability=new AbilityFire(game);
+        this.ability = GetRandomAbility();
+        this.input.onDown.add(this.ability.castEffect, this);
 
 
         
@@ -311,7 +314,10 @@ TowerDefense.LevelAlpha.prototype = {
             this.soundmanager.drop3.play();
         this.towerList.callAll('selectTarget', null, this.enemies, this.path); // now needs path variable to be passed in
         this.player.displayCoin();
-
+        
+        // check timer for ability
+        this.ability.checkTimer();
+        
         this.enemies.forEach(this.checkEnemy, this, true);
 
         this.enemies.callAll('fire',null,this.base);
