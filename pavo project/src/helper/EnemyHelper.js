@@ -293,7 +293,7 @@ Succ = function(game, x, y){
 
 Succ.prototype = Object.create(Phaser.Sprite.prototype);
 Succ.prototype.constructor = Succ;
-Succ.prototype.move = MoveFunction;
+Succ.prototype.move = DynamicMoveFunction;
 Succ.prototype.fire = FireWeapon;
 Succ.prototype.slow = slow;
 
@@ -397,7 +397,7 @@ Stan = function(game, x, y){
 
 Stan.prototype = Object.create(Phaser.Sprite.prototype);
 Stan.prototype.constructor = Stan;
-Stan.prototype.move = MoveFunction;
+Stan.prototype.move = DynamicMoveFunction;
 Stan.prototype.fire = FireBoss1Weapon;
 Stan.prototype.slow = slow;
 
@@ -427,7 +427,7 @@ Mega = function(game, x, y){
 
 Mega.prototype = Object.create(Phaser.Sprite.prototype);
 Mega.prototype.constructor = Mega;
-Mega.prototype.move = MoveFunction;
+Mega.prototype.move = DynamicMoveFunction;
 Mega.prototype.fire = FireBoss1Weapon;
 Mega.prototype.slow = slow;
 
@@ -456,7 +456,7 @@ Baby = function(game, x, y){
 
 Baby.prototype = Object.create(Phaser.Sprite.prototype);
 Baby.prototype.constructor = Baby;
-Baby.prototype.move = MoveFunction;
+Baby.prototype.move = DynamicMoveFunction;
 Baby.prototype.fire = FireBoss1Weapon;
 Baby.prototype.slow = slow;
 
@@ -550,7 +550,7 @@ Lilhaunt = function(game, x, y){
 
 Lilhaunt.prototype = Object.create(Phaser.Sprite.prototype);
 Lilhaunt.prototype.constructor = Lilhaunt;
-Lilhaunt.prototype.move = MoveFunction;
+Lilhaunt.prototype.move = DynamicMoveFunction;
 Lilhaunt.prototype.fire = FireWeapon;
 Lilhaunt.prototype.slow = slow;
 
@@ -578,7 +578,7 @@ laserhead = function(game, x, y){
 
 laserhead.prototype = Object.create(Phaser.Sprite.prototype);
 laserhead.prototype.constructor = laserhead;
-laserhead.prototype.move = MoveFunction;
+laserhead.prototype.move = DynamicMoveFunction;
 laserhead.prototype.fire = FireWeapon;
 laserhead.prototype.slow = slow;
 
@@ -602,7 +602,7 @@ vis = function(game, x, y){
 
 vis.prototype = Object.create(Phaser.Sprite.prototype);
 vis.prototype.constructor = vis;
-vis.prototype.move = MoveFunction;
+vis.prototype.move = DynamicMoveFunction;
 vis.prototype.fire = FireWeapon;
 vis.prototype.slow = slow;
 

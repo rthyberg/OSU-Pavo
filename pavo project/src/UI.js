@@ -30,6 +30,13 @@ function createTowerButton(game, x, y, key, place, list, player, path) {
     graphics.lineStyle(2, 0xffd900, 1)
     graphics.drawCircle(0, 0, (200 * 2));
     this.placeHolder.addChild(graphics);
+    
+    
+    this.coinsDisplay1 = game.add.sprite(335, 10, 'coins');
+    this.coinsDisplay1.animations.add('spin');
+    this.coinsDisplay1.animations.play('spin', 30, true);
+    this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 15, style); // add text object the the right of the coins
+
 };
 
 createTowerButton.prototype = {
@@ -47,8 +54,16 @@ createTowerButton.prototype = {
 
 // Call Create in the levels create function after the obj as been made
     create: function() {
+        var style = {
+            font: "16px Arial",
+            align: "center",
+        };
         this.towerButton.onInputDown.add(showTower, this); // add listener for clicking button down
         this.towerButton.onInputUp.add(buildTower, this); // add listener for releasing after clicking hte button
+        this.coinsDisplay1 = game.add.sprite(335, 10, 'coins');
+        this.coinsDisplay1.animations.add('spin');
+        this.coinsDisplay1.animations.play('spin', 30, true);
+        this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 15, style); // add text object the the right of the coins
         function showTower() {
             if(this.player.coins-15 >= 0) {
                 this.placeHolder.visible = true; // when mouse pressed down show the "fake tower"
@@ -70,11 +85,14 @@ createTowerButton.prototype = {
             }
 
         }
+        
+
     },
     // call update in the levels update function
     update: function() {
         this.placeHolder.x = this.game.input.mousePointer.worldX;
         this.placeHolder.y = this.game.input.mousePointer.worldY;
+
     }
 };
 
@@ -252,6 +270,8 @@ function Player(game, coins) {
     };
 
     this.text = game.add.text(this.coinsDisplay.x+40, this.coinsDisplay.y+10, coins, style); // add text object the the right of the coins
+    
+
 };
 
 Player.prototype = {
@@ -262,3 +282,5 @@ Player.prototype = {
         this.coins+=value;
     }
 };
+
+
