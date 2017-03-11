@@ -15,6 +15,7 @@ Tower = function(game, x, y, key, bulletkey) {
     // tracks the pos of the tower
     this.weapon.trackSprite(this, 0, 0, true);
 
+    this.currentItem = "null"
     this.weapon2 = game.add.weapon(30, bulletkey);
     // kills bullet if left world
     this.weapon2.bulletKillDistance = 200;

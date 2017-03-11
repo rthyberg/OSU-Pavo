@@ -137,8 +137,10 @@ TowerDefense.LevelAlpha.prototype = {
         // Towers
         this.towerList = Tower.createGroup(this); // creates group  of towers
         this.towerList.inputEnableChildren = true; // enable input for all future children
-        this.towerUI = new towerUI(game, this.player); // create a new UI object
-        this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
+        this.currentItem = pickRandomItem(list_of_items);
+        console.log(this.currentItem)
+        //this.towerUI = new towerUI(game, this.player); // create a new UI object
+        //this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
 
 
         this.hearts = this.game.add.group();
@@ -285,9 +287,9 @@ TowerDefense.LevelAlpha.prototype = {
     },
 
     update: function () {
+        applyTowerUpgrade(this.towerList, this.currentItem);
         if(this.gameover)
             return;
-        
         if (this.base.health < 1){
             this.soundmanager.musicstop();
             var randomS = game.rnd.integerInRange(0, 2);
