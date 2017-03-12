@@ -137,8 +137,14 @@ TowerDefense.LevelAlpha.prototype = {
         // Towers
         this.towerList = Tower.createGroup(this); // creates group  of towers
         this.towerList.inputEnableChildren = true; // enable input for all future children
-        this.towerUI = new towerUI(game, this.player); // create a new UI object
-        this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
+        //this.towerUI = new towerUI(game, this.player); // create a new UI object
+        //this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
+
+        this.currentItemArray = pickRandomItem(list_of_items);
+        this.currentItemName = this.currentItemArray[0];
+        this.currentItem = this.currentItemArray[1];
+        //console.log(this.currentItemName);
+        //console.log(this.currentItem);
         var style = {
             font: "16px Arial",
             align: "center",
@@ -166,34 +172,36 @@ TowerDefense.LevelAlpha.prototype = {
         this.coinsDisplay2.animations.add('spin');
         this.coinsDisplay2.animations.play('spin', 30, true);
         this.text = game.add.text(this.coinsDisplay2.x+40, this.coinsDisplay2.y+10, 30, style); // add text object the the right of the coins
+        
+        this.putItem(this.currentItemName);
 
-        var randomS = game.rnd.integerInRange(0, 2);
-        if (randomS == 0){
-            this.item01 = this.add.sprite(475, 5, 'item01');
-            this.physics.enable(this.item01, Phaser.Physics.ARCADE);
-            this.item01.anchor.x = 0.5;
-            this.item01.anchor.y = 0.5;
-            this.item01.body.collideWorldBounds = true;
-            this.item01.body.immovable = true;
-        }
+        // var randomS = game.rnd.integerInRange(0, 2);
+        // if (randomS == 0){
+            // this.item01 = this.add.sprite(475, 5, 'item01');
+            // this.physics.enable(this.item01, Phaser.Physics.ARCADE);
+            // this.item01.anchor.x = 0.5;
+            // this.item01.anchor.y = 0.5;
+            // this.item01.body.collideWorldBounds = true;
+            // this.item01.body.immovable = true;
+        // }
         
-        else if (randomS == 1){
-            this.item02 = this.add.sprite(475, 5, 'item02');
-            this.physics.enable(this.item02, Phaser.Physics.ARCADE);
-            this.item02.anchor.x = 0.5;
-            this.item02.anchor.y = 0.5;
-            this.item02.body.collideWorldBounds = true;
-            this.item02.body.immovable = true;
-        }
+        // else if (randomS == 1){
+            // this.item02 = this.add.sprite(475, 5, 'item02');
+            // this.physics.enable(this.item02, Phaser.Physics.ARCADE);
+            // this.item02.anchor.x = 0.5;
+            // this.item02.anchor.y = 0.5;
+            // this.item02.body.collideWorldBounds = true;
+            // this.item02.body.immovable = true;
+        // }
         
-        else if (randomS == 2){
-            this.item03 = this.add.sprite(475, 5, 'item03');
-            this.physics.enable(this.item02, Phaser.Physics.ARCADE);
-            this.item03.anchor.x = 0.5;
-            this.item03.anchor.y = 0.5;
-            this.item03.body.collideWorldBounds = true;
-            this.item03.body.immovable = true;
-        }
+        // else if (randomS == 2){
+            // this.item03 = this.add.sprite(475, 5, 'item03');
+            // this.physics.enable(this.item02, Phaser.Physics.ARCADE);
+            // this.item03.anchor.x = 0.5;
+            // this.item03.anchor.y = 0.5;
+            // this.item03.body.collideWorldBounds = true;
+            // this.item03.body.immovable = true;
+        // }
 
 
         this.hearts = this.game.add.group();
@@ -212,6 +220,93 @@ TowerDefense.LevelAlpha.prototype = {
 
         
 	},
+    
+    putItem: function(item) {
+        
+        if (item == "2020"){
+            this.item = this.add.sprite(475, 5, 'item01');
+            this.physics.enable(this.item, Phaser.Physics.ARCADE);
+            this.item.anchor.x = 0.5;
+            this.item.anchor.y = 0.5;
+            this.item.body.collideWorldBounds = true;
+            this.item.body.immovable = true;
+        }
+        else if (item == "magMush"){
+            this.item = this.add.sprite(475, 5, 'item04');
+            this.physics.enable(this.item, Phaser.Physics.ARCADE);
+            this.item.anchor.x = 0.5;
+            this.item.anchor.y = 0.5;
+            this.item.body.collideWorldBounds = true;
+            this.item.body.immovable = true;
+        }
+        
+        else if (item == "pentagram"){
+            this.item = this.add.sprite(475, 5, 'item07');
+            this.physics.enable(this.item, Phaser.Physics.ARCADE);
+            this.item.anchor.x = 0.5;
+            this.item.anchor.y = 0.5;
+            this.item.body.collideWorldBounds = true;
+            this.item.body.immovable = true;
+        }
+        else if (item == "brimStone"){
+            this.item = this.add.sprite(475, 5, 'item05');
+            this.physics.enable(this.item, Phaser.Physics.ARCADE);
+            this.item.anchor.x = 0.5;
+            this.item.anchor.y = 0.5;
+            this.item.body.collideWorldBounds = true;
+            this.item.body.immovable = true;
+        }
+        
+        else if (item == "bluecap"){
+            this.item = this.add.sprite(475, 5, 'item08');
+            this.physics.enable(this.item, Phaser.Physics.ARCADE);
+            this.item.anchor.x = 0.5;
+            this.item.anchor.y = 0.5;
+            this.item.body.collideWorldBounds = true;
+            this.item.body.immovable = true;
+        }
+        else if (item == "capricon"){
+            this.item = this.add.sprite(475, 5, 'item09');
+            this.physics.enable(this.item, Phaser.Physics.ARCADE);
+            this.item.anchor.x = 0.5;
+            this.item.anchor.y = 0.5;
+            this.item.body.collideWorldBounds = true;
+            this.item.body.immovable = true;
+        }
+        
+        else if (item == "wirecoathanger"){
+            this.item = this.add.sprite(475, 5, 'item06');
+            this.physics.enable(this.item, Phaser.Physics.ARCADE);
+            this.item.anchor.x = 0.5;
+            this.item.anchor.y = 0.5;
+            this.item.body.collideWorldBounds = true;
+            this.item.body.immovable = true;
+        }
+        
+        // else if (randomS == 1){
+            // this.item02 = this.add.sprite(475, 5, 'item02');
+            // this.physics.enable(this.item02, Phaser.Physics.ARCADE);
+            // this.item02.anchor.x = 0.5;
+            // this.item02.anchor.y = 0.5;
+            // this.item02.body.collideWorldBounds = true;
+            // this.item02.body.immovable = true;
+        // }
+        
+        // else if (randomS == 2){
+            // this.item03 = this.add.sprite(475, 5, 'item03');
+            // this.physics.enable(this.item02, Phaser.Physics.ARCADE);
+            // this.item03.anchor.x = 0.5;
+            // this.item03.anchor.y = 0.5;
+            // this.item03.body.collideWorldBounds = true;
+            // this.item03.body.immovable = true;
+        // }
+        
+        
+        
+        
+        
+        
+    },
 
     plot: function () {
 
@@ -340,8 +435,10 @@ TowerDefense.LevelAlpha.prototype = {
     },
 
     update: function () {
+        
         if(this.gameover)
             return;
+        applyTowerUpgrade(this.towerList, this.currentItem);
         
         if (this.base.health < 1){
             this.soundmanager.musicstop();
