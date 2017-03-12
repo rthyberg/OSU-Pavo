@@ -137,8 +137,11 @@ TowerDefense.LevelAlpha.prototype = {
         // Towers
         this.towerList = Tower.createGroup(this); // creates group  of towers
         this.towerList.inputEnableChildren = true; // enable input for all future children
-        this.currentItem = pickRandomItem(list_of_items);
-        console.log(this.currentItem)
+        this.currentItemArray = pickRandomItem(list_of_items);
+        this.currentItemName = this.currentItemArray[0];
+        this.currentItem = this.currentItemArray[1];
+        console.log(this.currentItemName);
+        console.log(this.currentItem);
         //this.towerUI = new towerUI(game, this.player); // create a new UI object
         //this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
 

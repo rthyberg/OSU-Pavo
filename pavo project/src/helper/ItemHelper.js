@@ -44,7 +44,7 @@ var pentagram = function(tower) {
         tower.damage += 4;
     }
 }
-var list_of_items = [magMush, brimStone, bluecap, capricon, wirecoathanger, pentagram];
+var list_of_items = [["magMush", magMush], ["brimStone",brimStone], ["bluecap", bluecap] ,["capricon", capricon],["wirecoathanger", wirecoathanger], ["pentagram", pentagram]];
 
 function pickRandomItem(items) {
     return items[Math.floor(Math.random()*items.length)];
