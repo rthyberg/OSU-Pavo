@@ -38,6 +38,22 @@ TowerDefense.Preloader.prototype = {
         this.game.load.image('loader6', 'img/loader6.png');
         this.game.load.image('loader7', 'img/loader7.png');
         /**********SPRITES*******************/
+        this.game.load.spritesheet('restock', 'img/items/restock.png', 32, 32, 1);
+        
+        
+        this.game.load.spritesheet('item01', 'img/items/2020.png', 32, 32, 1);
+        this.game.load.spritesheet('item02', 'img/items/dinner.png', 32, 32, 1);
+        this.game.load.spritesheet('item03', 'img/items/wirecoathanger.png', 32, 32, 1);
+        
+        this.game.load.spritesheet('item04', 'img/items/magMush.png', 32, 32, 1);
+        this.game.load.spritesheet('item05', 'img/items/brimstone.png', 32, 32, 1);
+        this.game.load.spritesheet('item06', 'img/items/wirecoathanger.png', 32, 32, 1);
+        
+        this.game.load.spritesheet('item07', 'img/items/pentagram.png', 32, 32, 1);
+        this.game.load.spritesheet('item08', 'img/items/bluecap.png', 32, 32, 1);
+        this.game.load.spritesheet('item09', 'img/items/capricorn.png', 32, 32, 1);
+        
+        this.game.load.spritesheet('itemAltar', 'img/itemAltar.png', 32, 30, 1);
         this.game.load.spritesheet('isaac', 'img/isaac.png', 66, 58, 1);
         this.game.load.spritesheet('tower', 'img/tower_isaac.png', 32, 30, 2);
         this.game.load.spritesheet('boom', 'img/explode.png', 128, 128, 8);

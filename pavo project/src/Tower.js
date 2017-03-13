@@ -17,6 +17,7 @@ Tower = function(game, x, y, key, bulletkey) {
 
     this.currentItem = "null"
     this.weapon2 = game.add.weapon(30, bulletkey);
+    this.currentItem = "null";
     // kills bullet if left world
     this.weapon2.bulletKillDistance = 200;
     this.weapon2.bulletKillType = Phaser.Weapon.KILL_DISTANCE;

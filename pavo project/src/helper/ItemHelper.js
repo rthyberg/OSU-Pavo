@@ -1,4 +1,3 @@
-
 var magMush = function(tower) {
     if(tower.currentItem != "magMush") {
         tower.currentItem = "magMush";
@@ -46,6 +45,7 @@ var pentagram = function(tower) {
 }
 var list_of_items = [["magMush", magMush], ["brimStone",brimStone], ["bluecap", bluecap] ,["capricon", capricon],["wirecoathanger", wirecoathanger], ["pentagram", pentagram]];
 
+<<<<<<< HEAD
 function pickRandomItem(items) {
     return items[Math.floor(Math.random()*items.length)];
 }
