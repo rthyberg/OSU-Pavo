@@ -229,6 +229,7 @@ TowerDefense.LevelAlpha.prototype = {
             this.item.body.collideWorldBounds = true;
             this.item.body.immovable = true;
             this.item.events.onInputDown.add(changeItem, this);
+            this.item.events.onInputUp.add(changeTint, this);
         function changeItem () {
             if(this.player.coins - 30 >= 0) {
                 this.player.updateCoin(-30);
@@ -237,7 +238,12 @@ TowerDefense.LevelAlpha.prototype = {
                 this.currentItem = this.currentItemArray[1];
                 this.item.loadTexture(this.currentItemName);
                 applyTowerUpgrade(this.towerList, this.currentItem);
+            } else {
+                this.item.tint = 0x6f0000;
             }
+        }
+        function changeTint() {
+            this.item.tint = 0xffffff;
         }
     },
 
