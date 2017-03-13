@@ -15,7 +15,6 @@ function createTowerButton(game, x, y, key, place, list, player, path) {
     this.towerButton = game.add.button(x, y, key, null, game, 2, 1, 0); // add the button to the x, y
     this.player = player;
     this.path = path;
-    console.log(this.path);
     // display Font
     var style = {
         font: "16px Arial",

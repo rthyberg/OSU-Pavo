@@ -41,17 +41,16 @@ TowerDefense.Preloader.prototype = {
         this.game.load.spritesheet('restock', 'img/items/restock.png', 32, 32, 1);
         
         
-        this.game.load.spritesheet('item01', 'img/items/2020.png', 32, 32, 1);
-        this.game.load.spritesheet('item02', 'img/items/dinner.png', 32, 32, 1);
-        this.game.load.spritesheet('item03', 'img/items/wirecoathanger.png', 32, 32, 1);
+        this.game.load.spritesheet('2020', 'img/items/2020.png', 32, 32, 1);
+        this.game.load.spritesheet('dinner', 'img/items/dinner.png', 32, 32, 1);
+        this.game.load.spritesheet('wirecoathanger', 'img/items/wirecoathanger.png', 32, 32, 1);
         
-        this.game.load.spritesheet('item04', 'img/items/magMush.png', 32, 32, 1);
-        this.game.load.spritesheet('item05', 'img/items/brimstone.png', 32, 32, 1);
-        this.game.load.spritesheet('item06', 'img/items/wirecoathanger.png', 32, 32, 1);
+        this.game.load.spritesheet('magmush', 'img/items/magMush.png', 32, 32, 1);
+        this.game.load.spritesheet('brimstone', 'img/items/brimstone.png', 32, 32, 1);
         
-        this.game.load.spritesheet('item07', 'img/items/pentagram.png', 32, 32, 1);
-        this.game.load.spritesheet('item08', 'img/items/bluecap.png', 32, 32, 1);
-        this.game.load.spritesheet('item09', 'img/items/capricorn.png', 32, 32, 1);
+        this.game.load.spritesheet('pentagram', 'img/items/pentagram.png', 32, 32, 1);
+        this.game.load.spritesheet('bluecap', 'img/items/bluecap.png', 32, 32, 1);
+        this.game.load.spritesheet('capricorn', 'img/items/capricorn.png', 32, 32, 1);
         
         this.game.load.spritesheet('itemAltar', 'img/itemAltar.png', 32, 30, 1);
         this.game.load.spritesheet('isaac', 'img/isaac.png', 66, 58, 1);
