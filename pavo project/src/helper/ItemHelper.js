@@ -22,9 +22,9 @@ var bluecap = function(tower) {
         tower.updateRange();
     }
 }
-var capricon = function(tower) {
-    if(tower.currentItem != "capricon") {
-        tower.currentItem = "capricon";
+var capricorn = function(tower) {
+    if(tower.currentItem != "capricorn") {
+        tower.currentItem = "capricorn";
         tower.fireRate -= 75;
         tower.damage += 2;
         tower.towerRange += 75;
@@ -43,9 +43,8 @@ var pentagram = function(tower) {
         tower.damage += 4;
     }
 }
-var list_of_items = [["magMush", magMush], ["brimStone",brimStone], ["bluecap", bluecap] ,["capricon", capricon],["wirecoathanger", wirecoathanger], ["pentagram", pentagram]];
+var list_of_items = [["magmush", magMush], ["brimstone",brimStone], ["bluecap", bluecap] ,["capricorn", capricorn],["wirecoathanger", wirecoathanger], ["pentagram", pentagram]];
 
-<<<<<<< HEAD
 function pickRandomItem(items) {
     return items[Math.floor(Math.random()*items.length)];
 }
