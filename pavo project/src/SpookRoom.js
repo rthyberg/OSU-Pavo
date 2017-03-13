@@ -33,12 +33,18 @@ TowerDefense.SpookRoom = function(game) {
         this.wave10max = 1;
     
     this.map;
+    this.ability;
     
-    this.points = {
-        'x': [ 50, 50, 50, 250, 250,650 ],
-        'y': [ 75 , 200, 400, 400, 240,240 ]
-    };
+//    this.points = {
+//        'x': [ 50, 50, 50, 250, 250,650 ],
+//        'y': [ 75 , 200, 400, 400, 240,240 ]
+//    };
 
+    this.points = {
+        'x': [ 150, 150, 150, 150, 150, 250, 350, 450, 550, 650, 650, 650, 650, 650 ],
+        'y': [ 600, 500, 400, 300, 220, 220, 220, 220, 220, 220, 300, 400, 500, 600 ]
+    };
+    
     this.path = [];
     this.pi = 0;
     
@@ -81,6 +87,11 @@ TowerDefense.SpookRoom.prototype = {
         this.soundmanager = new soundManager(game);
         this.soundmanager.stop();
         this.soundmanager.level2.play();
+        
+        var style = {
+            font: "16px Arial",
+            align: "center",
+        };
         // Build dynamic map
         // LEVEL 1 Build dynamic map
 		this.map = new DMap('spook');
@@ -118,7 +129,7 @@ TowerDefense.SpookRoom.prototype = {
         this.fire = this.add.group();
         // Add Player
         this.player = new Player(game,200);
-        this.base = this.add.sprite(650, 250, 'isaac');
+        this.base = this.add.sprite(660, 600, 'isaac');
         this.base.anchor.x = 0.5;
         this.base.anchor.y = 0.5;
         this.physics.enable(this.base, Phaser.Physics.ARCADE);
@@ -143,7 +154,35 @@ TowerDefense.SpookRoom.prototype = {
         this.uibutton = new createTowerButton(this, 300, 10, 'tower', 'tower', this.towerList, this.player, this.path);
         this.uibutton.create();
 
-
+        this.restock = this.add.sprite(700, 25, 'restock');
+        this.physics.enable(this.restock, Phaser.Physics.ARCADE);
+        this.restock.anchor.x = 0.5;
+        this.restock.anchor.y = 0.5;
+        this.restock.body.collideWorldBounds = true;
+        this.restock.body.immovable = true;
+        this.restock.inputEnabled = true;
+        this.restock.events.onInputDown.add(function(o){
+            // cost 30 coins
+            if(this.player.coins < 30)
+                return;
+            this.player.coins -= 30;
+            
+            // clear old ability
+            this.ability.icon.destroy();
+            this.input.onDown.remove(this.ability.castEffect, this);
+            
+            // add new ability
+            this.ability = GetDifferentAbility(this.ability.name);
+            this.input.onDown.add(this.ability.castEffect, this);
+        }, this);
+        
+        this.coinsDisplay2 = game.add.sprite(725, 10, 'coins');
+        this.coinsDisplay2.animations.add('spin');
+        this.coinsDisplay2.animations.play('spin', 30, true);
+        this.text = game.add.text(this.coinsDisplay2.x+40, this.coinsDisplay2.y+10, 30, style); // add text object the the right of the coins
+        
+        this.ability = GetRandomAbility();
+        this.input.onDown.add(this.ability.castEffect, this);
 
 
         
@@ -178,7 +217,7 @@ TowerDefense.SpookRoom.prototype = {
 
 
     render: function(){
-        game.debug.text("Group size: " + this.enemies.total, 32, 32);
+        //game.debug.text("Group size: " + this.enemies.total, 32, 32);
         //game.debug.text("Destroyed: " + rip, 32, 64);
     },
 
@@ -280,6 +319,8 @@ TowerDefense.SpookRoom.prototype = {
             this.gameover = true;
             game.time.events.add(Phaser.Timer.SECOND * 5, endGame, this);
         }
+        // check timer for ability
+        this.ability.checkTimer();
         this.uibutton.update();
         this.towerList.callAll('selectTarget', null, this.enemies, this.path); // now needs path variable to be passed in
         this.player.displayCoin();

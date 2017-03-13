@@ -37,9 +37,13 @@ TowerDefense.LevelAlpha = function(game) {
     this.map;
     this.ability;
     
+//    this.points = {
+//        'x': [ 50, 50, 50, 250, 250,650 ],
+//        'y': [ 75 , 200, 400, 400, 240,240 ]
+//    };
     this.points = {
-        'x': [ 50, 50, 50, 250, 250,650 ],
-        'y': [ 75 , 200, 400, 400, 240,240 ]
+        'x': [  50, 150, 150, 150, 250, 350, 450, 450, 450, 550, 650],
+        'y': [ 200, 200, 300, 400, 400, 400, 400, 300, 200, 200, 200]
     };
 
     this.path = [];
@@ -125,7 +129,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.fire = this.add.group();
         // Add Player
         this.player = new Player(this, 200);
-        this.base = this.add.sprite(650, 250, 'isaac');
+        this.base = this.add.sprite(650, 200, 'isaac');
         this.base.anchor.x = 0.5;
         this.base.anchor.y = 0.5;
         this.physics.enable(this.base, Phaser.Physics.ARCADE);
@@ -167,6 +171,21 @@ TowerDefense.LevelAlpha.prototype = {
         this.restock.anchor.y = 0.5;
         this.restock.body.collideWorldBounds = true;
         this.restock.body.immovable = true;
+        this.restock.inputEnabled = true;
+        this.restock.events.onInputDown.add(function(o){
+            // cost 30 coins
+            if(this.player.coins < 30)
+                return;
+            this.player.coins -= 30;
+            
+            // clear old ability
+            this.ability.icon.destroy();
+            this.input.onDown.remove(this.ability.castEffect, this);
+            
+            // add new ability
+            this.ability = GetDifferentAbility(this.ability.name);
+            this.input.onDown.add(this.ability.castEffect, this);
+        }, this);
         
         this.coinsDisplay2 = game.add.sprite(725, 10, 'coins');
         this.coinsDisplay2.animations.add('spin');
@@ -186,7 +205,7 @@ TowerDefense.LevelAlpha.prototype = {
         // }
         
         // else if (randomS == 1){
-            // this.item02 = this.add.sprite(475, 5, 'item02');
+            // this.item02 = this.add.sprite(475, 5, 'i tem02');
             // this.physics.enable(this.item02, Phaser.Physics.ARCADE);
             // this.item02.anchor.x = 0.5;
             // this.item02.anchor.y = 0.5;
@@ -274,7 +293,7 @@ TowerDefense.LevelAlpha.prototype = {
         //game.sound.setDecodedCallback([this.shootsfx], start, this);
     },
     render: function(){
-        game.debug.text("Group size: " + this.enemies.total, 32, 32);
+        //game.debug.text("Group size: " + this.enemies.total, 32, 32);
         //game.debug.text("Destroyed: " + rip, 32, 64);
     },
 
