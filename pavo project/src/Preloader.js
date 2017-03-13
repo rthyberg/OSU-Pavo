@@ -38,6 +38,21 @@ TowerDefense.Preloader.prototype = {
         this.game.load.image('loader6', 'img/loader6.png');
         this.game.load.image('loader7', 'img/loader7.png');
         /**********SPRITES*******************/
+        this.game.load.spritesheet('restock', 'img/items/restock.png', 32, 32, 1);
+        
+        
+        this.game.load.spritesheet('2020', 'img/items/2020.png', 32, 32, 1);
+        this.game.load.spritesheet('dinner', 'img/items/dinner.png', 32, 32, 1);
+        this.game.load.spritesheet('wirecoathanger', 'img/items/wirecoathanger.png', 32, 32, 1);
+        
+        this.game.load.spritesheet('magmush', 'img/items/magMush.png', 32, 32, 1);
+        this.game.load.spritesheet('brimstone', 'img/items/brimstone.png', 32, 32, 1);
+        
+        this.game.load.spritesheet('pentagram', 'img/items/pentagram.png', 32, 32, 1);
+        this.game.load.spritesheet('bluecap', 'img/items/bluecap.png', 32, 32, 1);
+        this.game.load.spritesheet('capricorn', 'img/items/capricorn.png', 32, 32, 1);
+        
+        this.game.load.spritesheet('itemAltar', 'img/itemAltar.png', 32, 30, 1);
         this.game.load.spritesheet('isaac', 'img/isaac.png', 66, 58, 1);
         this.game.load.spritesheet('tower', 'img/tower_isaac.png', 32, 30, 2);
         this.game.load.spritesheet('boom', 'img/explode.png', 128, 128, 8);
@@ -55,8 +70,8 @@ TowerDefense.Preloader.prototype = {
         this.game.load.spritesheet('biggy', 'img/bigDude.png', 82, 82, 5);
         this.game.load.spritesheet('fly', 'img/fly.png', 32, 32, 2);
         this.game.load.spritesheet('spikes', 'img/spikes.png', 48, 48, 2);
-        this.game.load.spritesheet('laserhead', 'img/laserhead.png', 48, 48, 3);
-        this.game.load.spritesheet('vis', 'img/vis.png', 94, 32, 3);
+        this.game.load.spritesheet('laserhead', 'img/laserhead.png', 48, 48, 2);
+        this.game.load.spritesheet('vis', 'img/vis.png', 32, 32, 2);
         this.game.load.spritesheet('succ', 'img/succ.png', 32, 32, 2);
         this.game.load.spritesheet('base', 'img/base.png', 64, 64, 1);
         this.game.load.spritesheet('stan', 'img/stan.png', 200, 124, 12);

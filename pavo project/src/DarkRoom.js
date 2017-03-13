@@ -139,7 +139,7 @@ TowerDefense.DarkRoom.prototype = {
         this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 10, x: 20, width: 32, height: 32, rows: 2});
         
         
-        this.uibutton = new createTowerButton(this, 300, 20, 'tower', 'tower', this.towerList, this.player, this.path);
+        this.uibutton = new createTowerButton(this, 300, 10, 'tower', 'tower', this.towerList, this.player, this.path);
         this.uibutton.create();
 
 
@@ -269,6 +269,20 @@ TowerDefense.DarkRoom.prototype = {
     update: function () {
         if(this.gameover)
             return;
+        if (this.base.health < 1){
+            this.soundmanager.musicstop();
+            var randomS = game.rnd.integerInRange(0, 2);
+            if (randomS == 0)
+                this.soundmanager.death1.play();
+            else if (randomS == 1)
+                this.soundmanager.death2.play();
+            else if (randomS == 2)
+                this.soundmanager.death3.play();
+
+            this.soundmanager.deathjingle.play();
+            this.gameover = true;
+            game.time.events.add(Phaser.Timer.SECOND * 5, endGame, this);
+        }
         this.uibutton.update();
         var randomW = game.rnd.integerInRange(0, 200);
         if (randomW == 0)
@@ -290,26 +304,11 @@ TowerDefense.DarkRoom.prototype = {
         this.physics.arcade.overlap(this.enemies, this.base, this.baseCollision, null, this);
         if (this.physics.arcade.overlap(this.base, this.enemies))
         {
-            this.enemies.forEach(this.kill, this, true);
+            this.enemies.forEach(this.kill, this, true);             
             this.base.damage(1);
-            if (this.base.health==0){
-                this.soundmanager.musicstop();
-                var randomS = game.rnd.integerInRange(0, 2);
-                if (randomS == 0)
-                    this.soundmanager.death1.play();
-                else if (randomS == 1)
-                    this.soundmanager.death2.play();
-                else if (randomS == 2)
-                    this.soundmanager.death3.play();
-                
-                this.soundmanager.deathjingle.play();
-                game.time.events.add(Phaser.Timer.SECOND * 5, endGame, this);
-                
-                
-            }
         }
+                    
         function endGame(){
-            
             this.screenMessage = drawGameOverScreen(this, "Game Over", "Start Menu", "StartMenu"); 
             this.gameover = true;
             

@@ -22,7 +22,7 @@ TowerDefense.StartMenu.prototype = {
         // Write Title
         this.selection1 = this.add.bitmapText(this.world.centerX-205, this.world.centerY-180, 'nokia16', 'THE BINDING OF ISAAC: TOWERBIRTH', 24);
         this.soundmanager = new soundManager(game);
-        
+        this.soundmanager.musicstop();
         this.soundmanager.intro.play();
         
         var starttext = game.add.text(game.world.centerX-5, game.world.centerY+100, "Start Game", { font: "65px Arial", fill: "#ff0044", align: "center" });

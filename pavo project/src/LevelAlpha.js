@@ -137,9 +137,71 @@ TowerDefense.LevelAlpha.prototype = {
         // Towers
         this.towerList = Tower.createGroup(this); // creates group  of towers
         this.towerList.inputEnableChildren = true; // enable input for all future children
-        this.towerUI = new towerUI(game, this.player); // create a new UI object
-        this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
+        //this.towerUI = new towerUI(game, this.player); // create a new UI object
+        //this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
 
+        this.currentItemArray = pickRandomItem(list_of_items);
+        this.currentItemName = this.currentItemArray[0];
+        this.currentItem = this.currentItemArray[1];
+        //console.log(this.currentItemName);
+        //console.log(this.currentItem);
+        var style = {
+            font: "16px Arial",
+            align: "center",
+        };
+        this.altar = this.add.sprite(475, 35, 'itemAltar');
+        this.physics.enable(this.altar, Phaser.Physics.ARCADE);
+        this.altar.anchor.x = 0.5;
+        this.altar.anchor.y = 0.5;
+        this.altar.body.collideWorldBounds = true;
+        this.altar.body.immovable = true;
+        
+        this.coinsDisplay1 = game.add.sprite(500, 10, 'coins');
+        this.coinsDisplay1.animations.add('spin');
+        this.coinsDisplay1.animations.play('spin', 30, true);
+        this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 15, style); // add text object the the right of the coins
+        
+        this.restock = this.add.sprite(700, 25, 'restock');
+        this.physics.enable(this.restock, Phaser.Physics.ARCADE);
+        this.restock.anchor.x = 0.5;
+        this.restock.anchor.y = 0.5;
+        this.restock.body.collideWorldBounds = true;
+        this.restock.body.immovable = true;
+        
+        this.coinsDisplay2 = game.add.sprite(725, 10, 'coins');
+        this.coinsDisplay2.animations.add('spin');
+        this.coinsDisplay2.animations.play('spin', 30, true);
+        this.text = game.add.text(this.coinsDisplay2.x+40, this.coinsDisplay2.y+10, 30, style); // add text object the the right of the coins
+        
+        this.putItem(this.currentItemName);
+
+        // var randomS = game.rnd.integerInRange(0, 2);
+        // if (randomS == 0){
+            // this.item01 = this.add.sprite(475, 5, 'item01');
+            // this.physics.enable(this.item01, Phaser.Physics.ARCADE);
+            // this.item01.anchor.x = 0.5;
+            // this.item01.anchor.y = 0.5;
+            // this.item01.body.collideWorldBounds = true;
+            // this.item01.body.immovable = true;
+        // }
+        
+        // else if (randomS == 1){
+            // this.item02 = this.add.sprite(475, 5, 'item02');
+            // this.physics.enable(this.item02, Phaser.Physics.ARCADE);
+            // this.item02.anchor.x = 0.5;
+            // this.item02.anchor.y = 0.5;
+            // this.item02.body.collideWorldBounds = true;
+            // this.item02.body.immovable = true;
+        // }
+        
+        // else if (randomS == 2){
+            // this.item03 = this.add.sprite(475, 5, 'item03');
+            // this.physics.enable(this.item02, Phaser.Physics.ARCADE);
+            // this.item03.anchor.x = 0.5;
+            // this.item03.anchor.y = 0.5;
+            // this.item03.body.collideWorldBounds = true;
+            // this.item03.body.immovable = true;
+        // }
 
         this.hearts = this.game.add.group();
         this.hearts.enableBody = true;
@@ -147,7 +209,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 10, x: 20, width: 32, height: 32, rows: 2});
 
 
-        this.uibutton = new createTowerButton(this, 300, 20, 'tower', 'tower', this.towerList, this.player, this.path);
+        this.uibutton = new createTowerButton(this, 300, 10, 'tower', 'tower', this.towerList, this.player, this.path);
         this.uibutton.create();
 
         //this.ability=new AbilityFire(game);
@@ -157,6 +219,27 @@ TowerDefense.LevelAlpha.prototype = {
 
         
 	},
+    
+    putItem: function(item) {
+            this.item = this.add.sprite(475, 5, item);
+            this.physics.enable(this.item, Phaser.Physics.ARCADE);
+            this.item.inputEnabled = true;
+            this.item.anchor.x = 0.5;
+            this.item.anchor.y = 0.5;
+            this.item.body.collideWorldBounds = true;
+            this.item.body.immovable = true;
+            this.item.events.onInputDown.add(changeItem, this);
+        function changeItem () {
+            if(this.player.coins - 30 >= 0) {
+                this.player.updateCoin(-30);
+                this.currentItemArray = pickRandomItem(list_of_items);
+                this.currentItemName = this.currentItemArray[0];
+                this.currentItem = this.currentItemArray[1];
+                this.item.loadTexture(this.currentItemName);
+                applyTowerUpgrade(this.towerList, this.currentItem);
+            }
+        }
+    },
 
     plot: function () {
 
@@ -287,7 +370,6 @@ TowerDefense.LevelAlpha.prototype = {
     update: function () {
         if(this.gameover)
             return;
-        
         if (this.base.health < 1){
             this.soundmanager.musicstop();
             var randomS = game.rnd.integerInRange(0, 2);
@@ -330,25 +412,14 @@ TowerDefense.LevelAlpha.prototype = {
         {
             this.enemies.forEach(this.kill, this, true);
             this.base.damage(1);
-            if (this.base.health==0){
-                this.soundmanager.musicstop();
-                var randomS = game.rnd.integerInRange(0, 2);
-                if (randomS == 0)
-                    this.soundmanager.death1.play();
-                else if (randomS == 1)
-                    this.soundmanager.death2.play();
-                else if (randomS == 2)
-                    this.soundmanager.death3.play();
-
-                this.soundmanager.deathjingle.play();
-                this.gameover = true;
-                game.time.events.add(Phaser.Timer.SECOND * 5, endGame, this);
 
 
-            }
         }
-        function endGame(){
+        
+        
 
+        function endGame(){
+            //this.soundmanager.musicstop();
             this.screenMessage = drawGameOverScreen(this, "Game Over", "Start Menu", "StartMenu");
             this.gameover = true;
 

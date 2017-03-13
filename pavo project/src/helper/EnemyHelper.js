@@ -82,14 +82,14 @@ function EquipWeapon(enemy, bullettype){
 function EquipBossWeapon(enemy, bullettype){
 
     enemy.lastFired = 0;
-    enemy.fireRate = 1000;
+    enemy.fireRate = 10000;
     enemy.fireRange = 700;
 
     enemy.weapon = game.add.weapon(30, bullettype);
     enemy.weapon.bulletKillDistance = 800;
     enemy.weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
     enemy.weapon.bulletSpeed = 100;
-    enemy.weapon.fireRate = 1000;
+    enemy.weapon.fireRate = 10000;
 }
 
 function FireWeapon(target){
@@ -110,7 +110,7 @@ function FireWeapon(target){
 function FireBoss1Weapon(target){
     //this.soundmanager = new soundManager(game);
     var dist = this.game.physics.arcade.distanceBetween(this, target);
-    
+    game.physics.arcade.overlap(target, this.weapon.bullets, BaseCollisionHandler, null, this);
     if (dist < this.fireRange && this.game.time.now > this.lastFired &&  this.hp > 0){
         this.weapon.trackSprite(this,0,0,true);
         this.weapon.bulletKillDistance = dist;
@@ -131,8 +131,16 @@ function FireBoss1Weapon(target){
 
 
 function BaseCollisionHandler(base, bullet){
+    this.soundmanager = new soundManager(game);
     bullet.kill();
     base.damage(this.damage);
+    var randomS = game.rnd.integerInRange(0, 2);
+    if (randomS == 0)
+        this.soundmanager.hurt1.play();
+    else if (randomS == 1)
+        this.soundmanager.hurt2.play();
+    else if (randomS == 2)
+        this.soundmanager.hurt3.play();
     //add red tint to damaged sprite
     base.tint = 0xff0000;
     setTimeout(function(){
@@ -272,6 +280,7 @@ Succ = function(game, x, y){
     this.anchor.y = 0.5;
     this.speed = 1.0;
     this.coins = 3;
+    this.damage = 1;
     this.slowed = false;
     this.retreatpoint = 50;
     this.retreatdist = 50;
@@ -284,7 +293,7 @@ Succ = function(game, x, y){
 
 Succ.prototype = Object.create(Phaser.Sprite.prototype);
 Succ.prototype.constructor = Succ;
-Succ.prototype.move = MoveFunction;
+Succ.prototype.move = DynamicMoveFunction;
 Succ.prototype.fire = FireWeapon;
 Succ.prototype.slow = slow;
 
@@ -373,6 +382,7 @@ Stan = function(game, x, y){
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.coins = 100;
+    this.damage = 1;
     this.speed = 0.5;
     this.slowed = false;
     this.retreatpoint = 100;
@@ -381,12 +391,13 @@ Stan = function(game, x, y){
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
+    SetEnemyDefault(this);
     EquipBossWeapon(this, 'stanTear');
 }
 
 Stan.prototype = Object.create(Phaser.Sprite.prototype);
 Stan.prototype.constructor = Stan;
-Stan.prototype.move = MoveFunction;
+Stan.prototype.move = DynamicMoveFunction;
 Stan.prototype.fire = FireBoss1Weapon;
 Stan.prototype.slow = slow;
 
@@ -403,18 +414,20 @@ Mega = function(game, x, y){
     this.retreatdist = 100;
     this.retreatcount = 99;
     this.coins = 100;
+    this.damage = 1;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.animations.add('fly');
     this.play('fly', 2, true);
     this.enableBody = true;
+    SetEnemyDefault(this);
     EquipBossWeapon(this, 'megaTear');
     //TODO: on enemy hit player, call megaExplode anim
 }
 
 Mega.prototype = Object.create(Phaser.Sprite.prototype);
 Mega.prototype.constructor = Mega;
-Mega.prototype.move = MoveFunction;
+Mega.prototype.move = DynamicMoveFunction;
 Mega.prototype.fire = FireBoss1Weapon;
 Mega.prototype.slow = slow;
 
@@ -429,6 +442,7 @@ Baby = function(game, x, y){
     this.anchor.y = 0.5;
     this.speed = 0.5;
     this.coins = 100;
+    this.damage = 1;
     this.slowed = false;
     this.retreatpoint = 100;
     this.retreatdist = 100;
@@ -436,12 +450,13 @@ Baby = function(game, x, y){
     this.animations.add('fly');
     this.play('fly', 5, true);
     this.enableBody = true;
+    SetEnemyDefault(this);
     EquipBossWeapon(this, 'babyTear');
 }
 
 Baby.prototype = Object.create(Phaser.Sprite.prototype);
 Baby.prototype.constructor = Baby;
-Baby.prototype.move = MoveFunction;
+Baby.prototype.move = DynamicMoveFunction;
 Baby.prototype.fire = FireBoss1Weapon;
 Baby.prototype.slow = slow;
 
@@ -454,7 +469,7 @@ Squirt = function(game, x, y){
     this.pi = 0;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
-    this.speed = 1.0;
+    this.speed = 4.0;
     this.slowed = false;
     this.coins = 1;
     this.animations.add('fly');
@@ -522,6 +537,7 @@ Lilhaunt = function(game, x, y){
     this.anchor.y = 0.5;
     this.speed = 1.0;
     this.slowed = false;
+    this.damage = 1;
     this.retreatpoint = 50;
     this.retreatdist = 50;
     this.retreatcount = 99;
@@ -534,7 +550,7 @@ Lilhaunt = function(game, x, y){
 
 Lilhaunt.prototype = Object.create(Phaser.Sprite.prototype);
 Lilhaunt.prototype.constructor = Lilhaunt;
-Lilhaunt.prototype.move = MoveFunction;
+Lilhaunt.prototype.move = DynamicMoveFunction;
 Lilhaunt.prototype.fire = FireWeapon;
 Lilhaunt.prototype.slow = slow;
 
@@ -547,19 +563,22 @@ laserhead = function(game, x, y){
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
     this.speed = 1.0;
+    this.damage = 1;
+    this.coins = 1;
     this.slowed = false;
-    this.retreatpoint = 50;
-    this.retreatdist = 50;
+    this.retreatpoint = 100;
+    this.retreatdist = 100;
     this.retreatcount = 99;
     this.animations.add('fly');
     this.play('fly', 4, true);
     this.enableBody = true;
+    SetEnemyDefault(this);
     EquipWeapon(this, 'belial');
 }
 
 laserhead.prototype = Object.create(Phaser.Sprite.prototype);
 laserhead.prototype.constructor = laserhead;
-laserhead.prototype.move = MoveFunction;
+laserhead.prototype.move = DynamicMoveFunction;
 laserhead.prototype.fire = FireWeapon;
 laserhead.prototype.slow = slow;
 
@@ -568,25 +587,25 @@ vis = function(game, x, y){
     this.vx = x;
     this.vy = y;
     this.hp = 20;
-    this.pi = 0;
-    this.anchor.x = 0.5;
-    this.anchor.y = 0.5;
-    this.speed = 1.0;
+    this.speed = 2.0;
     this.slowed = false;
-    this.retreatpoint = 50;
-    this.retreatdist = 50;
+    this.coins = 1;
+    this.damage = 1;
+    this.retreatpoint = 100;
+    this.retreatdist = 100;
     this.retreatcount = 99;
     this.animations.add('fly');
     this.play('fly', 4, true);
-    this.enableBody = true;
+    SetEnemyDefault(this);
     EquipWeapon(this, 'belial');
 }
 
 vis.prototype = Object.create(Phaser.Sprite.prototype);
 vis.prototype.constructor = vis;
-vis.prototype.move = MoveFunction;
+vis.prototype.move = DynamicMoveFunction;
 vis.prototype.fire = FireWeapon;
 vis.prototype.slow = slow;
+
 
 //Clotty
 Clotty = function(game, x, y){
