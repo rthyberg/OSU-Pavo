@@ -251,10 +251,22 @@ TowerDefense.LevelAlpha.prototype = {
         this.item.events.onInputUp.add(changeTint, this);
         function changeItem () {
             if(this.player.coins - 15 >= 0) {
+                var randomW = game.rnd.integerInRange(0, 4);
+                if (randomW == 0)
+                    this.soundmanager.itemGet1.play();
+                else if (randomW == 1)
+                    this.soundmanager.itemGet2.play();
+                else if (randomW == 2)
+                    this.soundmanager.itemGet3.play();
+                else if (randomW == 3)
+                    this.soundmanager.itemGet4.play();
+                else if (randomW == 4)
+                    this.soundmanager.itemGet5.play();
                 this.player.updateCoin(-15);
                 this.currentItemArray = pickRandomItem(list_of_items);
                 this.currentItemName = this.currentItemArray[0];
                 this.currentItem = this.currentItemArray[1];
+                this.screenMessage = drawItemScreen(this, this.currentItemName + " item bought!", 2000);
                 applyTowerUpgrade(this.towerList, this.currentItem);
                 this.item.loadTexture(this.currentItemName);
             }

@@ -116,6 +116,14 @@ TowerDefense.Preloader.prototype = {
         this.game.load.audio('fly2', ['audio/sfx/fly2.wav']);
         this.game.load.audio('fly3', ['audio/sfx/fly3.wav']);
         this.game.load.audio('fly4', ['audio/sfx/fly4.wav']);
+        
+        this.game.load.audio('itemGet1', ['audio/sfx/itemGet1.mp3']);
+        this.game.load.audio('itemGet2', ['audio/sfx/itemGet2.mp3']);
+        this.game.load.audio('itemGet3', ['audio/sfx/itemGet3.mp3']);
+        this.game.load.audio('itemGet4', ['audio/sfx/itemGet4.mp3']);
+        this.game.load.audio('itemGet5', ['audio/sfx/itemGet5.mp3']);
+        
+        
         this.game.load.audio('hurt1', ['audio/sfx/hurt1.mp3']);
         this.game.load.audio('hurt2', ['audio/sfx/hurt2.mp3']);
         this.game.load.audio('hurt3', ['audio/sfx/hurt3.mp3']);

@@ -1,5 +1,6 @@
 var magMush = function(tower) {
     if(tower.currentItem != "magmush") {
+        
         tower.currentItem = "magmush";
         tower.fireUp = false;
         tower.fireType = 0;
@@ -12,6 +13,7 @@ var magMush = function(tower) {
 }
 var brimStone = function(tower) {
     if(tower.currentItem != "brimstone") {
+        
         tower.currentItem = "brimstone";
         tower.fireUp = true;
         tower.fireType = 2;
@@ -24,6 +26,7 @@ var brimStone = function(tower) {
 }
 var bluecap = function(tower) {
     if(tower.currentItem != "bluecap") {
+        
         tower.currentItem = "bluecap";
         tower.fireUp = false;
         tower.fireType = 0;
@@ -36,6 +39,7 @@ var bluecap = function(tower) {
 }
 var capricorn = function(tower) {
     if(tower.currentItem != "capricorn") {
+        
         tower.currentItem = "capricorn";
         tower.fireUp = false;
         tower.fireType = 0;
@@ -48,6 +52,7 @@ var capricorn = function(tower) {
 }
 var wirecoathanger = function(tower) {
     if(tower.currentItem != "wirecoathanger") {
+        
         tower.currentItem = "wirecoathanger";
         tower.fireUp = false;
         tower.fireType = 0;
@@ -60,6 +65,7 @@ var wirecoathanger = function(tower) {
 }
 var pentagram = function(tower) {
     if(tower.currentItem != "pentagram") {
+        
         tower.currentItem = "pentagram";
         tower.fireUp = false;
         tower.fireType = 0;

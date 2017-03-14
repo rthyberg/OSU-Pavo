@@ -64,6 +64,17 @@ var soundManager = function(game){
     this.shoot2.volume = sfxvolume;
     this.shoot3 = game.add.audio("shoot3");  
     this.shoot3.volume = sfxvolume;
+    
+    this.itemGet1 = game.add.audio("itemGet1");
+    this.itemGet1.volume = sfxvolume;
+    this.itemGet2 = game.add.audio("itemGet2");
+    this.itemGet2.volume = sfxvolume;
+    this.itemGet3 = game.add.audio("itemGet3");
+    this.itemGet3.volume = sfxvolume;
+    this.itemGet4 = game.add.audio("itemGet4");
+    this.itemGet4.volume = sfxvolume;
+    this.itemGet5 = game.add.audio("itemGet5");
+    this.itemGet5.volume = sfxvolume;
   
     //Music
     this.game_music = game.add.audio("game_music");
