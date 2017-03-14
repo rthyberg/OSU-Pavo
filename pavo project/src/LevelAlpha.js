@@ -163,7 +163,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.coinsDisplay1 = game.add.sprite(500, 10, 'coins');
         this.coinsDisplay1.animations.add('spin');
         this.coinsDisplay1.animations.play('spin', 30, true);
-        this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 30, style); // add text object the the right of the coins
+        this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 15, style); // add text object the the right of the coins
         
         this.restock = this.add.sprite(700, 25, 'restock');
         this.physics.enable(this.restock, Phaser.Physics.ARCADE);
@@ -240,31 +240,47 @@ TowerDefense.LevelAlpha.prototype = {
 	},
     
     putItem: function(item) {
-            this.item = this.add.sprite(475, 5, item);
-            this.physics.enable(this.item, Phaser.Physics.ARCADE);
-            this.item.inputEnabled = true;
-            this.item.anchor.x = 0.5;
-            this.item.anchor.y = 0.5;
-            this.item.body.collideWorldBounds = true;
-            this.item.body.immovable = true;
-            this.item.events.onInputDown.add(changeItem, this);
-            this.item.events.onInputUp.add(changeTint, this);
+        this.item = this.add.sprite(475, 5, item);
+        this.physics.enable(this.item, Phaser.Physics.ARCADE);
+        this.item.inputEnabled = true;
+        this.item.anchor.x = 0.5;
+        this.item.anchor.y = 0.5;
+        this.item.body.collideWorldBounds = true;
+        this.item.body.immovable = true;
+        this.item.events.onInputDown.add(changeItem, this);
+        this.item.events.onInputUp.add(changeTint, this);
         function changeItem () {
-            if(this.player.coins - 30 >= 0) {
-                this.player.updateCoin(-30);
+            if(this.player.coins - 15 >= 0) {
+                var randomW = game.rnd.integerInRange(0, 4);
+                if (randomW == 0)
+                    this.soundmanager.itemGet1.play();
+                else if (randomW == 1)
+                    this.soundmanager.itemGet2.play();
+                else if (randomW == 2)
+                    this.soundmanager.itemGet3.play();
+                else if (randomW == 3)
+                    this.soundmanager.itemGet4.play();
+                else if (randomW == 4)
+                    this.soundmanager.itemGet5.play();
+                this.player.updateCoin(-15);
                 this.currentItemArray = pickRandomItem(list_of_items);
                 this.currentItemName = this.currentItemArray[0];
                 this.currentItem = this.currentItemArray[1];
-                this.item.loadTexture(this.currentItemName);
+                this.screenMessage = drawItemScreen(this, this.currentItemName + " item bought!", 2000);
                 applyTowerUpgrade(this.towerList, this.currentItem);
-            } else {
-                this.item.tint = 0x6f0000;
+                this.item.loadTexture(this.currentItemName);
             }
+            else 
+                this.item.tint = 0x6f0000;
+                
+            
+
         }
         function changeTint() {
             this.item.tint = 0xffffff;
         }
     },
+
 
     plot: function () {
 
