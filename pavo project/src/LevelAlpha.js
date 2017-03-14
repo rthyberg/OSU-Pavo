@@ -221,25 +221,35 @@ TowerDefense.LevelAlpha.prototype = {
 	},
     
     putItem: function(item) {
-            this.item = this.add.sprite(475, 5, item);
-            this.physics.enable(this.item, Phaser.Physics.ARCADE);
-            this.item.inputEnabled = true;
-            this.item.anchor.x = 0.5;
-            this.item.anchor.y = 0.5;
-            this.item.body.collideWorldBounds = true;
-            this.item.body.immovable = true;
-            this.item.events.onInputDown.add(changeItem, this);
+        this.item = this.add.sprite(475, 5, item);
+        this.physics.enable(this.item, Phaser.Physics.ARCADE);
+        this.item.inputEnabled = true;
+        this.item.anchor.x = 0.5;
+        this.item.anchor.y = 0.5;
+        this.item.body.collideWorldBounds = true;
+        this.item.body.immovable = true;
+        this.item.events.onInputDown.add(changeItem, this);
+        this.item.events.onInputUp.add(changeTint, this);
         function changeItem () {
             if(this.player.coins - 15 >= 0) {
                 this.player.updateCoin(-15);
                 this.currentItemArray = pickRandomItem(list_of_items);
                 this.currentItemName = this.currentItemArray[0];
                 this.currentItem = this.currentItemArray[1];
-                this.item.loadTexture(this.currentItemName);
                 applyTowerUpgrade(this.towerList, this.currentItem);
+                this.item.loadTexture(this.currentItemName);
             }
+            else 
+                this.item.tint = 0x6f0000;
+                
+            
+
+        }
+        function changeTint() {
+            this.item.tint = 0xffffff;
         }
     },
+
 
     plot: function () {
 
