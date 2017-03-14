@@ -1,7 +1,7 @@
 var magMush = function(tower) {
     if(tower.currentItem != "magMush") {
         tower.currentItem = "magMush";
-        tower.damage += 3;
+        tower.damage *= 2.5;
         tower.towerRange += 100;
         tower.updateRange();
     }
@@ -17,7 +17,7 @@ var bluecap = function(tower) {
     if(tower.currentItem != "bluecap") {
         tower.currentItem = "bluecap";
         tower.frostShot = true
-        tower.fireRate -= 100;
+        tower.fireRate -= 300;
         tower.towerRange += 150;
         tower.updateRange();
     }
@@ -34,13 +34,13 @@ var capricorn = function(tower) {
 var wirecoathanger = function(tower) {
     if(tower.currentItem != "wirecoathanger") {
         tower.currentItem = "wirecoathanger";
-        tower.fireRate-=200;
+        tower.fireRate-=300;
     }
 }
 var pentagram = function(tower) {
     if(tower.currentItem != "pentagram") {
         tower.currentItem = "pentagram";
-        tower.damage += 4;
+        tower.damage += 2;
     }
 }
 var list_of_items = [["magmush", magMush], ["brimstone",brimStone], ["bluecap", bluecap] ,["capricorn", capricorn],["wirecoathanger", wirecoathanger], ["pentagram", pentagram]];

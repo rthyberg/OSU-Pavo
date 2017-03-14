@@ -230,8 +230,8 @@ TowerDefense.LevelAlpha.prototype = {
             this.item.body.immovable = true;
             this.item.events.onInputDown.add(changeItem, this);
         function changeItem () {
-            if(this.player.coins - 30 >= 0) {
-                this.player.updateCoin(-30);
+            if(this.player.coins - 15 >= 0) {
+                this.player.updateCoin(-15);
                 this.currentItemArray = pickRandomItem(list_of_items);
                 this.currentItemName = this.currentItemArray[0];
                 this.currentItem = this.currentItemArray[1];
