@@ -163,7 +163,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.coinsDisplay1 = game.add.sprite(500, 10, 'coins');
         this.coinsDisplay1.animations.add('spin');
         this.coinsDisplay1.animations.play('spin', 30, true);
-        this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 15, style); // add text object the the right of the coins
+        this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 30, style); // add text object the the right of the coins
         
         this.restock = this.add.sprite(700, 25, 'restock');
         this.physics.enable(this.restock, Phaser.Physics.ARCADE);
