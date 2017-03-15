@@ -152,14 +152,14 @@ var twenty = function(tower) {
 var bloodylust = function(tower) {
     if(tower.currentItem != "bloodylust") {
         tower.currentItem = "bloodylust";
-        tower.fireUp = false;
+        tower.fireUp = true;
         tower.fireType = 0;
         tower.frostShot = false;
         tower.doubleUp = false;
         tower.weapon.trackSprite(tower, 0, 0, false);
-        tower.damage = 1;
-        tower.weapon.fireRate = 500;
-        tower.weapon.bulletKillDistance = 200;
+        tower.damage = 3;
+        tower.weapon.fireRate = 400;
+        tower.weapon.bulletKillDistance = 300;
         tower.updateRange();
     }
 }
