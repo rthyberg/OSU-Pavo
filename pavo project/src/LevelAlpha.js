@@ -1,6 +1,8 @@
 
 
 TowerDefense.LevelAlpha = function(game) {
+    this.holy = false;
+    this.lives = 1;
     this.preloadBar = null;
     this.titleText = null;
     this.map = null;
@@ -147,6 +149,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.currentItemArray = pickRandomItem(list_of_items);
         this.currentItemName = this.currentItemArray[0];
         this.currentItem = this.currentItemArray[1];
+
         //console.log(this.currentItemName);
         //console.log(this.currentItem);
         var style = {
@@ -163,7 +166,7 @@ TowerDefense.LevelAlpha.prototype = {
         this.coinsDisplay1 = game.add.sprite(500, 10, 'coins');
         this.coinsDisplay1.animations.add('spin');
         this.coinsDisplay1.animations.play('spin', 30, true);
-        this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 15, style); // add text object the the right of the coins
+        this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 15, style);
         
         this.restock = this.add.sprite(700, 25, 'restock');
         this.physics.enable(this.restock, Phaser.Physics.ARCADE);
@@ -185,6 +188,11 @@ TowerDefense.LevelAlpha.prototype = {
             // add new ability
             this.ability = GetDifferentAbility(this.ability.name);
             this.input.onDown.add(this.ability.castEffect, this);
+            
+            this.currentItemArray = pickRandomItem(list_of_items);
+            this.currentItemName = this.currentItemArray[0];
+            this.currentItem = this.currentItemArray[1];
+            this.item.loadTexture(this.currentItemName);
         }, this);
         
         this.coinsDisplay2 = game.add.sprite(725, 10, 'coins');
@@ -194,38 +202,11 @@ TowerDefense.LevelAlpha.prototype = {
         
         this.putItem(this.currentItemName);
 
-        // var randomS = game.rnd.integerInRange(0, 2);
-        // if (randomS == 0){
-            // this.item01 = this.add.sprite(475, 5, 'item01');
-            // this.physics.enable(this.item01, Phaser.Physics.ARCADE);
-            // this.item01.anchor.x = 0.5;
-            // this.item01.anchor.y = 0.5;
-            // this.item01.body.collideWorldBounds = true;
-            // this.item01.body.immovable = true;
-        // }
-        
-        // else if (randomS == 1){
-            // this.item02 = this.add.sprite(475, 5, 'i tem02');
-            // this.physics.enable(this.item02, Phaser.Physics.ARCADE);
-            // this.item02.anchor.x = 0.5;
-            // this.item02.anchor.y = 0.5;
-            // this.item02.body.collideWorldBounds = true;
-            // this.item02.body.immovable = true;
-        // }
-        
-        // else if (randomS == 2){
-            // this.item03 = this.add.sprite(475, 5, 'item03');
-            // this.physics.enable(this.item02, Phaser.Physics.ARCADE);
-            // this.item03.anchor.x = 0.5;
-            // this.item03.anchor.y = 0.5;
-            // this.item03.body.collideWorldBounds = true;
-            // this.item03.body.immovable = true;
-        // }
 
         this.hearts = this.game.add.group();
         this.hearts.enableBody = true;
         this.healthMeterIcons = this.game.add.plugin(Phaser.Plugin.HealthMeter);
-        this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 10, x: 20, width: 32, height: 32, rows: 2});
+        this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 10, x: 20, width: 16, height: 14, rows: 2});
 
 
         this.uibutton = new createTowerButton(this, 300, 10, 'tower', 'tower', this.towerList, this.player, this.path);
@@ -266,9 +247,42 @@ TowerDefense.LevelAlpha.prototype = {
                 this.currentItemArray = pickRandomItem(list_of_items);
                 this.currentItemName = this.currentItemArray[0];
                 this.currentItem = this.currentItemArray[1];
+                this.item.loadTexture(this.currentItemName);
                 this.screenMessage = drawItemScreen(this, this.currentItemName + " item bought!", 2000);
                 applyTowerUpgrade(this.towerList, this.currentItem);
-                this.item.loadTexture(this.currentItemName);
+                if (this.currentItemName == "blacklotus" || this.currentItemName == "heart")
+                    this.base.health+=3;
+                if (this.currentItemName == "lunch" || this.currentItemName == "magmush" || this.currentItemName == "capricorn" || this.currentItemName == "bluecap" || this.currentItemName == "breakfast" || this.currentItemName == "dessert" || this.currentItemName == "dinner" || this.currentItemName == "snack" || this.currentItemName == "placenta")
+                    this.base.health+=1;
+                if (this.currentItemName == "glasscannon")
+                    this.base.health=1;
+                if (this.currentItemName == "deadcat")
+                    this.lives++;
+                
+                if (this.currentItemName == "holymantle")
+                    this.holy=true;
+                
+                if (this.currentItemName == "experimentaltreatment") {
+                    var randomW = game.rnd.integerInRange(0, 2);
+                    if (randomW == 0)
+                        this.base.health=1;
+                    else if (randomW == 1)
+                        this.base.health=2;
+                    else if (randomW == 2)
+                        this.base.health=3;
+                }
+                if (this.currentItemName == "steamsale"){
+                    //this.coinsDisplay1.icon.destroy();
+                    var style = {
+                        font: "16px Arial",
+                        align: "center",
+                    };                    
+                    this.coinsDisplay1 = game.add.sprite(500, 10, 'coins');
+                    this.coinsDisplay1.animations.add('spin');
+                    this.coinsDisplay1.animations.play('spin', 30, true);
+                    this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 7, style);
+                }
+
             }
             else 
                 this.item.tint = 0x6f0000;
@@ -375,6 +389,12 @@ TowerDefense.LevelAlpha.prototype = {
                 //console.log("play shootsfx");
 
                 enemy.kill();
+                if (this.currentItemName == "vampire"){
+                    
+                    var randomS = game.rnd.integerInRange(0, 2);
+                    if (randomS == 0)
+                        this.base.health++;
+                }
 
             }
 
@@ -412,18 +432,23 @@ TowerDefense.LevelAlpha.prototype = {
         if(this.gameover)
             return;
         if (this.base.health < 1){
-            this.soundmanager.musicstop();
-            var randomS = game.rnd.integerInRange(0, 2);
-            if (randomS == 0)
-                this.soundmanager.death1.play();
-            else if (randomS == 1)
-                this.soundmanager.death2.play();
-            else if (randomS == 2)
-                this.soundmanager.death3.play();
+            this.lives--;
+            if (this.lives == 0){
+                this.soundmanager.musicstop();
+                var randomS = game.rnd.integerInRange(0, 2);
+                if (randomS == 0)
+                    this.soundmanager.death1.play();
+                else if (randomS == 1)
+                    this.soundmanager.death2.play();
+                else if (randomS == 2)
+                    this.soundmanager.death3.play();
 
-            this.soundmanager.deathjingle.play();
-            this.gameover = true;
-            game.time.events.add(Phaser.Timer.SECOND * 5, endGame, this);
+                this.soundmanager.deathjingle.play();
+                this.gameover = true;
+                game.time.events.add(Phaser.Timer.SECOND * 5, endGame, this);
+            }
+            else
+                this.base.health=3;
         }
         
         
@@ -452,7 +477,14 @@ TowerDefense.LevelAlpha.prototype = {
         if (this.physics.arcade.overlap(this.base, this.enemies))
         {
             this.enemies.forEach(this.kill, this, true);
-            this.base.damage(1);
+            if (this.holy == true)
+                this.holy=false;
+            else
+                this.base.damage(1);
+            if (this.currentItemName == "bloodylust")
+                applyBloody(this.towerList);
+ 
+                
 
 
         }

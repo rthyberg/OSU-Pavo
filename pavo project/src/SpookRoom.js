@@ -1,4 +1,6 @@
 TowerDefense.SpookRoom = function(game) {
+    this.holy = false;
+    this.lives = 1;
     this.preloadBar = null;
     this.titleText = null;
     this.map = null;
@@ -98,38 +100,38 @@ TowerDefense.SpookRoom.prototype = {
         this.map.draw();
         
         // LEVEL 2 map objects
-          this.bga = this.add.group();
+        this.bga = this.add.group();
         for (var i = 0; i < game.rnd.integerInRange(9, 16); i++){
-            var randomX = game.rnd.integerInRange(10, 790); 
-            var randomY = game.rnd.integerInRange(10, 590); 
+            var randomX = game.rnd.integerInRange(10, 790);
+            var randomY = game.rnd.integerInRange(10, 590);
             var spikey = this.bga.add(new Spikey(game, randomX, randomY));
             this.physics.enable(spikey, Phaser.Physics.ARCADE);
         }
-        
+
         for (var i = 0; i < game.rnd.integerInRange(4, 12); i++){
-            var randomX = game.rnd.integerInRange(10, 790); 
-            var randomY = game.rnd.integerInRange(10, 590); 
+            var randomX = game.rnd.integerInRange(10, 790);
+            var randomY = game.rnd.integerInRange(10, 590);
             var rocks2 = this.bga.add(new Rocks2(game, randomX, randomY));
-            this.physics.enable(rocks2, Phaser.Physics.ARCADE);           
+            this.physics.enable(rocks2, Phaser.Physics.ARCADE);
         }
-        
+
         for (var i = 0; i < game.rnd.integerInRange(4, 17); i++){
-            var randomX = game.rnd.integerInRange(10, 790); 
-            var randomY = game.rnd.integerInRange(10, 590); 
+            var randomX = game.rnd.integerInRange(10, 790);
+            var randomY = game.rnd.integerInRange(10, 590);
             var rocks3 = this.bga.add(new Rocks3(game, randomX, randomY));
-            this.physics.enable(rocks3, Phaser.Physics.ARCADE);           
+            this.physics.enable(rocks3, Phaser.Physics.ARCADE);
         }
-        
+
         // LEVEL 3 Draw Path
         // Plot and Draw Path First
         this.plot();
-        
+
         // LEVEL 4 Enemies and Projectiles
         this.enemies = this.add.group();
         this.fire = this.add.group();
         // Add Player
-        this.player = new Player(game,200);
-        this.base = this.add.sprite(660, 600, 'isaac');
+        this.player = new Player(this, 200);
+        this.base = this.add.sprite(650, 200, 'isaac');
         this.base.anchor.x = 0.5;
         this.base.anchor.y = 0.5;
         this.physics.enable(this.base, Phaser.Physics.ARCADE);
@@ -141,19 +143,31 @@ TowerDefense.SpookRoom.prototype = {
         // Towers
         this.towerList = Tower.createGroup(this); // creates group  of towers
         this.towerList.inputEnableChildren = true; // enable input for all future children
-        this.towerUI = new towerUI(game, this.player); // create a new UI object
-        this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
-        
-        
-        this.hearts = this.game.add.group();
-        this.hearts.enableBody = true;
-        this.healthMeterIcons = this.game.add.plugin(Phaser.Plugin.HealthMeter);
-        this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 10, x: 20, width: 32, height: 32, rows: 2});
-        
-        
-        this.uibutton = new createTowerButton(this, 300, 10, 'tower', 'tower', this.towerList, this.player, this.path);
-        this.uibutton.create();
+        //this.towerUI = new towerUI(game, this.player); // create a new UI object
+        //this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
 
+        this.currentItemArray = pickRandomItem(list_of_items);
+        this.currentItemName = this.currentItemArray[0];
+        this.currentItem = this.currentItemArray[1];
+
+        //console.log(this.currentItemName);
+        //console.log(this.currentItem);
+        var style = {
+            font: "16px Arial",
+            align: "center",
+        };
+        this.altar = this.add.sprite(475, 35, 'itemAltar');
+        this.physics.enable(this.altar, Phaser.Physics.ARCADE);
+        this.altar.anchor.x = 0.5;
+        this.altar.anchor.y = 0.5;
+        this.altar.body.collideWorldBounds = true;
+        this.altar.body.immovable = true;
+        
+        this.coinsDisplay1 = game.add.sprite(500, 10, 'coins');
+        this.coinsDisplay1.animations.add('spin');
+        this.coinsDisplay1.animations.play('spin', 30, true);
+        this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 15, style);
+        
         this.restock = this.add.sprite(700, 25, 'restock');
         this.physics.enable(this.restock, Phaser.Physics.ARCADE);
         this.restock.anchor.x = 0.5;
@@ -174,6 +188,11 @@ TowerDefense.SpookRoom.prototype = {
             // add new ability
             this.ability = GetDifferentAbility(this.ability.name);
             this.input.onDown.add(this.ability.castEffect, this);
+            
+            this.currentItemArray = pickRandomItem(list_of_items);
+            this.currentItemName = this.currentItemArray[0];
+            this.currentItem = this.currentItemArray[1];
+            this.item.loadTexture(this.currentItemName);
         }, this);
         
         this.coinsDisplay2 = game.add.sprite(725, 10, 'coins');
@@ -181,12 +200,101 @@ TowerDefense.SpookRoom.prototype = {
         this.coinsDisplay2.animations.play('spin', 30, true);
         this.text = game.add.text(this.coinsDisplay2.x+40, this.coinsDisplay2.y+10, 30, style); // add text object the the right of the coins
         
+        this.putItem(this.currentItemName);
+
+
+        this.hearts = this.game.add.group();
+        this.hearts.enableBody = true;
+        this.healthMeterIcons = this.game.add.plugin(Phaser.Plugin.HealthMeter);
+        this.healthMeterIcons.icons(this.base, {icon: 'heartFull', y: 10, x: 20, width: 16, height: 14, rows: 2});
+
+
+        this.uibutton = new createTowerButton(this, 300, 10, 'tower', 'tower', this.towerList, this.player, this.path);
+        this.uibutton.create();
+
+        //this.ability=new AbilityFire(game);
         this.ability = GetRandomAbility();
         this.input.onDown.add(this.ability.castEffect, this);
 
 
         
 	},
+    
+    putItem: function(item) {
+        this.item = this.add.sprite(475, 5, item);
+        this.physics.enable(this.item, Phaser.Physics.ARCADE);
+        this.item.inputEnabled = true;
+        this.item.anchor.x = 0.5;
+        this.item.anchor.y = 0.5;
+        this.item.body.collideWorldBounds = true;
+        this.item.body.immovable = true;
+        this.item.events.onInputDown.add(changeItem, this);
+        this.item.events.onInputUp.add(changeTint, this);
+        function changeItem () {
+            if(this.player.coins - 15 >= 0) {
+                var randomW = game.rnd.integerInRange(0, 4);
+                if (randomW == 0)
+                    this.soundmanager.itemGet1.play();
+                else if (randomW == 1)
+                    this.soundmanager.itemGet2.play();
+                else if (randomW == 2)
+                    this.soundmanager.itemGet3.play();
+                else if (randomW == 3)
+                    this.soundmanager.itemGet4.play();
+                else if (randomW == 4)
+                    this.soundmanager.itemGet5.play();
+                this.player.updateCoin(-15);
+                this.currentItemArray = pickRandomItem(list_of_items);
+                this.currentItemName = this.currentItemArray[0];
+                this.currentItem = this.currentItemArray[1];
+                this.item.loadTexture(this.currentItemName);
+                this.screenMessage = drawItemScreen(this, this.currentItemName + " item bought!", 2000);
+                applyTowerUpgrade(this.towerList, this.currentItem);
+                if (this.currentItemName == "blacklotus" || this.currentItemName == "heart")
+                    this.base.health+=3;
+                if (this.currentItemName == "lunch" || this.currentItemName == "magmush" || this.currentItemName == "capricorn" || this.currentItemName == "bluecap" || this.currentItemName == "breakfast" || this.currentItemName == "dessert" || this.currentItemName == "dinner" || this.currentItemName == "snack" || this.currentItemName == "placenta")
+                    this.base.health+=1;
+                if (this.currentItemName == "glasscannon")
+                    this.base.health=1;
+                if (this.currentItemName == "deadcat")
+                    this.lives++;
+                
+                if (this.currentItemName == "holymantle")
+                    this.holy=true;
+                
+                if (this.currentItemName == "experimentaltreatment") {
+                    var randomW = game.rnd.integerInRange(0, 2);
+                    if (randomW == 0)
+                        this.base.health=1;
+                    else if (randomW == 1)
+                        this.base.health=2;
+                    else if (randomW == 2)
+                        this.base.health=3;
+                }
+                
+                if (this.currentItemName == "steamsale"){
+                    //this.coinsDisplay1.icon.destroy();
+                    var style = {
+                        font: "16px Arial",
+                        align: "center",
+                    };                    
+                    this.coinsDisplay1 = game.add.sprite(500, 10, 'coins');
+                    this.coinsDisplay1.animations.add('spin');
+                    this.coinsDisplay1.animations.play('spin', 30, true);
+                    this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 7, style);
+                }
+
+            }
+            else 
+                this.item.tint = 0x6f0000;
+                
+            
+
+        }
+        function changeTint() {
+            this.item.tint = 0xffffff;
+        }
+    },
     plot: function () {
 
         this.bmd.clear();
@@ -270,8 +378,15 @@ TowerDefense.SpookRoom.prototype = {
         //console.log(enemy.hit);
         if(enemy.exists){
             enemy.hp -= 1;
-            if(enemy.hp <= 0)
+            if(enemy.hp <= 0){
                 enemy.kill();
+                if (this.currentItemName == "vampire"){
+                    
+                    var randomS = game.rnd.integerInRange(0, 2);
+                    if (randomS == 0)
+                        this.base.health++;
+                }
+            }
         }
     },
 
@@ -306,29 +421,44 @@ TowerDefense.SpookRoom.prototype = {
         if(this.gameover)
             return;
         if (this.base.health < 1){
-            this.soundmanager.musicstop();
-            var randomS = game.rnd.integerInRange(0, 2);
-            if (randomS == 0)
-                this.soundmanager.death1.play();
-            else if (randomS == 1)
-                this.soundmanager.death2.play();
-            else if (randomS == 2)
-                this.soundmanager.death3.play();
+            this.lives--;
+            if (this.lives == 0){
+                this.soundmanager.musicstop();
+                var randomS = game.rnd.integerInRange(0, 2);
+                if (randomS == 0)
+                    this.soundmanager.death1.play();
+                else if (randomS == 1)
+                    this.soundmanager.death2.play();
+                else if (randomS == 2)
+                    this.soundmanager.death3.play();
 
-            this.soundmanager.deathjingle.play();
-            this.gameover = true;
-            game.time.events.add(Phaser.Timer.SECOND * 5, endGame, this);
+                this.soundmanager.deathjingle.play();
+                this.gameover = true;
+                game.time.events.add(Phaser.Timer.SECOND * 5, endGame, this);
+            }
+            else
+                this.base.health=3;
         }
-        // check timer for ability
-        this.ability.checkTimer();
+        
+        
         this.uibutton.update();
+        var randomW = game.rnd.integerInRange(0, 200);
+        if (randomW == 0)
+            this.soundmanager.drip1.play();
+        else if (randomW == 1)
+            this.soundmanager.drop2.play();
+        else if (randomW == 2)
+            this.soundmanager.drop3.play();
         this.towerList.callAll('selectTarget', null, this.enemies, this.path); // now needs path variable to be passed in
         this.player.displayCoin();
         
+        // check timer for ability
+        this.ability.checkTimer();
+        
         this.enemies.forEach(this.checkEnemy, this, true);
-        
+
         this.enemies.callAll('fire',null,this.base);
-        
+
         this.physics.arcade.overlap(this.bga, this.bga, this.fireCollision, null, this);
         this.physics.arcade.overlap(this.bga, this.base, this.fireCollision, null, this);
         this.physics.arcade.overlap(this.bga, this.enemies, this.fireCollision, null, this);
@@ -336,17 +466,25 @@ TowerDefense.SpookRoom.prototype = {
         if (this.physics.arcade.overlap(this.base, this.enemies))
         {
             this.enemies.forEach(this.kill, this, true);
-            this.base.damage(1);             
+            if (this.holy == true)
+                this.holy=false;
+            else
+                this.base.damage(1);
+            if (this.currentItemName == "bloodylust")
+                applyBloody(this.towerList);
+ 
                 
-            
+
+
         }
+        
         
 
         function endGame(){
-
-            this.screenMessage = drawGameOverScreen(this, "Game Over", "Start Menu", "StartMenu"); 
+            //this.soundmanager.musicstop();
+            this.screenMessage = drawGameOverScreen(this, "Game Over", "Start Menu", "StartMenu");
             this.gameover = true;
-            
+
         }
         this.checkwave();
 	},
