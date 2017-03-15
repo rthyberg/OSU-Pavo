@@ -540,7 +540,7 @@ TowerDefense.SpookRoom.prototype = {
                 game.time.events.add(Phaser.Timer.SECOND * 1, this.loadwave10, this);
                 this.spawnstart = true;
             }
-            else if(this.wave10spawn >= this.wave10max){
+            else if((this.wave10spawn >= this.wave10max) && !this.gameover){
                 // Printing Game Complete and link to next Level
                 this.soundmanager.stop();
                 this.soundmanager.musicstop();
