@@ -419,7 +419,7 @@ TowerDefense.SpookRoom.prototype = {
 
     update: function () {
         if(this.gameover){
-            this.loop.loop = false;
+            //this.loop.loop = false;
             return;
         }
         if (this.base.health < 1){

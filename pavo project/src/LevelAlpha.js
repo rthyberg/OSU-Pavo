@@ -430,7 +430,7 @@ TowerDefense.LevelAlpha.prototype = {
 
     update: function () {
         if(this.gameover){
-            this.loop.loop = false;
+            //this.loop.loop = false;
             return;
         }
             
