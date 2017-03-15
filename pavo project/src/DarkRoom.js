@@ -422,8 +422,10 @@ TowerDefense.DarkRoom.prototype = {
     },
 
     update: function () {
-        if(this.gameover)
+        if(this.gameover){
+            this.loop.loop = false;
             return;
+        }
         if (this.base.health < 1){
             this.lives--;
             if (this.lives == 0){

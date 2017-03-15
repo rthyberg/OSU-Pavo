@@ -429,8 +429,13 @@ TowerDefense.LevelAlpha.prototype = {
     },
 
     update: function () {
-        if(this.gameover)
+        if(this.gameover){
+            //console.log(this.loop);
+            this.loop.loop = false;
+            //this.loop.destroy();
             return;
+        }
+            
         if (this.base.health < 1){
             this.lives--;
             if (this.lives == 0){

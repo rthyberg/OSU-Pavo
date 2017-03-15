@@ -288,6 +288,7 @@ Succ = function(game, x, y){
     this.animations.add('fly');
     this.play('fly', 4, true);
     this.enableBody = true;
+    SetEnemyDefault(this);
     EquipWeapon(this, 'enemyTear');
 }
 
@@ -385,7 +386,7 @@ Stan = function(game, x, y){
     this.damage = 1;
     this.speed = 0.5;
     this.slowed = false;
-    this.retreatpoint = 100;
+    this.retreatpoint = 200;
     this.retreatdist = 100;
     this.retreatcount = 99;
     this.animations.add('fly');
@@ -545,6 +546,7 @@ Lilhaunt = function(game, x, y){
     this.animations.add('fly');
     this.play('fly', 4, true);
     this.enableBody = true;
+    SetEnemyDefault(this);
     EquipWeapon(this, 'enemyTear');
 }
 
