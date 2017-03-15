@@ -147,8 +147,9 @@ TowerDefense.LevelAlpha.prototype = {
         //this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
 
         this.currentItemArray = pickRandomItem(list_of_items);
-        this.currentItemName = this.currentItemArray[0];
-        this.currentItem = this.currentItemArray[1];
+        //this.currentItemName = this.currentItemArray[0];
+        //this.currentItem = this.currentItemArray[1];
+        this.currentItem = null;
 
         //console.log(this.currentItemName);
         //console.log(this.currentItem);
@@ -433,7 +434,9 @@ TowerDefense.LevelAlpha.prototype = {
             //this.loop.loop = false;
             return;
         }
-            
+        if (this.currentItem != null) {
+            applyTowerUpgrade(this.towerList, this.currentItem);
+        }
         if (this.base.health < 1){
             this.lives--;
             if (this.lives == 0){
