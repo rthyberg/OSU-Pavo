@@ -34,7 +34,7 @@ function createTowerButton(game, x, y, key, place, list, player, path) {
     this.coinsDisplay1 = game.add.sprite(335, 10, 'coins');
     this.coinsDisplay1.animations.add('spin');
     this.coinsDisplay1.animations.play('spin', 30, true);
-    this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 15, style); // add text object the the right of the coins
+    this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 5, style); // add text object the the right of the coins
 
 };
 
@@ -62,18 +62,18 @@ createTowerButton.prototype = {
         this.coinsDisplay1 = game.add.sprite(335, 10, 'coins');
         this.coinsDisplay1.animations.add('spin');
         this.coinsDisplay1.animations.play('spin', 30, true);
-        this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 15, style); // add text object the the right of the coins
+        this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 5, style); // add text object the the right of the coins
         function showTower() {
-            if(this.player.coins-15 >= 0) {
+            if(this.player.coins-5 >= 0) {
                 this.placeHolder.visible = true; // when mouse pressed down show the "fake tower"
             } else this.text.visible = true; // show that tower can not be built
         }
 
         function buildTower() {
-            if(this.player.coins-15 >= 0 &&
+            if(this.player.coins-5 >= 0 &&
                 this.squareCheck(this.game.input.x, this.game.input.y) &&
                 !this.game.physics.arcade.overlap(this.placeHolder, this.towerList, null, null, null)) {
-                this.player.updateCoin(-15);
+                this.player.updateCoin(-5);
                 this.placeHolder.visible = false; // when button let go build the tower on the x, y
                 var newTower = this.towerList.create(this.game.input.x, this.game.input.y, 'tower', 'bullet');
                 newTower.setPlayer(this.player);

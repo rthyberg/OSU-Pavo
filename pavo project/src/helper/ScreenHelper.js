@@ -10,6 +10,16 @@ drawWaveScreen = function(state, message, msTime){
     }, msTime);
 };
 
+drawItemScreen = function(state, message, msTime){
+    var text = state.add.text(state.world.centerX, state.world.centerY-150, message, { font: "45px Arial", fill: "#000", align: "center" });
+    text.anchor.set(0.5);
+    text.inputEnabled = true;
+    
+    setTimeout(function(){
+        text.kill();
+    }, msTime);
+};
+
 drawGameOverScreen = function(state, message, linkmessage, linkstate){
     this.soundmanager = new soundManager(game);
     this.soundmanager.uded.play();

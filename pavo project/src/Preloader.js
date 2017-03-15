@@ -26,8 +26,7 @@ TowerDefense.Preloader.prototype = {
         this.game.load.atlasJSONArray('bullet', 'img/bullet_sheet.png', 'img/bullets_sheet.json');
         this.game.load.image('darkroad', 'img/darkroad.png');
 	    /**********IMAGES*******************/
-        
-        this.game.load.image('heartFull', 'img/heartFull.png');
+        this.game.load.spritesheet('heartFull', 'img/heartFull.png', 16, 14, 1);
         this.game.load.image('explosion', 'img/explosion.png');
         this.game.load.image('bgblack', 'img/bgblack.png');
         this.game.load.image('loader', 'img/loader.png');
@@ -41,7 +40,7 @@ TowerDefense.Preloader.prototype = {
         this.game.load.spritesheet('restock', 'img/items/restock.png', 32, 32, 1);
         
         
-        this.game.load.spritesheet('2020', 'img/items/2020.png', 32, 32, 1);
+        this.game.load.spritesheet('twenty', 'img/items/2020.png', 32, 32, 1);
         this.game.load.spritesheet('dinner', 'img/items/dinner.png', 32, 32, 1);
         this.game.load.spritesheet('wirecoathanger', 'img/items/wirecoathanger.png', 32, 32, 1);
         
@@ -51,6 +50,35 @@ TowerDefense.Preloader.prototype = {
         this.game.load.spritesheet('pentagram', 'img/items/pentagram.png', 32, 32, 1);
         this.game.load.spritesheet('bluecap', 'img/items/bluecap.png', 32, 32, 1);
         this.game.load.spritesheet('capricorn', 'img/items/capricorn.png', 32, 32, 1);
+        this.game.load.spritesheet('ghostpepper', 'img/items/ghostpepper.png', 32, 32, 1);
+        this.game.load.spritesheet('smallrock', 'img/items/smallrock.png', 32, 32, 1);
+        
+        this.game.load.spritesheet('blacklotus', 'img/items/blacklotus.png', 32, 32, 1);
+        this.game.load.spritesheet('breakfast', 'img/items/breakfast.png', 32, 32, 1);
+        this.game.load.spritesheet('lunch', 'img/items/lunch.png', 32, 32, 1);
+        this.game.load.spritesheet('dessert', 'img/items/dessert.png', 32, 32, 1);
+        this.game.load.spritesheet('dinner', 'img/items/dinner.png', 32, 32, 1);
+        this.game.load.spritesheet('snack', 'img/items/snack.png', 32, 32, 1);
+        this.game.load.spritesheet('placenta', 'img/items/placenta.png', 32, 32, 1);
+        this.game.load.spritesheet('heart', 'img/items/heart.png', 32, 32, 1);
+        
+        this.game.load.spritesheet('squeezy', 'img/items/squeezy.png', 32, 32, 1);
+        this.game.load.spritesheet('bloodylust', 'img/items/bloodylust.png', 32, 32, 1);
+        this.game.load.spritesheet('momseye', 'img/items/momseye.png', 32, 32, 1);
+        this.game.load.spritesheet('momscontacts', 'img/items/momscontacts.png', 32, 32, 1);
+        
+        this.game.load.spritesheet('polyphemus', 'img/items/polyphemus.png', 32, 32, 1);
+        this.game.load.spritesheet('glasscannon', 'img/items/glasscannon.png', 32, 32, 1);
+        
+        this.game.load.spritesheet('toothpicks', 'img/items/toothpicks.png', 32, 32, 1);
+        this.game.load.spritesheet('vampire', 'img/items/vampire.png', 32, 32, 1);
+        this.game.load.spritesheet('deadcat', 'img/items/deadcat.png', 32, 32, 1);
+        this.game.load.spritesheet('momsbra', 'img/items/momsbra.png', 32, 32, 1);
+        
+        this.game.load.spritesheet('experimentaltreatment', 'img/items/experimentaltreatment.png', 32, 32, 1);
+        this.game.load.spritesheet('holymantle', 'img/items/holymantle.png', 32, 32, 1);
+        
+        this.game.load.spritesheet('steamsale', 'img/items/steamsale.png', 32, 32, 1);
         
         this.game.load.spritesheet('itemAltar', 'img/itemAltar.png', 32, 30, 1);
         this.game.load.spritesheet('isaac', 'img/isaac.png', 66, 58, 1);
@@ -116,6 +144,14 @@ TowerDefense.Preloader.prototype = {
         this.game.load.audio('fly2', ['audio/sfx/fly2.wav']);
         this.game.load.audio('fly3', ['audio/sfx/fly3.wav']);
         this.game.load.audio('fly4', ['audio/sfx/fly4.wav']);
+        
+        this.game.load.audio('itemGet1', ['audio/sfx/itemGet1.mp3']);
+        this.game.load.audio('itemGet2', ['audio/sfx/itemGet2.mp3']);
+        this.game.load.audio('itemGet3', ['audio/sfx/itemGet3.mp3']);
+        this.game.load.audio('itemGet4', ['audio/sfx/itemGet4.mp3']);
+        this.game.load.audio('itemGet5', ['audio/sfx/itemGet5.mp3']);
+        
+        
         this.game.load.audio('hurt1', ['audio/sfx/hurt1.mp3']);
         this.game.load.audio('hurt2', ['audio/sfx/hurt2.mp3']);
         this.game.load.audio('hurt3', ['audio/sfx/hurt3.mp3']);
