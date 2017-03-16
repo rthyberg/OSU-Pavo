@@ -86,7 +86,7 @@ TowerDefense.DarkRoom.prototype = {
         this.bmd.addToWorld();
         this.soundmanager = new soundManager(game);
         this.soundmanager.stop();
-        var randomA = game.rnd.integerInRange(0, 2);
+        var randomA = game.rnd.integerInRange(0, 1);
         if (randomA == 0)
             this.soundmanager.level3a.play();
         else if (randomA == 1)
