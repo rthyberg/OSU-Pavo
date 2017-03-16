@@ -82,14 +82,14 @@ function EquipWeapon(enemy, bullettype){
 function EquipBossWeapon(enemy, bullettype){
 
     enemy.lastFired = 0;
-    enemy.fireRate = 10000;
+    enemy.fireRate = 4000;
     enemy.fireRange = 700;
 
     enemy.weapon = game.add.weapon(30, bullettype);
     enemy.weapon.bulletKillDistance = 800;
     enemy.weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
     enemy.weapon.bulletSpeed = 100;
-    enemy.weapon.fireRate = 10000;
+    enemy.weapon.fireRate = 4000;
 }
 
 function FireWeapon(target){
@@ -118,14 +118,6 @@ function FireBoss1Weapon(target){
         this.weapon.fireAtXY(target.x, target.y);
         this.lastFired = this.game.time.now + this.fireRate;
         
-        // var randomS = game.rnd.integerInRange(0, 2);
-        // if (randomS == 0)
-            // this.soundmanager.shoot.play();
-        // else if (randomS == 1)
-            // this.soundmanager.shoot2.play();
-        // else if (randomS == 2)
-            // this.soundmanager.shoot3.play();
-
     }
 };
 
@@ -378,7 +370,7 @@ Stan = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'stan');
     this.vx = x;
     this.vy = y;
-    this.hp = 1500;
+    this.hp = 2000;
     this.pi = 0;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
@@ -407,7 +399,7 @@ Mega = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'mega');
     this.vx = x;
     this.vy = y;
-    this.hp = 2000;
+    this.hp = 3000;
     this.pi = 0;
     this.speed = 0.25;
     this.slowed = false;
@@ -437,7 +429,7 @@ Baby = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'baby');
     this.vx = x;
     this.vy = y;
-    this.hp = 3000;
+    this.hp = 5000;
     this.pi = 0;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;

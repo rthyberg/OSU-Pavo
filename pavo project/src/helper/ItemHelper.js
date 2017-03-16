@@ -203,7 +203,7 @@ var polyphemus = function(tower) {
         tower.doubleUp = false;
         tower.weapon.trackSprite(tower, 0, 0, false);
         tower.damage = 100;
-        tower.weapon.fireRate = 1000;
+        tower.weapon.fireRate = 4000;
         tower.weapon.bulletKillDistance = 200;
         tower.updateRange();
     }
@@ -217,7 +217,7 @@ var glasscannon = function(tower) {
         tower.frostShot = false;
         tower.doubleUp = false;
         tower.weapon.trackSprite(tower, 0, 0, false);
-        tower.damage = 1000;
+        tower.damage = 500;
         tower.weapon.fireRate = 500;
         tower.weapon.bulletKillDistance = 200;
         tower.updateRange();
@@ -272,11 +272,6 @@ var experimentaltreatment = function(tower) {
     }
 }
 
-var holymantle = function(tower) {
-
-}
-
-
 
 var blacklotus = function(tower) {
 
@@ -310,24 +305,15 @@ var placenta = function(tower) {
 
 }
 
-var steamsale = function(tower) {
-
-}
 
 var heart = function(tower) {
 
 }
 
-var vampire = function(tower) {
-
-}
-
-var deadcat = function(tower) {
-
-}
 
 
-var list_of_items = [["holymantle", holymantle], ["experimentaltreatment", experimentaltreatment],["momsbra", momsbra],["deadcat", deadcat],["vampire", vampire],["toothpicks", toothpicks],["glasscannon", glasscannon],["polyphemus", polyphemus],["momseye", momseye],["momscontacts", momscontacts],["heart", heart], ["bloodylust", bloodylust],["twenty", twenty],["squeezy", squeezy],["smallrock", smallrock],["steamsale", steamsale], ["lunch", lunch],["snack", snack],["placenta", placenta],["ghostpepper", ghostpepper],["dessert", dessert],["dinner", dinner],["breakfast", breakfast], ["blacklotus", blacklotus], ["magmush", magMush], ["brimstone",brimStone], ["bluecap", bluecap] ,["capricorn", capricorn],["wirecoathanger", wirecoathanger], ["pentagram", pentagram]];
+
+var list_of_items = [["experimentaltreatment", experimentaltreatment],["momsbra", momsbra],["deadcat", deadcat],["toothpicks", toothpicks],["glasscannon", glasscannon],["polyphemus", polyphemus],["momseye", momseye],["momscontacts", momscontacts],["heart", heart], ["bloodylust", bloodylust],["twenty", twenty],["squeezy", squeezy],["smallrock", smallrock], ["lunch", lunch],["snack", snack],["placenta", placenta],["ghostpepper", ghostpepper],["dessert", dessert],["dinner", dinner],["breakfast", breakfast], ["blacklotus", blacklotus], ["magmush", magMush], ["brimstone",brimStone], ["bluecap", bluecap] ,["capricorn", capricorn],["wirecoathanger", wirecoathanger], ["pentagram", pentagram]];
 
 function pickRandomItem(items) {
     return items[Math.floor(Math.random()*items.length)];
