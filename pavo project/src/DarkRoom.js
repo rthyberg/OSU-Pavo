@@ -41,8 +41,8 @@ TowerDefense.DarkRoom = function(game) {
 //        'y': [ 75 , 200, 400, 400, 240,240 ]
 //    };
     this.points = {
-        'x': [ 50,  50,  50,  50,  50, 150, 250, 350, 450, 550, 550,  550, 550, 450, 350, 250, 250 ],
-        'y': [ 75, 175, 275, 375, 475, 475, 475, 475, 475, 475, 375,  275, 175, 175, 175, 175, 275 ]
+        'x': [ 50,  50,  50,  50,  50, 50, 150, 250, 350, 450, 550, 650, 650,  650, 650, 650, 550, 450, 350, 350 ],
+        'y': [ 75, 175, 275, 375, 475, 550, 550, 550, 550, 550, 550, 550, 450,  350, 250, 150, 150,150, 150, 290 ]
     };
 
     this.path = [];
@@ -135,7 +135,7 @@ TowerDefense.DarkRoom.prototype = {
         this.fire = this.add.group();
         // Add Player
         this.player = new Player(this, 200);
-        this.base = this.add.sprite(260, 275, 'isaac');
+        this.base = this.add.sprite(360, 290, 'isaac');
         this.base.anchor.x = 0.5;
         this.base.anchor.y = 0.5;
         this.physics.enable(this.base, Phaser.Physics.ARCADE);

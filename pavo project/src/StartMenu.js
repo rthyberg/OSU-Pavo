@@ -59,6 +59,7 @@ TowerDefense.StartMenu.prototype = {
         optiontext.anchor.set(0.5);
         optiontext.inputEnabled = true;
         optiontext.events.onInputDown.add(function(){
+            this.soundmanager.stop();
             game.state.start("OptionMenu");
         }, this);
         
