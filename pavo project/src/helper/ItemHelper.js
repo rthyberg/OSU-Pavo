@@ -1,13 +1,17 @@
 var magMush = function(tower) {
     if(tower.currentItem != "magmush") {
-        
         tower.currentItem = "magmush";
         tower.fireUp = false;
         tower.fireType = 0;
         tower.frostShot = false;
+        tower.doubleUp = true;
+        tower.weapon.trackSprite(tower, -15, 0, false);
+        tower.weapon2.trackSprite(tower, 15, 0, false);
         tower.damage = 3;
         tower.weapon.fireRate = 500;
+        tower.weapon2.fireRate = 500;
         tower.weapon.bulletKillDistance = 300;
+        tower.weapon2.bulletKillDistance = 300;
         tower.updateRange();
     }
 }
@@ -17,6 +21,8 @@ var brimStone = function(tower) {
         tower.fireUp = true;
         tower.fireType = 2;
         tower.frostShot = false;
+        tower.doubleUp = false;
+        tower.weapon.trackSprite(tower, 0, 0, false);
         tower.damage = 2;
         tower.weapon.fireRate = 500;
         tower.weapon.bulletKillDistance = 200;
@@ -29,6 +35,8 @@ var bluecap = function(tower) {
         tower.fireUp = false;
         tower.fireType = 0;
         tower.frostShot = false
+        tower.doubleUp = false;
+        tower.weapon.trackSprite(tower, 0, 0, false);
         tower.damage = 2;
         tower.weapon.fireRate = 400;
         tower.weapon.bulletKillDistance = 350;
@@ -41,6 +49,8 @@ var capricorn = function(tower) {
         tower.fireUp = false;
         tower.fireType = 0;
         tower.frostShot = true;
+        tower.doubleUp = false;
+        tower.weapon.trackSprite(tower, 0, 0, false);
         tower.damage = 2;
         tower.weapon.fireRate = 425;
         tower.weapon.bulletKillDistance = 275;
@@ -53,6 +63,8 @@ var wirecoathanger = function(tower) {
         tower.fireUp = false;
         tower.fireType = 0;
         tower.frostShot = false;
+        tower.doubleUp = false;
+        tower.weapon.trackSprite(tower, 0, 0, false);
         tower.damage = 1;
         tower.weapon.fireRate = 300;
         tower.weapon.bulletKillDistance = 200;
@@ -65,6 +77,8 @@ var pentagram = function(tower) {
         tower.fireUp = false;
         tower.fireType = 0;
         tower.frostShot = false;
+        tower.doubleUp = false;
+        tower.weapon.trackSprite(tower, 0, 0, false);
         tower.damage = 4;
         tower.weapon.fireRate = 500;
         tower.weapon.bulletKillDistance = 200;
@@ -78,6 +92,8 @@ var ghostpepper = function(tower) {
         tower.fireUp = true;
         tower.fireType = 2;
         tower.frostShot = false;
+        tower.doubleUp = false;
+        tower.weapon.trackSprite(tower, 0, 0, false);
         tower.damage = 2;
         tower.weapon.fireRate = 500;
         tower.weapon.bulletKillDistance = 200;
@@ -91,6 +107,8 @@ var smallrock = function(tower) {
         tower.fireUp = false;
         tower.fireType = 0;
         tower.frostShot = false;
+        tower.doubleUp = false;
+        tower.weapon.trackSprite(tower, 0, 0, false);
         tower.damage = 8;
         tower.weapon.fireRate = 600;
         tower.weapon.bulletKillDistance = 200;
@@ -104,6 +122,8 @@ var squeezy = function(tower) {
         tower.fireUp = false;
         tower.fireType = 0;
         tower.frostShot = false;
+        tower.doubleUp = false;
+        tower.weapon.trackSprite(tower, 0, 0, false);
         tower.damage = 1;
         tower.weapon.fireRate = 100;
         tower.weapon.bulletKillDistance = 200;
@@ -114,13 +134,17 @@ var squeezy = function(tower) {
 var twenty = function(tower) {
     if(tower.currentItem != "twenty") {
         tower.currentItem = "twenty";
-        tower.doubleUp = true;
         tower.fireUp = false;
         tower.fireType = 0;
         tower.frostShot = false;
+        tower.doubleUp = true;
+        tower.weapon.trackSprite(tower, -15, 0, false);
+        tower.weapon2.trackSprite(tower, 15, 0, false);
         tower.damage = 1;
         tower.weapon.fireRate = 500;
+        tower.weapon2.fireRate = 500;
         tower.weapon.bulletKillDistance = 200;
+        tower.weapon2.bulletKillDistance = 200;
         tower.updateRange();
     }
 }
@@ -128,12 +152,14 @@ var twenty = function(tower) {
 var bloodylust = function(tower) {
     if(tower.currentItem != "bloodylust") {
         tower.currentItem = "bloodylust";
-        tower.fireUp = false;
+        tower.fireUp = true;
         tower.fireType = 0;
         tower.frostShot = false;
-        tower.damage = 1;
-        tower.weapon.fireRate = 500;
-        tower.weapon.bulletKillDistance = 200;
+        tower.doubleUp = false;
+        tower.weapon.trackSprite(tower, 0, 0, false);
+        tower.damage = 3;
+        tower.weapon.fireRate = 400;
+        tower.weapon.bulletKillDistance = 300;
         tower.updateRange();
     }
 }
@@ -144,6 +170,8 @@ var momseye = function(tower) {
         tower.fireUp = false;
         tower.fireType = 0;
         tower.frostShot = true;
+        tower.doubleUp = false;
+        tower.weapon.trackSprite(tower, 0, 0, false);
         tower.damage = 5;
         tower.weapon.fireRate = 500;
         tower.weapon.bulletKillDistance = 200;
@@ -157,6 +185,8 @@ var momscontacts = function(tower) {
         tower.fireUp = false;
         tower.fireType = 0;
         tower.frostShot = true;
+        tower.doubleUp = false;
+        tower.weapon.trackSprite(tower, 0, 0, false);
         tower.damage = 3;
         tower.weapon.fireRate = 300;
         tower.weapon.bulletKillDistance = 200;
@@ -170,8 +200,10 @@ var polyphemus = function(tower) {
         tower.fireUp = false;
         tower.fireType = 0;
         tower.frostShot = false;
+        tower.doubleUp = false;
+        tower.weapon.trackSprite(tower, 0, 0, false);
         tower.damage = 100;
-        tower.weapon.fireRate = 1000;
+        tower.weapon.fireRate = 4000;
         tower.weapon.bulletKillDistance = 200;
         tower.updateRange();
     }
@@ -183,7 +215,9 @@ var glasscannon = function(tower) {
         tower.fireUp = false;
         tower.fireType = 0;
         tower.frostShot = false;
-        tower.damage = 1000;
+        tower.doubleUp = false;
+        tower.weapon.trackSprite(tower, 0, 0, false);
+        tower.damage = 500;
         tower.weapon.fireRate = 500;
         tower.weapon.bulletKillDistance = 200;
         tower.updateRange();
@@ -196,6 +230,8 @@ var toothpicks = function(tower) {
         tower.fireUp = false;
         tower.fireType = 0;
         tower.frostShot = false;
+        tower.doubleUp = false;
+        tower.weapon.trackSprite(tower, 0, 0, false);
         tower.damage = 1;
         tower.weapon.fireRate = 200;
         tower.weapon.bulletKillDistance = 200;
@@ -209,9 +245,14 @@ var momsbra = function(tower) {
         tower.fireUp = false;
         tower.fireType = 0;
         tower.frostShot = true;
-        tower.damage = 3;
+        tower.doubleUp = true;
+        tower.weapon.trackSprite(tower, -15, 0, false);
+        tower.weapon2.trackSprite(tower, 15, 0, false);
+        tower.damage = 2;
         tower.weapon.fireRate = 300;
+        tower.weapon2.fireRate = 300;
         tower.weapon.bulletKillDistance = 200;
+        tower.weapon2.bulletKillDistance = 200;
         tower.updateRange();
     }
 }
@@ -222,17 +263,14 @@ var experimentaltreatment = function(tower) {
         tower.fireUp = false;
         tower.fireType = 0;
         tower.frostShot = false;
+        tower.doubleUp = false;
+        tower.weapon.trackSprite(tower, 0, 0, false);
         tower.damage = 2;
         tower.weapon.fireRate = 300;
         tower.weapon.bulletKillDistance = 200;
         tower.updateRange();
     }
 }
-
-var holymantle = function(tower) {
-
-}
-
 
 
 var blacklotus = function(tower) {
@@ -267,24 +305,15 @@ var placenta = function(tower) {
 
 }
 
-var steamsale = function(tower) {
-
-}
 
 var heart = function(tower) {
 
 }
 
-var vampire = function(tower) {
-
-}
-
-var deadcat = function(tower) {
-
-}
 
 
-var list_of_items = [["holymantle", holymantle], ["experimentaltreatment", experimentaltreatment],["momsbra", momsbra],["deadcat", deadcat],["vampire", vampire],["toothpicks", toothpicks],["glasscannon", glasscannon],["polyphemus", polyphemus],["momseye", momseye],["momscontacts", momscontacts],["heart", heart], ["bloodylust", bloodylust],["twenty", twenty],["squeezy", squeezy],["smallrock", smallrock],["steamsale", steamsale], ["lunch", lunch],["snack", snack],["placenta", placenta],["ghostpepper", ghostpepper],["dessert", dessert],["dinner", dinner],["breakfast", breakfast], ["blacklotus", blacklotus], ["magmush", magMush], ["brimstone",brimStone], ["bluecap", bluecap] ,["capricorn", capricorn],["wirecoathanger", wirecoathanger], ["pentagram", pentagram]];
+
+var list_of_items = [["experimentaltreatment", experimentaltreatment],["momsbra", momsbra],["deadcat", deadcat],["toothpicks", toothpicks],["glasscannon", glasscannon],["polyphemus", polyphemus],["momseye", momseye],["momscontacts", momscontacts],["heart", heart], ["bloodylust", bloodylust],["twenty", twenty],["squeezy", squeezy],["smallrock", smallrock], ["lunch", lunch],["snack", snack],["placenta", placenta],["ghostpepper", ghostpepper],["dessert", dessert],["dinner", dinner],["breakfast", breakfast], ["blacklotus", blacklotus], ["magmush", magMush], ["brimstone",brimStone], ["bluecap", bluecap] ,["capricorn", capricorn],["wirecoathanger", wirecoathanger], ["pentagram", pentagram]];
 
 function pickRandomItem(items) {
     return items[Math.floor(Math.random()*items.length)];
@@ -297,3 +326,4 @@ function applyTowerUpgrade (group, item) {
 function applyBloody (group) {
     //group.forEach(tower.damage+=1);
 }
+

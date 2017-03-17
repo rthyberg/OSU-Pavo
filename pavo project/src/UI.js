@@ -29,12 +29,6 @@ function createTowerButton(game, x, y, key, place, list, player, path) {
     graphics.lineStyle(2, 0xffd900, 1)
     graphics.drawCircle(0, 0, (200 * 2));
     this.placeHolder.addChild(graphics);
-    
-    
-    this.coinsDisplay1 = game.add.sprite(335, 10, 'coins');
-    this.coinsDisplay1.animations.add('spin');
-    this.coinsDisplay1.animations.play('spin', 30, true);
-    this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 5, style); // add text object the the right of the coins
 
 };
 
@@ -62,29 +56,28 @@ createTowerButton.prototype = {
         this.coinsDisplay1 = game.add.sprite(335, 10, 'coins');
         this.coinsDisplay1.animations.add('spin');
         this.coinsDisplay1.animations.play('spin', 30, true);
-        this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 5, style); // add text object the the right of the coins
+        this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 25, style); // add text object the the right of the coins
         function showTower() {
-            if(this.player.coins-5 >= 0) {
+            if(this.player.coins-25 >= 0) {
                 this.placeHolder.visible = true; // when mouse pressed down show the "fake tower"
-            } else this.text.visible = true; // show that tower can not be built
+            } else this.towerButton.tint = 0xff0000; // show that tower can not be built
         }
 
         function buildTower() {
-            if(this.player.coins-5 >= 0 &&
+            if(this.player.coins-25 >= 0 &&
                 this.squareCheck(this.game.input.x, this.game.input.y) &&
                 !this.game.physics.arcade.overlap(this.placeHolder, this.towerList, null, null, null)) {
-                this.player.updateCoin(-5);
+                this.player.updateCoin(-25);
                 this.placeHolder.visible = false; // when button let go build the tower on the x, y
                 var newTower = this.towerList.create(this.game.input.x, this.game.input.y, 'tower', 'bullet');
                 newTower.setPlayer(this.player);
             } else {
-                this.text.visible = false; // disable font if tower isnt being built
+                this.towerButton.tint = 0xffffff;
                 this.placeHolder.visible = false; // disable placeholder if cant be placed
                 // TODO Add invalid sound effect?
             }
 
         }
-        
 
     },
     // call update in the levels update function
@@ -269,7 +262,7 @@ function Player(game, coins) {
     };
 
     this.text = game.add.text(this.coinsDisplay.x+40, this.coinsDisplay.y+10, coins, style); // add text object the the right of the coins
-    
+ 
 
 };
 

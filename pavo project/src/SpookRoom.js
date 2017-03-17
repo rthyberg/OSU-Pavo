@@ -147,8 +147,7 @@ TowerDefense.SpookRoom.prototype = {
         //this.towerList.onChildInputDown.add(this.towerUI.setTower, this.towerUI); // set the UI to point to the last tower clicked
 
         this.currentItemArray = pickRandomItem(list_of_items);
-        this.currentItemName = this.currentItemArray[0];
-        this.currentItem = this.currentItemArray[1];
+        this.currentItem = null;
 
         //console.log(this.currentItemName);
         //console.log(this.currentItem);
@@ -257,11 +256,8 @@ TowerDefense.SpookRoom.prototype = {
                 if (this.currentItemName == "glasscannon")
                     this.base.health=1;
                 if (this.currentItemName == "deadcat")
-                    this.lives++;
-                
-                if (this.currentItemName == "holymantle")
-                    this.holy=true;
-                
+                    this.base.health=9;
+                                
                 if (this.currentItemName == "experimentaltreatment") {
                     var randomW = game.rnd.integerInRange(0, 2);
                     if (randomW == 0)
@@ -271,18 +267,7 @@ TowerDefense.SpookRoom.prototype = {
                     else if (randomW == 2)
                         this.base.health=3;
                 }
-                
-                if (this.currentItemName == "steamsale"){
-                    //this.coinsDisplay1.icon.destroy();
-                    var style = {
-                        font: "16px Arial",
-                        align: "center",
-                    };                    
-                    this.coinsDisplay1 = game.add.sprite(500, 10, 'coins');
-                    this.coinsDisplay1.animations.add('spin');
-                    this.coinsDisplay1.animations.play('spin', 30, true);
-                    this.text = game.add.text(this.coinsDisplay1.x+40, this.coinsDisplay1.y+10, 7, style);
-                }
+
 
             }
             else 
@@ -422,24 +407,23 @@ TowerDefense.SpookRoom.prototype = {
             //this.loop.loop = false;
             return;
         }
+        if (this.currentItem != null) {
+            applyTowerUpgrade(this.towerList, this.currentItem);
+        }
         if (this.base.health < 1){
-            this.lives--;
-            if (this.lives == 0){
-                this.soundmanager.musicstop();
-                var randomS = game.rnd.integerInRange(0, 2);
-                if (randomS == 0)
-                    this.soundmanager.death1.play();
-                else if (randomS == 1)
-                    this.soundmanager.death2.play();
-                else if (randomS == 2)
-                    this.soundmanager.death3.play();
+            this.soundmanager.musicstop();
+            var randomS = game.rnd.integerInRange(0, 2);
+            if (randomS == 0)
+                this.soundmanager.death1.play();
+            else if (randomS == 1)
+                this.soundmanager.death2.play();
+            else if (randomS == 2)
+                this.soundmanager.death3.play();
 
-                this.soundmanager.deathjingle.play();
-                this.gameover = true;
-                game.time.events.add(Phaser.Timer.SECOND * 5, endGame, this);
-            }
-            else
-                this.base.health=3;
+            this.soundmanager.deathjingle.play();
+            this.gameover = true;
+            game.time.events.add(Phaser.Timer.SECOND * 5, endGame, this);
+
         }
         
         
@@ -468,10 +452,7 @@ TowerDefense.SpookRoom.prototype = {
         if (this.physics.arcade.overlap(this.base, this.enemies))
         {
             this.enemies.forEach(this.kill, this, true);
-            if (this.holy == true)
-                this.holy=false;
-            else
-                this.base.damage(1);
+            this.base.damage(1);
             if (this.currentItemName == "bloodylust")
                 applyBloody(this.towerList);
  
