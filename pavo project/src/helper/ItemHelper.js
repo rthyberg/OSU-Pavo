@@ -153,7 +153,7 @@ var bloodylust = function(tower) {
     if(tower.currentItem != "bloodylust") {
         tower.currentItem = "bloodylust";
         tower.fireUp = true;
-        tower.fireType = 0;
+        tower.fireType = 2;
         tower.frostShot = false;
         tower.doubleUp = false;
         tower.weapon.trackSprite(tower, 0, 0, false);
