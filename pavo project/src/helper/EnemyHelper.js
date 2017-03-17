@@ -429,7 +429,7 @@ Baby = function(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'baby');
     this.vx = x;
     this.vy = y;
-    this.hp = 5000;
+    this.hp = 4000;
     this.pi = 0;
     this.anchor.x = 0.5;
     this.anchor.y = 0.5;
